@@ -1,0 +1,1 @@
+Lan 1: tao dc cac method dug chung cho DAO.
