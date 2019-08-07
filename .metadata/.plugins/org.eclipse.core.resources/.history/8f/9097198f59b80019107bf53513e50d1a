@@ -1,0 +1,14 @@
+package com.bus.service;
+
+import java.util.List;
+
+import com.bus.model.BusModel;
+
+public interface IBusService {
+	List<BusModel> findAll();
+	BusModel insertBusModel(BusModel busModel);
+	BusModel updateBusModel(BusModel busModel);
+	boolean deleteBusModel(BusModel busModel);
+	BusModel findOneByLicensePlate(String licensePlace);
+	List<BusModel> findAllByPlaceStartToEnd(String start,String end);
+}

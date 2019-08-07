@@ -1,0 +1,28 @@
+package com.bus.utils;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+
+public class HttpUtil {
+	private String value;
+	public HttpUtil(String value)
+	{
+		this.value = value;
+	}
+	public static HttpUtil of(BufferedReader buReader)
+	{
+		StringBuilder builder = new StringBuilder();
+		String line;
+		try {
+			while((line = buReader.readLine()) != null)
+			{
+				builder.append(line);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new HttpUtil(builder.toString());
+	}
+
+}

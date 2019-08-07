@@ -1,0 +1,49 @@
+package com.bus.dao.impl;
+
+import java.io.ObjectInputStream.GetField;
+import java.util.List;
+
+import com.bus.dao.IBusDAO;
+import com.bus.mapper.BusMapper;
+import com.bus.model.BusModel;
+
+public class BusDAO extends AbstractDAO<BusModel> implements IBusDAO{
+ 
+	@Override
+	public List<BusModel> findAll() {
+		String sql = "select * from bus";
+		return query(sql, new BusMapper());
+	}
+	@Override
+	public int insertBusModel(BusModel busModel) {
+		String sql = "insert into bus(LicensePlate,TimeStart,TimeEnd,PlaceStart,PlaceEnd,DateCreate,"
+				+ "DateUpdate,UserCreate,UserUpdate) values(?,?,?,?,?,?,?,?,?);";
+		return 	insert(sql, busModel.getLicensePlate(),busModel.getTimeStart(),
+				busModel.getTimeEnd(),busModel.getPlaceStart(),busModel.getPlaceEnd(),
+				busModel.getDateCreate(),busModel.getDateUpdate(),busModel.getUserCreate(),
+				busModel.getUserUpdate());
+	}
+	@Override
+	public int updateBusModel(BusModel busModel) {
+		String sql = "update bus set LicensePlate = ?,TimeStart = ?,TimeEnd = ?,PlaceStart = ?, PlaceEnd= ?,"
+				+ "DateCreate = ?,DateUpdate = ?,UserCreate = ?,UserUpdate = ? where IDBus = ?";
+		return 	update(sql, busModel.getLicensePlate(),busModel.getTimeStart(),
+				busModel.getTimeEnd(),busModel.getPlaceStart(),busModel.getPlaceEnd(),
+				busModel.getDateCreate(),busModel.getDateUpdate(),busModel.getUserCreate(),
+				busModel.getUserUpdate(),busModel.getIdBus());
+	}
+	@Override
+	public int deleteBusModel(BusModel busModel) {
+		String sql = "delete from bus where IDBus = ?";
+		return delete(sql, busModel.getIdBus());
+	}
+	@Override
+	public BusModel findOne(int id) {
+		String sql = "select * from bus where IDBus = ?";
+		return query(sql, new BusMapper(), id).get(0);
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(new BusDAO().findOne(1));
+	}
+}

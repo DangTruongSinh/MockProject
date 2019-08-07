@@ -1,0 +1,27 @@
+package com.bus.controller.admin;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.bus.model.BusModel;
+import com.bus.service.imp.BusService;
+
+@WebServlet(urlPatterns = "/admin-home")
+public class HomeController extends HttpServlet{
+	private static final long serialVersionUID = 1L;
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		BusService busService = new BusService();
+		BusModel busModel = new BusModel();
+		busModel.setIdBus(14);
+		System.out.println(busService.deleteBusModel(13));
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/view/admin-home.jsp");
+		requestDispatcher.forward(req, resp);
+	}
+}
