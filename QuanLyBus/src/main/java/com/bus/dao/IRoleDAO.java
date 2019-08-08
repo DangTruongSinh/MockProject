@@ -6,6 +6,7 @@ import com.bus.model.RoleModel;
 
 public interface IRoleDAO extends IGenericDAO<RoleModel>{
 	List<RoleModel> findAll();
-	int updateTicketModel(RoleModel roleModel);
-
+	int updateRoleModel(RoleModel roleModel);
+	RoleModel findOneById(int id);
+	int insertRoleModel(RoleModel roleModel);
 }

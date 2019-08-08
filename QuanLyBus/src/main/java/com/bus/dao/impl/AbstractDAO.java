@@ -48,15 +48,13 @@ public class AbstractDAO<T> implements IGenericDAO<T>{
 				{
 					list.add(mapper.mapRow(rs));
 				}
-				return list;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}finally {
 				closeDataBase(connection,preparedStatement);
 			}
-		
 		}
-		return null;
+		return list;
 	}
 	private void closeDataBase(Connection connection, PreparedStatement preparedStatement) {
 		try {

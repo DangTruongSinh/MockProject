@@ -11,11 +11,20 @@ public class AccountModel extends AbstractModel{
 	private String phone;
 	private Timestamp dateBirth;
 	private Timestamp lastTimeLogin;
-	
+	private RoleModel role = new RoleModel();
 	public AccountModel()
 	{
 		
 	}
+	
+	public RoleModel getRole() {
+		return role;
+	}
+
+	public void setRole(RoleModel role) {
+		this.role = role;
+	}
+
 	public Integer getIdUser() {
 		return idUser;
 	}

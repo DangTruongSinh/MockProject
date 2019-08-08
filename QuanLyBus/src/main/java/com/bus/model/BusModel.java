@@ -9,11 +9,11 @@ public class BusModel extends AbstractModel{
 	private Timestamp timeEnd;
 	private String placeStart;
 	private String placeEnd;
-	
 	public BusModel()
 	{
 		
 	}
+	
 	public Integer getIdBus() {
 		return idBus;
 	}

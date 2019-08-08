@@ -8,6 +8,9 @@ public interface IAccountDAO extends IGenericDAO<AccountModel> {
 	List<AccountModel> findAll();
 	int insertAccountModel(AccountModel accModel);
 	int updateAccountModel(AccountModel accModel);
-	int deleteAccountModel(AccountModel accModel);
-	List<AccountModel> findbyIDRole(int x);
+	int deleteAccountModel(int id);
+	List<AccountModel> findbyIDRole(int id);
+	AccountModel findOneByUsernameAndPassword(String username, String password);
+	AccountModel findOneByUsername(String username);
+	AccountModel findOneByIDModel(int id);
 }

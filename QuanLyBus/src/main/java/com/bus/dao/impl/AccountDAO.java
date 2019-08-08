@@ -1,39 +1,13 @@
 package com.bus.dao.impl;
 
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import com.bus.dao.IAccountDAO;
 import com.bus.mapper.AccountMapper;
-import com.bus.mapper.TicketMapper;
 import com.bus.model.AccountModel;
-import com.bus.model.TicketModel;
 public class AccountDAO  extends AbstractDAO<AccountModel> implements IAccountDAO {
 
-	public static void main(String[] args) {
-		AccountDAO ac=new AccountDAO();
-		for (AccountModel ds :ac.findAll()) {
-			System.out.println(ds.getIdUser()+" - "+ ds.getUserName() + " - " +ds.getFullName() + " - "+ ds.getPassword());
-		}
-
-//			String text = "2011-10-02 18:48:05.123";
-//			Timestamp ts = Timestamp.valueOf(text);
-//		
-//		AccountDAO ac = new AccountDAO();
-//		AccountModel ds = new AccountModel();
-////		ds.setIdRole(3);
-//		ds.setIdUser(17);
-////		ds.setPassword("123");
-////		ds.setFullName("Nguyen Duy");
-////		ds.setPhone("0101001010101");
-////		ds.setDateBirth(ts);
-////		ds.setUserUpdate("nhdlklk");
-////		ds.setLastTimeLogin(ts);
-//		ac.deleteAccountModel(ds);
-
-	 
-	}
 	@Override
 	public List<AccountModel> findAll() {
 		String sql = "select * from account";
@@ -41,9 +15,9 @@ public class AccountDAO  extends AbstractDAO<AccountModel> implements IAccountDA
 	}
 	
 	@Override
-	public List<AccountModel> findbyIDRole(int x) {
+	public List<AccountModel> findbyIDRole(int id) {
 		String sql = "Select* from account WHERE IDRole=?";
-		return query(sql,new AccountMapper(),x);
+		return query(sql,new AccountMapper(),id);
 	}
 	
 	@Override
@@ -54,13 +28,34 @@ public class AccountDAO  extends AbstractDAO<AccountModel> implements IAccountDA
 	}
 	@Override
 	public int updateAccountModel(AccountModel accModel) {
-		String sql = "UPDATE account SET IDRole=?, `Password` =?, FullName=?, Phone=?,DateBirth=?,UserUpdate=?,LastTimeLogin=? WHERE IDUser = ?";
+		String sql = "UPDATE account SET IDRole=?, Password =?, FullName=?, Phone=?,DateBirth=?,UserUpdate=?,LastTimeLogin=? WHERE IDUser = ?";
 		return update(sql,accModel.getIdRole(),accModel.getPassword(),accModel.getFullName(),
 				accModel.getPhone(),accModel.getDateBirth(),accModel.getUserUpdate(),accModel.getLastTimeLogin(),accModel.getIdUser());
 	}
 	@Override
-	public int deleteAccountModel(AccountModel accModel) {
+	public int deleteAccountModel(int id) {
 		String sql = "delete from account where IDUser = ?";
-		return delete(sql, accModel.getIdUser());
+		return delete(sql, id);
+	}
+
+	@Override
+	public AccountModel findOneByUsernameAndPassword(String username, String password) {
+		String sql = "select * from account where UserName = ? and Password = ?";
+		List<AccountModel> list = query(sql, new AccountMapper(), username,password);
+		return list.size() == 0 ? null : list.get(0);
+	}
+
+	@Override
+	public AccountModel findOneByUsername(String username) {
+		String sql = "select * from account where UserName = ?";
+		List<AccountModel> list = query(sql, new AccountMapper(), username);
+		return list.size() == 0 ? null : list.get(0);
+	}
+
+	@Override
+	public AccountModel findOneByIDModel(int id) {
+		String sql = "select * from account where IDUser = ?";
+		List<AccountModel> list = query(sql, new AccountMapper(), id);
+		return list.size() == 0 ? null : list.get(0);
 	}
 }

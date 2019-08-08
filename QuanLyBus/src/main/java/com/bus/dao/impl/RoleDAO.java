@@ -8,16 +8,6 @@ import com.bus.model.RoleModel;
 
 public class RoleDAO extends AbstractDAO<RoleModel> implements IRoleDAO{
 	
-	public static void main(String[] args) {
-		RoleDAO ac=new RoleDAO();
-//	for (RoleModel ds :ac.findAll()) {
-//		System.out.println(ds.getIdRole()+" - "+ds.getName() + " - " +ds.getDateCreate() + " - "+ ds.getUserCreate());
-//		}
-		RoleModel rm=new RoleModel();
-		rm.setUserUpdate("nhdlklk");
-		rm.setIdRole(1);
-		ac.updateTicketModel(rm);
-	}
 	@Override
 	public List<RoleModel> findAll() {
 		String sql = "select * from role";
@@ -25,10 +15,21 @@ public class RoleDAO extends AbstractDAO<RoleModel> implements IRoleDAO{
 	}
 	
 	@Override
-	public int updateTicketModel(RoleModel roleModel) {
+	public int updateRoleModel(RoleModel roleModel) {
 		String sql = "UPDATE role SET UserUpdate= ? WHERE IDRole=?";
 		return update(sql,roleModel.getUserUpdate(),roleModel.getIdRole());
 	}
 
+	@Override
+	public RoleModel findOneById(int id) {
+		String sql = "select * from role where IDRole = ?";
+		return query(sql, new RoleMapper(),id).get(0);
+	}
 
+	@Override
+	public int insertRoleModel(RoleModel roleModel) {
+		String sql = "insert into role(Name,UserCreate,UserUpdate) values(?,?,?)";
+		return insert(sql, roleModel.getName(),roleModel.getUserCreate()
+				,roleModel.getUserUpdate());
+	}
 }

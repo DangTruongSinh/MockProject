@@ -9,34 +9,32 @@ import com.bus.mapper.SeatMapper;
 import com.bus.model.SeatModel;
 
 public class SeatDAO extends AbstractDAO<SeatModel> implements ISeatDAO {
-	public static void main(String[] args) {
-		SeatDAO ac=new SeatDAO();
-
-		for (SeatModel ds :ac.findbyIDBus(2)) {
-		
-			{
-			System.out.println(ds.getIdSeat()+" - "+ds.getIdBus() + " - " +ds.getName() + " - "+ ds.getUserCreate());
-			}
-		}
-		
-		
-	}
-	@Override
-	public List<SeatModel> findAll()
-	{
-		String sql = "select * from seat";
-		return query(sql, new SeatMapper());
-	}
-	
 	@Override
 	public int updateSeatModel(SeatModel seatModel) {
 		String sql = "UPDATE role SET Name = ? , Status = ? , UserUpdate= ? WHERE IDSeat=?";
 		return update(sql,seatModel.getName(),seatModel.isStatus(),seatModel.getUserUpdate(),seatModel.getIdSeat());
 	}
 	@Override
-	public List<SeatModel> findbyIDBus(int x) {
-		String sql = "Select* from seat WHERE IDBus=?";
+	public List<SeatModel> findAllbyIDBus(int x) {
+		String sql = "Select * from seat WHERE IDBus=?";
 		return query(sql,new SeatMapper(),x);
+	}
+	@Override
+	public SeatModel findOneByIdSeat(int id) {
+		String sql = "Select * from seat WHERE IDSeat=?";
+		return query(sql, new SeatMapper(), id).get(0);
+	}
+	@Override
+	public int insertSeatModel(SeatModel seatModel) {
+		String sql = "insert into seat(IDBus,Name,Status,UserCreate,UserUpdate) "
+				+ "values(?,?,?,?,?)";
+		return insert(sql, seatModel.getIdBus(),seatModel.getName(),seatModel.isStatus(),
+				seatModel.getUserCreate(),seatModel.getDateUpdate());
+	}
+	@Override
+	public int deleteSeatModel(int id) {
+		String sql = "delete from seat where IDSeat = ?";
+		return delete(sql, id);
 	}
 	
 }

@@ -31,7 +31,6 @@ public class BusService implements IBusService{
 	@Override
 	public BusModel updateBusModel(BusModel busModel) 
 	{
-			//busModel.setDateUpdate(new Timestamp(System.currentTimeMillis()));
 			busModel.setUserUpdate("userHienTai");
 			int result = busDao.updateBusModel(busModel);
 			if(result != -1)
@@ -40,7 +39,7 @@ public class BusService implements IBusService{
 	}
 	@Override
 	public boolean deleteBusModel(int id) {
-		return busDao.deleteBusModel(id) == 1? true : false;
+		return busDao.deleteBusModel(id) == 1 ? true : false;
 	}
 	@Override
 	public BusModel findOneByLicensePlate(String licensePlace) {
