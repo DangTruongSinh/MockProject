@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>hello</h1>
+	<h1>admin wellcome</h1>
+	<a href="/QuanLyBus/dang-nhap?action=logout">Logout</a>
 </body>
 </html>

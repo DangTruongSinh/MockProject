@@ -2,3 +2,19 @@
 1565228344351	Rename package 'com.bus.controller.admin.api'
 1565228458235	Rename package 'com.bus.controller.bus.api'
 1565228557796	Rename package 'com.bus.controller.seller.api'
+1565248031770	Move 'admin-home.jsp' to 'admin'
+1565248893646	Delete element
+1565252535789	Delete element
+1565252651818	Move 'login.html' to 'login'
+1565252671944	Delete element
+1565268834092	Delete element
+1565280370418	Move 'admin-home.jsp' to 'view'
+1565280386940	Delete element
+1565280392962	Move 'login.jsp' to 'view'
+1565280396906	Move 'css' to 'view'
+1565280399718	Move 'img' to 'view'
+1565280402130	Move 'js' to 'view'
+1565280406065	Delete element
+1565280577682	Rename type 'HomeController'
+1565282155623	Rename resource 'user.jsp'
+1565282336894	Rename resource 'customer.jsp'

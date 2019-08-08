@@ -20,6 +20,7 @@ public class AccountAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
 		ObjectMapper mapper = new ObjectMapper();
 		String acction = req.getParameter("action");
@@ -28,30 +29,30 @@ public class AccountAPI extends HttpServlet {
 		{
 			List<AccountModel> list = accountService.findAll();
 			mapper.writeValue(resp.getOutputStream(), list);
-		}
-		else if(acction.equals("login"))
-		{
-			AccountModel accountModel = HttpUtil.of(req.getReader()).toModel(AccountModel.class);
-			AccountModel accModel = accountService.findOneByUsernameAndPassword(accountModel.getUserName()
-					, accountModel.getPassword());
-			if(accModel != null)
-				mapper.writeValue(resp.getOutputStream(), accModel);
-			else
-				{
-					mapper.writeValue(resp.getOutputStream(), "{}");
-				}
-		}
-		
+		}	
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
+		String acction = req.getParameter("action");
 		ObjectMapper mapper = new ObjectMapper();
 		AccountModel accountModel = HttpUtil.of(req.getReader()).toModel(AccountModel.class);
 		AccountService accountService = new AccountService();
-		AccountModel result = accountService.insertAccountModel(accountModel);
-		mapper.writeValue(resp.getOutputStream(), result);
+		if(acction.equals("login"))
+		{
+			AccountModel accModel = accountService.findOneByUsernameAndPassword(accountModel.getUserName()
+					, accountModel.getPassword());
+			if(accModel != null)
+				mapper.writeValue(resp.getOutputStream(), accModel);
+			else
+				mapper.writeValue(resp.getOutputStream(), "{}");
+		}
+		else
+		{
+			AccountModel result = accountService.insertAccountModel(accountModel);
+			mapper.writeValue(resp.getOutputStream(), result);
+		}
 	}
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

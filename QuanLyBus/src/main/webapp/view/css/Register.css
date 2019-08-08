@@ -1,0 +1,173 @@
+
+body,html{
+    height: 100%;
+}
+.background-img{
+  background-image: url(../img/login.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+
+}
+.emailError,.passwordError{
+    color: rgb(228, 125, 50);
+    text-shadow: 2px 2px 10px #000;
+    padding-left: 30px;
+    border-radius: 4px;
+  }
+  h1{
+    padding-left: 45px;
+    text-align: center;
+    padding:30px;
+  }
+  html,body{
+    width: 100%;
+    height: 100%;
+    font-family: 'Oxygen';
+    font-weight: bold;
+    font-size: 16px;
+  }
+  label,.form-check-label,h1{
+    color: #1c252a;
+  }
+  .bg{
+    background: url('sondon.jpg')no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+  }
+  .row-container{
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #fff;
+    border-radius: 20px;
+    margin-top: 10vh;
+    webkit-box-shadow: 0px 1px 41px 5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 1px 41px 5px rgba(0,0,0,0.75);
+  box-shadow: 0px 1px 41px 5px rgba(0,0,0,0.75);
+  }
+
+  .my-3:hover{
+    background-color:rgb(75, 77, 78);
+    border: 1px solid rgb(75, 77, 78);
+  }
+  .my-3{
+    background-color:#1f1f1f;
+    border: 1px solid #1f1f1f;
+  }
+  
+  .lbLink{
+    color: white;
+    text-shadow: 2px 2px 10px #000;
+    padding-left: 5px;
+  }
+  .lbLink:hover{
+     text-decoration: none;
+    color: rgb(101, 218, 46);
+    text-shadow: 2px 2px 10px #000;
+    padding-left: 5px;
+  }
+  
+
+.icon{
+    height: 90px;
+    width: 90px;
+    
+}   
+.titlelogin{
+    display:-webkit-box ;
+}
+#submitbtn{
+    margin: 10px 0 20px 0; 
+    font-size: 20px;
+    border-radius: 25px;
+    border-color: #21d353;
+    background-color: #21d353;
+    box-shadow: 5px 10px 18px #888888
+}
+#submitbtn:active{
+    box-shadow: none;
+    border-color: #21d353;
+    background-color: #199e3f;
+}
+/* ------------------------------------------button facebook*/
+
+.share {
+    padding: 0;
+    margin: 0 auto;
+    max-width: 90px;
+    list-style: none;
+      }
+  
+  .share li {
+    width: 90px;
+    color: #fff;
+    height: 90px;
+    line-height: 90px;
+    text-align: center;
+    position: relative;
+  }
+  
+  li.middle a {
+    left: 0;
+    height: 90px;
+    width: 90px;
+    position: absolute;
+    transition: all .4s ease-in-out 0s;
+  }
+  
+ 
+  .share-icon {
+    border-radius: 50%;
+
+    background-color: #556688;
+    position: relative;
+    z-index: 1;
+  }
+
+  a.facebook {
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #4264AA;
+  }
+  
+  a.twitter {
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    background-color: #6CB7F0;
+  }
+  
+  .share li a {
+    color: #fff;
+    font-size: 30px;
+  }
+
+  .middle span {
+    position: absolute;
+    display: block;
+    bottom: 0;
+    left: 11%;
+    top: 29px;
+    font-size: 12px;
+    color: #ccc;
+    z-index: 2;
+    opacity: 0;
+    transition: all 0.3s ease-in-out 0s;
+  }
+  
+  .share li:hover .facebook {
+    left: -90px;
+  }
+  
+  .share li:hover .twitter {
+    left: 90px;
+  }
+  
+  .share li:hover span {
+    opacity: 1;
+  }

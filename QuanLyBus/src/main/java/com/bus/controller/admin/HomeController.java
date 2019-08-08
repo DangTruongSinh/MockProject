@@ -17,4 +17,9 @@ public class HomeController extends HttpServlet{
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/view/admin-home.jsp");
 		requestDispatcher.forward(req, resp);
 	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/view/admin-home.jsp");
+		requestDispatcher.forward(req, resp);
+	}
 }

@@ -1,0 +1,366 @@
+
+body,html{
+    height: 100%;
+}
+.background-img{
+  background-image: url(../img/login.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+
+}
+.emailError,.passwordError{
+    color: rgb(228, 125, 50);
+    text-shadow: 2px 2px 10px #000;
+    padding-left: 30px;
+    border-radius: 4px;
+  }
+  h1{
+    padding-left: 45px;
+    text-align: center;
+    padding:30px;
+    color: #1c252a;
+  }
+  html,body{
+    width: 100%;
+    height: 100%;
+    font-family: 'Oxygen';
+    font-weight: bold;
+    font-size: 16px;
+  }
+  label{
+    color: #1c252a;
+    padding-left: 24px;
+  }
+  .form-check-label{
+    font-size: 15px;
+    color: #1c252a;
+  }
+  .bg{
+    width: 100%;
+    height: 100%;
+  }
+  .row-container{
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #fff;
+
+    border-radius: 20px;
+    margin-top: 10vh;
+    webkit-box-shadow: 0px 1px 41px 5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 1px 41px 5px rgba(0,0,0,0.75);
+  box-shadow: 0px 1px 41px 5px rgba(0,0,0,0.75);
+  }
+
+  .lbLink{
+    color: #1c252a;    
+    padding-left: 5px;
+  }
+  .lbLink:hover{
+     text-decoration: none;
+    color: rgb(83, 92, 79);
+    padding-left: 5px;
+  }
+
+#submitbtn{
+    margin: 10px 0 20px 0; 
+    font-size: 20px;
+    border-radius: 25px;
+    border-color: #21d353;
+    background-color: #21d353;
+    box-shadow: 5px 10px 18px #888888
+}
+#submitbtn:active{
+    box-shadow: none;
+    border-color: #21d353;
+    background-color: #199e3f;
+
+}
+#backhomeText{
+    padding-top:20px;
+    text-align: center;
+}
+
+.icon{
+    height: 90px;
+    width: 90px;
+    
+}   
+.titlelogin{
+    display:-webkit-box ;
+}
+
+/* ------------------------------------------button facebook*/
+
+  .share {
+    padding: 0;
+    margin: 0 auto;
+    max-width: 90px;
+    list-style: none;
+      }
+  
+  .share li {
+    width: 90px;
+    color: #fff;
+    height: 90px;
+    line-height: 90px;
+    text-align: center;
+    position: relative;
+  }
+  
+  li.middle a {
+    left: 0;
+    height: 90px;
+    width: 90px;
+    position: absolute;
+    transition: all .4s ease-in-out 0s;
+  }
+  
+ 
+  .share-icon {
+    border-radius: 50%;
+
+    background-color: #556688;
+    position: relative;
+    z-index: 1;
+  }
+
+  a.facebook {
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #4264AA;
+  }
+  
+  a.twitter {
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    background-color: #6CB7F0;
+  }
+  
+  .share li a {
+    color: #fff;
+    font-size: 30px;
+  }
+
+  .middle span {
+    position: absolute;
+    display: block;
+    bottom: 0;
+    left: 11%;
+    top: 29px;
+    font-size: 12px;
+    color: #ccc;
+    z-index: 2;
+    opacity: 0;
+    transition: all 0.3s ease-in-out 0s;
+  }
+  
+  .share li:hover .facebook {
+    left: -90px;
+  }
+  
+  .share li:hover .twitter {
+    left: 90px;
+  }
+  
+  .share li:hover span {
+    opacity: 1;
+  }
+
+
+/*-------------------------------input form effect */
+.input {
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	margin: 1em;
+	max-width: 350px;
+	width: calc(100% - 2em);
+	vertical-align: top;
+}
+
+.input__field {
+	position: relative;
+	display: block;
+	float: right;
+	padding: 0.8em;
+	width: 60%;
+	border: none;
+	border-radius: 0;
+	background: #f0f0f0;
+	color: #aaa;
+	font-weight: bold;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-appearance: none; /* for box shadows to show on iOS */
+}
+
+.input__field:focus {
+	outline: none;
+}
+
+.input__label {
+	display: inline-block;
+	float: right;
+	padding: 0 1em;
+	width: 40%;
+	color: #6a7989;
+	font-weight: bold;
+	font-size: 70.25%;
+	-webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.input__label-content {
+	position: relative;
+	display: block;
+	padding: 1.6em 0;
+	width: 100%;
+}
+
+.graphic {
+	position: absolute;
+	top: 0;
+	left: 0;
+	fill: none;
+}
+
+.icon {
+	color: #ddd;
+	font-size: 150%;
+}
+
+
+/*---------------------------------input form*/
+.input--kyo {
+    z-index: auto;
+    margin: 0;
+}
+
+.input__field--kyo {
+	padding: 0.85em 1.5em;
+	width: 100%;
+	border-radius: 2em;
+	background: #eee;
+	color: #535d92;
+}
+
+.input__label--kyo {
+	z-index: 0;
+	padding: 0 0 0 2em;
+	width: 100%;
+	text-align: left;
+}
+
+.input__label--kyo::after {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	width: 100%;
+	height: 100%;
+    background: rgba(11, 43, 205, 0.6);
+	opacity: 0;
+	-webkit-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+	pointer-events: none;
+}
+
+.input__label-content--kyo {
+	padding: 0.5em 0;
+}
+
+.input__field--kyo:focus,
+.input__field--kyo:focus +  .input__label--kyo .input__label-content--kyo {
+	z-index: 10000;
+}
+
+.input__field--kyo:focus + .input__label--kyo {
+	color: #fff;
+}
+
+.input__field--kyo:focus + .input__label--kyo::after {
+	opacity: 1;
+}
+/*-----------------------checkbox------------------- */
+/* The container */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .form-check{
+    padding-left: 5px; 
+  }
