@@ -11,13 +11,15 @@ public class AccountDAO  extends AbstractDAO<AccountModel> implements IAccountDA
 	@Override
 	public List<AccountModel> findAll() {
 		String sql = "select * from account";
-		return query(sql, new AccountMapper());
+		List<AccountModel> list = query(sql, new AccountMapper());
+		return list.size() == 0 ? null : list;
 	}
 	
 	@Override
 	public List<AccountModel> findbyIDRole(int id) {
-		String sql = "Select* from account WHERE IDRole=?";
-		return query(sql,new AccountMapper(),id);
+		String sql = "Select * from account WHERE IDRole=?";
+		List<AccountModel> list = query(sql, new AccountMapper(),id);
+		return list.size() == 0 ? null : list;
 	}
 	
 	@Override

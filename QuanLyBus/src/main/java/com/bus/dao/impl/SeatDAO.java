@@ -17,12 +17,14 @@ public class SeatDAO extends AbstractDAO<SeatModel> implements ISeatDAO {
 	@Override
 	public List<SeatModel> findAllbyIDBus(int x) {
 		String sql = "Select * from seat WHERE IDBus=?";
-		return query(sql,new SeatMapper(),x);
+		List<SeatModel> list = query(sql,new SeatMapper(),x);
+		return list.size() == 0 ? null : list;
 	}
 	@Override
 	public SeatModel findOneByIdSeat(int id) {
 		String sql = "Select * from seat WHERE IDSeat=?";
-		return query(sql, new SeatMapper(), id).get(0);
+		List<SeatModel> list = query(sql, new SeatMapper(), id);
+		return list.size() == 0 ? null : list.get(0);
 	}
 	@Override
 	public int insertSeatModel(SeatModel seatModel) {

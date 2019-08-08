@@ -38,7 +38,6 @@ public class AccountAPI extends HttpServlet {
 				mapper.writeValue(resp.getOutputStream(), accModel);
 			else
 				{
-					System.out.println("heheh");
 					mapper.writeValue(resp.getOutputStream(), "{}");
 				}
 		}

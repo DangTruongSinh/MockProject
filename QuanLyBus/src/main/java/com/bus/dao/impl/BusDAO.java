@@ -11,7 +11,8 @@ public class BusDAO extends AbstractDAO<BusModel> implements IBusDAO{
 	@Override
 	public List<BusModel> findAll() {
 		String sql = "select * from bus";
-		return query(sql, new BusMapper());
+		List<BusModel> list = query(sql, new BusMapper());
+		return list.size() == 0 ? null : list;
 	}
 	@Override
 	public int insertBusModel(BusModel busModel) {
@@ -37,17 +38,20 @@ public class BusDAO extends AbstractDAO<BusModel> implements IBusDAO{
 	@Override
 	public BusModel findOneByLicensePlate(String licensePlace) {
 		String sql = "select * from bus where LicensePlate = ?";
-		return query(sql, new BusMapper(), licensePlace).get(0);
+		List<BusModel> list = query(sql, new BusMapper(), licensePlace);
+		return list.size() == 0 ? null : list.get(0);
 	}
 	@Override
 	public List<BusModel> findAllByPlaceStartToEnd(String start, String end) {
 		String sql = "select * from bus where PlaceStart = ? and PlaceEnd = ?";
-		return query(sql, new BusMapper(), start,end);
+		List<BusModel> list = query(sql, new BusMapper(), start,end);
+		return list.size() == 0 ? null : list;
 	}
 	@Override
 	public BusModel findOneByIdBus(int id) {
 		String sql = "select * from bus where IDBus = ?";
-		return query(sql, new BusMapper(), id).get(0);
+		List<BusModel> list = query(sql, new BusMapper(), id);
+		return list.size() == 0 ? null : list.get(0);
 	}
 	
 	

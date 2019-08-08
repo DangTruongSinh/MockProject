@@ -11,12 +11,14 @@ public class TicketDAO extends AbstractDAO<TicketModel> implements ITicketDAO{
 	@Override
 	public List<TicketModel> findAll() {
 		String sql = "select * from ticket";
-		return query(sql, new TicketMapper());
+		List<TicketModel> list = query(sql, new TicketMapper());
+		return list.size() == 0 ? null : list;
 	}
 	@Override
 	public List<TicketModel> findAllbyIDUser(int x) {
 		String sql = "Select * from ticket WHERE IDUser=?";
-		return query(sql,new TicketMapper(),x);
+		List<TicketModel> list = query(sql,new TicketMapper(),x);
+		return list.size() == 0 ? null : list;
 	}
 	
 	@Override
@@ -40,16 +42,19 @@ public class TicketDAO extends AbstractDAO<TicketModel> implements ITicketDAO{
 	@Override
 	public TicketModel findOneByIDTicket(int id) {
 		String sql = "select * from ticket where IDTicket = ?";
-		return query(sql, new TicketMapper(), id).get(0);
+		List<TicketModel> list = query(sql, new TicketMapper(), id);
+		return list.size() == 0 ? null : list.get(0);
 	}
 	@Override
 	public List<TicketModel> findAllbyIDBus(int id) {
 		String sql = "select * from ticket where IDBus = ?";
-		return query(sql, new TicketMapper(), id);
+		List<TicketModel> list = query(sql, new TicketMapper(), id);
+		return list.size() == 0 ? null : list;
 	}
 	@Override
 	public TicketModel findOneByIDSeat(int id) {
 		String sql = "select * from ticket where IDSeat = ?";
-		return query(sql, new TicketMapper(), id).get(0);
+		List<TicketModel> list = query(sql, new TicketMapper(), id);
+		return list.size() == 0 ? null : list.get(0);
 	}
 }
