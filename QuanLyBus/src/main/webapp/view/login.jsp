@@ -69,7 +69,7 @@
 
                     </ul>
                     <div id="backhomeText">
-                        <label><a href="#" class="homeLink">Back to Home</a></label>
+                        <label><a href="/QuanLyBus/home-web" class="homeLink">Back to Home</a></label>
                     </div>
                 </div>
 

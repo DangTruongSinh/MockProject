@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
     <fullyQualifiedTypeName name="java.io.ObjectInputStream.GetField"/>
     <fullyQualifiedTypeName name="com.bus.dao.impl.BusDAO"/>
     <fullyQualifiedTypeName name="java.sql.Connection"/>
@@ -27,13 +26,21 @@
     <fullyQualifiedTypeName name="com.bus.model.SeatModel"/>
     <fullyQualifiedTypeName name="com.bus.dao.impl.SeatDAO"/>
     <fullyQualifiedTypeName name="com.bus.dao.impl.TicketDAO"/>
-    <fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
-    <fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
-    <fullyQualifiedTypeName name="com.bus.service.imp.AccountService"/>
     <fullyQualifiedTypeName name="com.mysql.cj.xdevapi.JsonArray"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="com.bus.model.AccountModel"/>
     <fullyQualifiedTypeName name="com.bus.model.BusModel"/>
     <fullyQualifiedTypeName name="com.bus.model.RoleModel"/>
     <fullyQualifiedTypeName name="com.bus.model.TicketModel"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="com.bus.service.imp.AccountService"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.Cookie"/>
+    <fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
+    <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
+    <fullyQualifiedTypeName name="javax.servlet.Filter"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
+    <fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
+    <fullyQualifiedTypeName name="com.bus.model.AccountModel"/>
 </qualifiedTypeNameHistroy>
