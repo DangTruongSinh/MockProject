@@ -83,7 +83,6 @@ public class AbstractDAO<T> implements IGenericDAO<T>{
 					else
 						preparedStatement.setString(i+1, null);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		}

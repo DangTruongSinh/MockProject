@@ -21,11 +21,13 @@ public class AccountService implements IAccountService{
 	}
 	@Override
 	public AccountModel insertAccountModel(AccountModel accModel) {
-		accModel.setUserCreate("userHienTai");
-		accModel.setUserUpdate("userHienTai");
-		int id = accountDao.insertAccountModel(accModel);
-		if(id != -1)
-			return accountDao.findOneByIDModel(id);
+		AccountModel accModel2 = findOneByUsername(accModel.getUserName());
+		if(accModel2 == null)
+		{
+			int id = accountDao.insertAccountModel(accModel);
+			if(id != -1)
+				return accountDao.findOneByIDModel(id);
+		}
 		return null;
 	}
 

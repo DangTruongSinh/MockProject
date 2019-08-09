@@ -32,7 +32,14 @@ public class AuthorizationFilter implements Filter {
 			authorization(model,"employee",filterChain,servletRequest,servletResponse,response);
 		else if(url.contains("/customer"))
 			authorization(model,"customer",filterChain,servletRequest,servletResponse,response);
-		else {
+		else if(url.contains("/register.jsp") || url.contains("/login.jsp"))
+		{
+			if(model == null)
+				filterChain.doFilter(servletRequest, servletResponse);
+			else
+				response.sendRedirect("/QuanLyBus/"+model.getRole().getName()+"-home");
+		}
+		else{
 			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}

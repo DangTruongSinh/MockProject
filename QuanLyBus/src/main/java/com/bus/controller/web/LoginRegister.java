@@ -1,21 +1,17 @@
 package com.bus.controller.web;
-
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.bus.model.AccountModel;
 import com.bus.service.imp.AccountService;
-
+import com.bus.utils.AccountUtil;
 @WebServlet(urlPatterns = "/dang-nhap")
-public class LoginController extends HttpServlet {
+public class LoginRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
@@ -36,16 +32,39 @@ public class LoginController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		String username = req.getParameter("userName");
-		String password = req.getParameter("password");
+		String action = req.getParameter("action");
 		AccountService acService = new AccountService();
-		AccountModel account = acService.findOneByUsernameAndPassword(username, password);
-		if (account != null) {
-			HttpSession session = req.getSession();
-			session.setAttribute("account", account);
-			phantrang(account, resp,req);
-		} else
-			resp.sendRedirect("/QuanLyBus/view/login.jsp");
+		if(action.equalsIgnoreCase("login"))
+		{
+			String username = req.getParameter("userName");
+			String password = req.getParameter("password");
+			AccountModel account = acService.findOneByUsernameAndPassword(username, password);
+			if (account != null) {
+				HttpSession session = req.getSession();
+				session.setAttribute("account", account);
+				phantrang(account, resp,req);
+			} else
+				{
+					req.setAttribute("alert", "warning");
+					req.setAttribute("message", "Account not correct");
+					req.getRequestDispatcher("/view/login.jsp").forward(req, resp);
+				}
+		}
+		else if(action.equalsIgnoreCase("register"))
+		{
+			AccountModel accModel = AccountUtil.register(req, acService,null);
+			if(accModel != null)
+			{
+				req.setAttribute("alert", "success");
+				req.setAttribute("message", "Success");
+			}
+			else
+			{
+				req.setAttribute("alert", "warning");
+				req.setAttribute("message", "Fail,Username has used!");
+			}
+			req.getRequestDispatcher("/view/register.jsp").forward(req, resp);
+		}
 
 	}
 

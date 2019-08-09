@@ -18,3 +18,10 @@
 1565280577682	Rename type 'HomeController'
 1565282155623	Rename resource 'user.jsp'
 1565282336894	Rename resource 'customer.jsp'
+1565316107639	Rename type 'LoginController'
+1565316130734	Rename type 'LoginRegisterController'
+1565332128150	Move 'test.jsp' to 'view'
+1565332943502	Move 'Login.css' to 'view'
+1565333104475	Move 'Login.css' to 'css'
+1565333930581	Delete element
+1565342804990	Rename type 'RegisterUtil'
