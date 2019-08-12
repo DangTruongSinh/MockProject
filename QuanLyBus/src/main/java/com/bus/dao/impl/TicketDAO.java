@@ -15,6 +15,12 @@ public class TicketDAO extends AbstractDAO<TicketModel> implements ITicketDAO{
 		return list.size() == 0 ? null : list;
 	}
 	@Override
+	public List<TicketModel> findlimit(int start,int limit){
+		String sql = "select * from ticket limit ?,?";
+		List<TicketModel>list=query(sql, new TicketMapper(),start,limit);
+		return list.size() == 0 ? null : list;
+	}
+	@Override
 	public List<TicketModel> findAllbyIDUser(int x) {
 		String sql = "Select * from ticket WHERE IDUser=?";
 		List<TicketModel> list = query(sql,new TicketMapper(),x);
@@ -56,5 +62,10 @@ public class TicketDAO extends AbstractDAO<TicketModel> implements ITicketDAO{
 		String sql = "select * from ticket where IDSeat = ?";
 		List<TicketModel> list = query(sql, new TicketMapper(), id);
 		return list.size() == 0 ? null : list.get(0);
+	}
+	@Override 
+	public int getTotalTicket() {
+		String sql = "select count(*) from ticket";
+		return getTotalItem(sql);
 	}
 }

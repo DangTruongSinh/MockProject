@@ -52,8 +52,8 @@
 
 
 						<div class="form-check">
-							<label class="container"><p class="form-check-label">Check
-									me out</p> <input type="checkbox" checked="checked" name="checked">
+							<label class="container"><p class="form-check-label">Check me out</p> 
+									<input type="checkbox" checked="checked" name="checked">
 								<span class="checkmark"></span> </label>
 						</div>
 						<button type="submit" id="submitbtn"
