@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bus.model.AccountModel;
+import com.bus.service.imp.AccountService;
 
 public class AuthorizationFilter implements Filter {
-	
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 	}
@@ -25,28 +26,34 @@ public class AuthorizationFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		String url = request.getRequestURI();
-		AccountModel model = (AccountModel) request.getSession().getAttribute("account");
+		AccountModel account = (AccountModel) request.getSession().getAttribute("account");
+		AccountModel result = null;
+		if (account != null)
+			result = new AccountService().checkLogin(account.getUserName(), account.getPassword());
 		if (url.contains("/admin"))
-			authorization(model,"admin",filterChain,servletRequest,servletResponse,response);
-		else if(url.contains("/employee"))
-			authorization(model,"employee",filterChain,servletRequest,servletResponse,response);
-		else if(url.contains("/customer"))
-			authorization(model,"customer",filterChain,servletRequest,servletResponse,response);
-		else if(url.contains("/register.jsp") || url.contains("/login.jsp"))
-		{
-			if(model == null)
+			if (result == null)
+				response.sendRedirect("/QuanLyBus/view/login.jsp");
+			else
+				authorization(account, "admin", filterChain, servletRequest, servletResponse, response);
+		else if (url.contains("/employee"))
+			if (result == null)
+				response.sendRedirect("/QuanLyBus/view/login.jsp");
+			else
+				authorization(account, "employee", filterChain, servletRequest, servletResponse, response);
+		else if (url.contains("/customer"))
+			if (result == null)
+				response.sendRedirect("/QuanLyBus/view/login.jsp");
+			else
+				authorization(account, "customer", filterChain, servletRequest, servletResponse, response);
+		else if (url.contains("/register.jsp") || url.contains("/login.jsp")) {
+			if (result == null)
 				filterChain.doFilter(servletRequest, servletResponse);
 			else
-				response.sendRedirect("/QuanLyBus/"+model.getRole().getName()+"-home");
-		}
-		else{
+				response.sendRedirect("/QuanLyBus/" + account.getRole().getName() + "-home");
+		} else {
 			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
-
-
-
-	
 
 	private void authorization(AccountModel model, String string, FilterChain filterChain,
 			ServletRequest servletRequest, ServletResponse servletResponse, HttpServletResponse response) {
@@ -54,13 +61,13 @@ public class AuthorizationFilter implements Filter {
 			if (model != null) {
 				if (model.getRole().getName().equals(string)) {
 					filterChain.doFilter(servletRequest, servletResponse);
-				} else{
+				} else {
 					response.sendRedirect("/QuanLyBus/view/login.jsp");
 				}
 			} else {
-					response.sendRedirect("/QuanLyBus/view/login.jsp");
+				response.sendRedirect("/QuanLyBus/view/login.jsp");
 			}
-		}catch (Exception e) {	// TODO: handle exception
+		} catch (Exception e) { // TODO: handle exception
 		}
 	}
 

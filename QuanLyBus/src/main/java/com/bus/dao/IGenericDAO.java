@@ -9,4 +9,5 @@ public interface IGenericDAO<T> {
 	int insert(String sql,Object... parameters);
 	int update(String sql,Object... parameters);
 	int delete(String sql,Object... parameters);
+	int getTotalItem(String sql,Object... parameters);
 }

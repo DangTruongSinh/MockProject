@@ -11,4 +11,5 @@ public interface IBusService {
 	boolean deleteBusModel(int id);
 	BusModel findOneByLicensePlate(String licensePlace);
 	List<BusModel> findAllByPlaceStartToEnd(String start,String end);
+	BusModel findOneByIdBus(int id);
 }

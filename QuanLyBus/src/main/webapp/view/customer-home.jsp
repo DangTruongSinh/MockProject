@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>customer wellcome</h1>
+	<a href="/QuanLyBus/customer-home?action=update">Change your profile</a>
+	<a href="/QuanLyBus/customer-ticket?action=viewTicked">Ve da dat</a>
 </body>
 </html>

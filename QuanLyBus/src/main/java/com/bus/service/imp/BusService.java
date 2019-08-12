@@ -49,5 +49,9 @@ public class BusService implements IBusService{
 	public List<BusModel> findAllByPlaceStartToEnd(String start, String end) {
 		return busDao.findAllByPlaceStartToEnd(start, end);
 	}
+	@Override
+	public BusModel findOneByIdBus(int id) {
+		return busDao.findOneByIdBus(id);
+	}
 	
 }

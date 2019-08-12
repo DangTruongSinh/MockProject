@@ -6,14 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.bus.model.AccountModel;
 import com.bus.service.imp.AccountService;
 
 public class AccountUtil {
-	public static AccountModel register(HttpServletRequest req,AccountService acService,AccountModel accountHienTai)
-	{
-		String userName =  req.getParameter("username");
+	public static AccountModel register(HttpServletRequest req, AccountService acService, AccountModel accountHeThong) {
+		String userName = req.getParameter("username");
 		String password = req.getParameter("password");
 		String fullName = req.getParameter("fullname");
 		String phone = req.getParameter("phone");
@@ -30,13 +30,51 @@ public class AccountUtil {
 			accModel.setIdRole(3);
 			accModel.setUserCreate("");
 			accModel.setUserUpdate("");
-			if(accountHienTai != null)
-				accModel.setUserCreate(accountHienTai.getUserName());
+			if (accountHeThong != null)
+				accModel.setUserCreate(accountHeThong.getUserName());
 			return acService.insertAccountModel(accModel);
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}	
+		}
 		return null;
 	}
 
+	public static void update(HttpServletRequest req, HttpServletResponse resp, int idRole) {
+		AccountModel userHeThong = (AccountModel) req.getSession().getAttribute("account");
+		AccountModel account = new AccountModel();
+		account.setIdUser(Integer.parseInt(req.getParameter("idUser")));
+		if(idRole == 3)	
+			account.setIdRole(idRole);
+		else
+			account.setIdRole(Integer.parseInt(req.getParameter("idRole")));
+		account.setFullName(req.getParameter("fullName"));
+		account.setPassword(req.getParameter("password"));
+		account.setPhone(req.getParameter("phone"));
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+		account.setUserUpdate(userHeThong.getUserName());
+		Date date;
+		try {
+			date = format.parse(req.getParameter("dateBirth"));
+			account.setDateBirth(new Timestamp(date.getTime()));
+			AccountModel accountNew = new AccountService().updateAccountModel(account);
+			if (accountNew != null) {
+				if (userHeThong.getUserName().equals(accountNew.getUserName())
+						&& !userHeThong.getPassword().equals(accountNew.getPassword())) {
+					req.getSession().invalidate();
+					resp.sendRedirect("/QuanLyBus/view/login.jsp");
+				} else {
+					if(idRole == 1)
+						resp.sendRedirect("/QuanLyBus/admin-account?" + "action=search&username=" + accountNew.getUserName());
+					else if(idRole == 3)
+						{
+							req.getSession().setAttribute("account", accountNew);
+							resp.sendRedirect("/QuanLyBus/view/customer-updateprofile.jsp");
+						}
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

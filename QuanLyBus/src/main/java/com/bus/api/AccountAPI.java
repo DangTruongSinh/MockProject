@@ -41,7 +41,7 @@ public class AccountAPI extends HttpServlet {
 		AccountService accountService = new AccountService();
 		if(acction.equals("login"))
 		{
-			AccountModel accModel = accountService.findOneByUsernameAndPassword(accountModel.getUserName()
+			AccountModel accModel = accountService.checkLogin(accountModel.getUserName()
 					, accountModel.getPassword());
 			if(accModel != null)
 				mapper.writeValue(resp.getOutputStream(), accModel);

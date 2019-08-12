@@ -1,6 +1,7 @@
 package com.bus.dao.impl;
 
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.bus.dao.IAccountDAO;
@@ -9,9 +10,9 @@ import com.bus.model.AccountModel;
 public class AccountDAO  extends AbstractDAO<AccountModel> implements IAccountDAO {
 
 	@Override
-	public List<AccountModel> findAll() {
-		String sql = "select * from account";
-		List<AccountModel> list = query(sql, new AccountMapper());
+	public List<AccountModel> findlimit(int start,int limit) {
+		String sql = "select * from account order by IDRole ASC limit ?,?";
+		List<AccountModel> list = query(sql, new AccountMapper(),start,limit);
 		return list.size() == 0 ? null : list;
 	}
 	
@@ -30,9 +31,9 @@ public class AccountDAO  extends AbstractDAO<AccountModel> implements IAccountDA
 	}
 	@Override
 	public int updateAccountModel(AccountModel accModel) {
-		String sql = "UPDATE account SET IDRole=?, Password =?, FullName=?, Phone=?,DateBirth=?,UserUpdate=?,LastTimeLogin=? WHERE IDUser = ?";
+		String sql = "UPDATE account SET IDRole=?, Password =?, FullName=?, Phone=?,DateBirth=?,UserUpdate=? WHERE IDUser = ?";
 		return update(sql,accModel.getIdRole(),accModel.getPassword(),accModel.getFullName(),
-				accModel.getPhone(),accModel.getDateBirth(),accModel.getUserUpdate(),accModel.getLastTimeLogin(),accModel.getIdUser());
+				accModel.getPhone(),accModel.getDateBirth(),accModel.getUserUpdate(),accModel.getIdUser());
 	}
 	@Override
 	public int deleteAccountModel(int id) {
@@ -60,4 +61,24 @@ public class AccountDAO  extends AbstractDAO<AccountModel> implements IAccountDA
 		List<AccountModel> list = query(sql, new AccountMapper(), id);
 		return list.size() == 0 ? null : list.get(0);
 	}
+
+	@Override
+	public int updateTimeLogin(Timestamp time, int idUser) {
+		String sql = "update account set LastTimeLogin=? where IDUser = ?";
+		return update(sql,time,idUser);
+	}
+
+	@Override
+	public int getTotalAccount() {
+		String sql = "select count(*) from account";
+		return getTotalItem(sql);
+	}
+
+	@Override
+	public List<AccountModel> findAll() {
+		String sql ="select * from account";
+		return query(sql, new AccountMapper());
+	}
+
+	
 }

@@ -3,7 +3,7 @@ package com.bus.model;
 public class SeatModel extends AbstractModel {
 	private Integer idSeat;
 	private Integer idBus;
-	private String name;
+	private int name;
 	private boolean status;
 	
 	public SeatModel()
@@ -25,10 +25,10 @@ public class SeatModel extends AbstractModel {
 	public void setIdBus(int idBus) {
 		this.idBus = idBus;
 	}
-	public String getName() {
+	public int getName() {
 		return name;
 	}
-	public void setName(String name) {
+	public void setName(int name) {
 		this.name = name;
 	}
 	public boolean isStatus() {

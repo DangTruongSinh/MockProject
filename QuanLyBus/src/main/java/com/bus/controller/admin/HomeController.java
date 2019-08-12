@@ -2,7 +2,6 @@ package com.bus.controller.admin;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,12 +13,11 @@ public class HomeController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/view/admin-home.jsp");
-		requestDispatcher.forward(req, resp);
+		resp.sendRedirect("/QuanLyBus/admin-account");
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/view/admin-home.jsp");
-		requestDispatcher.forward(req, resp);
+	
+		
 	}
 }

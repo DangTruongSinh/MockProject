@@ -2,7 +2,11 @@ package com.bus.service.imp;
 
 import java.util.List;
 
+import com.bus.dao.impl.BusDAO;
+import com.bus.dao.impl.SeatDAO;
 import com.bus.dao.impl.TicketDAO;
+import com.bus.model.BusModel;
+import com.bus.model.SeatModel;
 import com.bus.model.TicketModel;
 import com.bus.service.ITicketService;
 
@@ -45,7 +49,7 @@ public class TicketService implements ITicketService{
 
 	@Override
 	public List<TicketModel> findAllbyIDUser(int id) {
-		return ticketDao.findAllbyIDUser(id);
+		return setBusForListTicket(ticketDao.findAllbyIDUser(id));
 	}
 
 	@Override
@@ -63,5 +67,31 @@ public class TicketService implements ITicketService{
 		return ticketDao.findOneByIDSeat(id);
 	}
 
-
+	private TicketModel setBusForATicket(TicketModel ticketModel)
+	{
+		if(ticketModel != null)
+		{
+			BusDAO busDao = new BusDAO();
+			BusModel busModel = busDao.findOneByIdBus(ticketModel.getIdBus());
+			ticketModel.setBus(busModel);
+			return ticketModel;
+		}
+		return null;
+	}
+	private List<TicketModel> setBusForListTicket(List<TicketModel> list)
+	{
+		BusDAO busDao = new BusDAO();
+		SeatDAO seatDao = new SeatDAO();
+		if(list != null)
+		{
+			for(TicketModel x : list)
+			{
+				BusModel busModel = busDao.findOneByIdBus(x.getIdBus());
+				SeatModel seatModel = seatDao.findOneByIdSeat(x.getIdSeat());
+				x.setSeat(seatModel);
+				x.setBus(busModel);
+			}
+		}
+		return list;
+	}
 }

@@ -1,6 +1,7 @@
 package com.bus.model;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class AccountModel extends AbstractModel{
 	private Integer idUser;
@@ -61,18 +62,31 @@ public class AccountModel extends AbstractModel{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+	
+	
 	public Timestamp getDateBirth() {
 		return dateBirth;
 	}
+
 	public void setDateBirth(Timestamp dateBirth) {
 		this.dateBirth = dateBirth;
 	}
+
 	public Timestamp getLastTimeLogin() {
 		return lastTimeLogin;
 	}
 	public void setLastTimeLogin(Timestamp lastTimeLogin) {
 		this.lastTimeLogin = lastTimeLogin;
 	}
-	
-	
+	public String getStringDateBirth()
+	{
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return simpleDateFormat.format(dateBirth);
+	}
+	@Override
+	public String toString() {
+		return idUser +"-"+idRole+"-"+userName+"-"+password+"-"+fullName+"-"+phone+"-"+dateBirth+"-"
+				+lastTimeLogin+"-"+getRole().getName();
+	}
 }

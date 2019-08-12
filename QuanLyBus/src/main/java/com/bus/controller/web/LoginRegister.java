@@ -12,6 +12,7 @@ import com.bus.utils.AccountUtil;
 @WebServlet(urlPatterns = "/dang-nhap")
 public class LoginRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	AccountService acService = new AccountService();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
@@ -19,8 +20,9 @@ public class LoginRegister extends HttpServlet {
 		String action = req.getParameter("action");
 		if (action != null) {
 			if (action.equals("logout")) {
-				req.getSession().invalidate();
+				session.invalidate();
 				resp.sendRedirect("/QuanLyBus/view/login.jsp");
+				return;
 			}
 		}
 		if (account == null)
@@ -33,12 +35,11 @@ public class LoginRegister extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		AccountService acService = new AccountService();
 		if(action.equalsIgnoreCase("login"))
 		{
 			String username = req.getParameter("userName");
 			String password = req.getParameter("password");
-			AccountModel account = acService.findOneByUsernameAndPassword(username, password);
+			AccountModel account = acService.checkLogin(username, password);
 			if (account != null) {
 				HttpSession session = req.getSession();
 				session.setAttribute("account", account);

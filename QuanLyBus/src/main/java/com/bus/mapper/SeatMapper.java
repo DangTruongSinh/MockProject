@@ -13,7 +13,7 @@ public class SeatMapper implements IRowMapper<SeatModel> {
 			
 			seatModel.setIdSeat(resultSet.getInt("IDSeat"));
 			seatModel.setIdBus(resultSet.getInt("IDBus"));
-			seatModel.setName(resultSet.getString("Name"));
+			seatModel.setName(resultSet.getInt("Name"));
 			seatModel.setStatus(resultSet.getBoolean("Status"));
 			seatModel.setDateCreate(resultSet.getTimestamp("DateCreate"));
 			seatModel.setDateUpdate(resultSet.getTimestamp("DateUpdate"));

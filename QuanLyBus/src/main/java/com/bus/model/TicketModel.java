@@ -7,11 +7,29 @@ public class TicketModel extends AbstractModel{
 	private Integer idUser;
 	private boolean status;
 	private String price;
-	
+	private BusModel bus;
+	private SeatModel seat;
 	public TicketModel()
 	{
 		
 	}
+	
+	public SeatModel getSeat() {
+		return seat;
+	}
+
+	public void setSeat(SeatModel seat) {
+		this.seat = seat;
+	}
+
+	public BusModel getBus() {
+		return bus;
+	}
+
+	public void setBus(BusModel bus) {
+		this.bus = bus;
+	}
+
 	public Integer getIdTicket() {
 		return idTicket;
 	}

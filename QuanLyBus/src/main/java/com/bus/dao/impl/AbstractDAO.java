@@ -1,6 +1,11 @@
 package com.bus.dao.impl;
 
+/*import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;*/
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,11 +15,6 @@ import java.util.List;
 
 import com.bus.dao.IGenericDAO;
 import com.bus.mapper.IRowMapper;
-/*import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;*/
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 public class AbstractDAO<T> implements IGenericDAO<T>{
 	
 	private Connection getConnection()
@@ -151,6 +151,30 @@ public class AbstractDAO<T> implements IGenericDAO<T>{
 	@Override
 	public int delete(String sql, Object... parameters) {
 		return update(sql,parameters);
+	}
+	@Override
+	public int getTotalItem(String sql, Object... parameters) {
+		Connection connection = getConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		int item = 0;
+		if(connection != null)
+		{
+			try {
+				preparedStatement = (PreparedStatement) connection.prepareStatement(sql);
+				setParameter(preparedStatement,parameters);
+				rs = preparedStatement.executeQuery();
+				while(rs.next())
+				{
+					item = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				closeDataBase(connection,preparedStatement);
+			}
+		}
+		return item;
 	}
 	
 	

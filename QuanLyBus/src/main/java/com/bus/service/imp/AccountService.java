@@ -1,10 +1,12 @@
 package com.bus.service.imp;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.bus.dao.impl.AccountDAO;
 import com.bus.dao.impl.RoleDAO;
 import com.bus.model.AccountModel;
+import com.bus.model.PageModel;
 import com.bus.model.RoleModel;
 import com.bus.service.IAccountService;
 
@@ -15,8 +17,10 @@ public class AccountService implements IAccountService{
 		accountDao =  new AccountDAO();
 	}
 	@Override
-	public List<AccountModel> findAll() {
-		List<AccountModel> list = accountDao.findAll();
+	public List<AccountModel> findlimit(PageModel page) {
+		int start = (page.getCurentPage()-1)*page.getMaxPageItem();
+		int limit = page.getMaxPageItem();
+		List<AccountModel> list = accountDao.findlimit(start, limit);
 		return setRoleForListAccount(list);
 	}
 	@Override
@@ -26,17 +30,16 @@ public class AccountService implements IAccountService{
 		{
 			int id = accountDao.insertAccountModel(accModel);
 			if(id != -1)
-				return accountDao.findOneByIDModel(id);
+				return setRoleForAAcount(accountDao.findOneByIDModel(id));
 		}
 		return null;
 	}
 
 	@Override
 	public AccountModel updateAccountModel(AccountModel accModel) {
-		accModel.setUserUpdate("userHienTai");
 		int result = accountDao.updateAccountModel(accModel);
 		if(result != -1)
-			return accountDao.findOneByIDModel(accModel.getIdUser());
+			return setRoleForAAcount(accountDao.findOneByIDModel(accModel.getIdUser()));
 		return null;
 	}
 
@@ -51,11 +54,6 @@ public class AccountService implements IAccountService{
 		return setRoleForListAccount(list);
 	}
 
-	@Override
-	public AccountModel findOneByUsernameAndPassword(String username, String password) {
-		AccountModel accModel = accountDao.findOneByUsernameAndPassword(username, password);
-		return setRoleForAAcount(accModel);
-	}
 
 	@Override
 	public AccountModel findOneByUsername(String username) {
@@ -85,5 +83,23 @@ public class AccountService implements IAccountService{
 			}
 		}
 		return list;
+	}
+	@Override
+	public AccountModel checkLogin(String username, String password) {
+		AccountModel account = accountDao.findOneByUsernameAndPassword(username, password);
+		if(account != null)
+		{
+			accountDao.updateTimeLogin(new Timestamp(System.currentTimeMillis()), account.getIdUser());
+			setRoleForAAcount(account);
+		}
+		return account;
+	}
+	@Override
+	public int getTotalAccount() {
+		return accountDao.getTotalAccount();
+	}
+	@Override
+	public List<AccountModel> findAll() {
+		return accountDao.findAll();
 	}
 }
