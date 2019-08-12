@@ -18,10 +18,8 @@
 	type="text/javascript"></script>
 </head>
 <body>
-<<<<<<< HEAD
 	<h1>employee wellcome</h1>
 	<a href="/QuanLyBus/dang-nhap?action=logout">Logout</a>
-=======
 	<div class="container">
 		<a href="/QuanLyBus/dang-nhap?action=logout">logout</a>
 		<h2>Basic Table</h2>
@@ -94,6 +92,5 @@
 			}
 		});
 	</script>
->>>>>>> 1bc7e8fd9f2061528c191756f69baaeeae3c93b1
 </body>
 </html>
