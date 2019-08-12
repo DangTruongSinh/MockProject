@@ -9,6 +9,17 @@ public class TicketModel extends AbstractModel{
 	private String price;
 	private BusModel bus;
 	private SeatModel seat;
+	private AccountModel accModel;
+	public AccountModel getAccModel() {
+		return accModel;
+	}
+
+
+	public void setAccModel(AccountModel accModel) {
+		this.accModel = accModel;
+	}
+
+
 	public TicketModel()
 	{
 		

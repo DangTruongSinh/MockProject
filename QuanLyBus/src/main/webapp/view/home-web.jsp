@@ -275,8 +275,5 @@
   
     </div>
     <!-- Footer Text -->
-  
-    
-  
   </footer>
-</html>>
+</html>
