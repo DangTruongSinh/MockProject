@@ -15,6 +15,7 @@
 </head>
 <body>
 	<div class="container">
+
 		<h2>Basic Table</h2>
 		<p>The .table class adds basic styling (light padding and only
 			horizontal dividers) to a table:</p>
@@ -52,10 +53,10 @@
 								<td>Paided</td>
 							</c:otherwise>
 						</c:choose>
-						<td><c:url var="editURL" value="/admin-account">
-								<c:param name="action" value="edit" />
-								<c:param name="username" value="" />
-							</c:url> <a class="btn btn-sm btn-primary btn-edit" href="${editURL}">Cancel</a>
+						<td><c:url var="deleteURL" value="/customer-ticket">
+								<c:param name="action" value="delete" />
+								<c:param name="idTicket" value="${item.idTicket}" />
+							</c:url> <a class="btn btn-sm btn-primary btn-edit" href="${deleteURL}">Cancel</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -63,5 +64,6 @@
 			</tbody>
 		</table>
 	</div>
+
 </body>
 </html>

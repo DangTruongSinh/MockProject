@@ -15,11 +15,11 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/view/css/Register.css">
 
-<script src="./js/jquery.validate.min.js"></script>
-<script src="./js/register.js"></script>
+<script src="${pageContext.request.contextPath}/view/js/jquery.validate.min.js"></script>
+<script src="${pageContext.request.contextPath}/view/js/Register.js"></script>
 </head>
 <body>
-	<div class="background-img">
+
 		<div class="container-fluid bg">
 			<div class="row justify-content-center">
 				<div class="col-md-3 col-sm-6 col-xs-12 row-container">
@@ -29,7 +29,7 @@
 							<div class="alert alert-${alert}">${message}</div>
 						</c:if>
 						<div class="titlelogin">
-							<img class="icon" src="img/icon.PNG" alt="icon">
+							<div class="icon"></div>
 							<h1>
 								<strong>Register</strong>
 							</h1>
@@ -73,15 +73,18 @@
 					</form>
 					<ul class="share">
 						<p>Sign in with</p>
-						<li class="middle"><a class="share-icon" href="#"
-							style="background-image: url(img/world.png); background-size: cover"><i
-								class="fa fa-share-square-o"></i></a> <a class="facebook" href="#"
-							style="background-image: url(img/fbicon.png); background-size: cover"></a>
-							<a class="twitter" href="#"
-							style="background-image: url(img/twicon.png); background-size: cover"></a>
+						<li class="middle">
+						<a class="share-icon" href="#"><i
+								class="fa fa-share-square-o"></i></a> 
+						<a class="facebook" href="#"></a>
+						<a class="twitter" href="#"></a>
 						</li>
 
 					</ul>
+					<div id="backhomeText" >
+						<label><a href="/QuanLyBus/home-web" class="homeLink">
+									Back to Home</a></label>
+					</div>
 				</div>
 			</div>
 		</div>

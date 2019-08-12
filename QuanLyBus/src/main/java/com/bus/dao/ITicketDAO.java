@@ -8,7 +8,7 @@ public interface ITicketDAO extends IGenericDAO<TicketModel>{
 	List<TicketModel> findAll();
 	int insertTicketModel(TicketModel tickModel);
 	int updateTicketModel(TicketModel tickModel);
-	int deleteTicketModel(TicketModel tickModel);
+	int deleteTicketModel(int id);
 	List<TicketModel> findAllbyIDUser(int id);
 	TicketModel findOneByIDTicket(int id);
 	List<TicketModel> findAllbyIDBus(int id);

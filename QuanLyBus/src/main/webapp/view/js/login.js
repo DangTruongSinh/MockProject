@@ -1,4 +1,3 @@
-<script src="js/classie.js"></script>
 (function () {
     // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
     if (!String.prototype.trim) {

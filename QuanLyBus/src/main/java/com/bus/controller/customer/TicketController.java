@@ -18,28 +18,30 @@ import com.bus.service.imp.TicketService;
 @WebServlet(urlPatterns = "/customer-ticket")
 public class TicketController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
+		System.out.println(action);
 		TicketService ticketService = new TicketService();
 		HttpSession session = req.getSession();
 		AccountModel account = (AccountModel) session.getAttribute("account");
 		if(action.equals("viewTicked"))
 		{
 			List<TicketModel> list = ticketService.findAllbyIDUser(account.getIdUser());
-			System.out.println(list.size());
-			System.out.println("idBus:"+list.get(0).getIdBus());
-			System.out.println(list.get(0).getBus().getLicensePlate());
-			System.out.println(list.get(0).getSeat().getName());
 			req.setAttribute("tickets", list);
 			RequestDispatcher rq = req.getRequestDispatcher("/view/customer-list-ticket.jsp");
 			rq.forward(req, resp);
 		}
+		else if(action.equals("delete"))
+		{
+			int id = Integer.parseInt(req.getParameter("idTicket"));
+			if(ticketService.deleteTicketModel(id))
+				resp.sendRedirect("/QuanLyBus/customer-ticket?action=viewTicked");
+		}
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+		String action = req.getParameter("action");
+		System.out.println(action);
 	}
 }

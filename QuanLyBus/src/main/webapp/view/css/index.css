@@ -1,11 +1,14 @@
+html{
+  scroll-behavior: smooth;
 
+}
 body{
-  background-color: rgb(242, 242, 242);
+  background-color: #1A1A1A;
 }
 .navbar{
   margin-bottom: 0;
   padding: 0 50px 0 50px ;
-  background-color: rgb(255, 255, 255);
+  background-color: #202020;
     font-family: "Nunito Sans", sans-serif;
   height: 80px;
   border: unset;
@@ -18,14 +21,16 @@ padding: 30px 5px 30px 30px;
 padding :35px;
 }
 }
-.jumbotron{
-  height: 800px;
+#slideshow{
+  background: #1A1A1A;
+  height: 700px;
   margin: 0;
   padding: 0px 50px 0px 50px ;
   text-align: center;
 }
-.jumbotron h1{
-  margin-bottom: 30px;
+.jumbotron h2{
+  margin-bottom: 25px;
+  font-family: Comic Sans, Comic Sans MS, cursive;
 }
 #img-header{
   width: 100%;
@@ -42,25 +47,25 @@ footer {
 }
 #diemkhoihanh,#ngaykhoihanh,#diemden,#soluongve{
   display: inline-block;
-  color: #000;
+  color: #fff;
   margin: 20px;
-
+  font-family: Comic Sans, Comic Sans MS, cursive;
   
 }
 .input-start,.input-end,.input-date,.input-TicketNumber{
   color: #000;
   border-radius: 25px;
+  font-family: Comic Sans, Comic Sans MS, cursive;
 }
 #header-img{
-  background-color: #F7F7F9;
-  box-shadow: 10px 10px 5px ;
+  background-color: rgba(35, 29, 38, 0.8);
   border-radius: 25px;
 
 }
 #Img-background{
 margin: 0;
 width: auto;
-padding-top:50px;
+padding-top:150px;
 position: relative;
 }
 
@@ -82,10 +87,14 @@ position: relative;
 .line{
   display: inline;
 }
+#Routes{
+  background: #202020;
+  padding-top:100px;
+}
 /*-----------------------btn submit*/
 .btn {
   display: inline-block;
-  margin: 0 auto;
+  margin: 15px auto;
   
   -webkit-border-radius: 10px;
   
@@ -162,8 +171,15 @@ position: relative;
       font-size: 26px;
   }
 /* row */
-.column p a {
-  color:  black;
+#ImgRow p{
+  color:  #fff;
+  text-align: left;
+  padding: 30px 0 30px 30px;
+  font-family: Comic Sans, Comic Sans MS, cursive;
+
+}
+.column a {
+  color:  #fff;
 }
 .column {
   float: left;
@@ -185,11 +201,19 @@ position: relative;
     width: 100%;
   }
 }
+#columnImg1{
+	background-image: url(../img/img1.jfif);background-size: cover;
+}
+#columnImg2{
+	background-image: url(../img/img2.jfif);background-size: cover;
+}
+#columnImg3{
+	background-image: url(../img/img3.jfif);background-size: cover;
+}
 
 /* ------------------------slide fade in------------------------- */
 #container-centertext
 {   
-    
     height: 300px;
     width: 250px;    
     margin: 0;
@@ -205,7 +229,7 @@ position: relative;
 #hideme-text{
   color: #fff;
   font-size: 21px;
-  font-family: Arial, Helvetica, sans-serif; 
+  font-family: Comic Sans, Comic Sans MS, cursive;
   left:20%;
   width: auto;
   
@@ -229,26 +253,41 @@ position: relative;
   background-position: center;
   background-size: cover;
   width: 1200px;
-  height: 600px;
+  height: 500px;
 }
+
 
 
 /*---------------------------- scroll*/
 
 #ScrollImg{
-  background-image:url(../img/cover_bg_1.jpg);
-min-height: 300px; 
+background-image: url(../img/cover_bg_1.jpg);
+min-height: 500px; 
 min-width: 100%;
 background-attachment: fixed;
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
 }
-/*-------------------img slide uip*/
+#slide{
+	background-image:url(../img/imgslide.png);
+}
+#slide1{
+	background-image:url(../img/imgslide1.png);
+}
+#slide2{
+	background-image:url(../img/imgslide2.png);
+}
+#slide3{
+	background-image:url(../img/imgslide3.png);
+}
+#slide4{
+	background-image:url(../img/imgslide4.png);
+}
 h2 {
   font-size: 24px;
   text-transform: uppercase;
-  color: #303030;
+  color: #fff;
   font-weight: 600;
   margin-bottom: 30px;
 }
@@ -257,17 +296,20 @@ h2 {
   padding: 60px 50px;
 }
 .bg-grey {
-  background-color: #f6f6f6;
+  background-color: #202020;
 }
 
 .thumbnail {
   padding: 0 0 15px 0;
   border: none;
+  color: #fff;
   border-radius: 0;
+  background-color: #202020;
+
 }
 .thumbnail img {
   width: 100%;
-  height: 100%;
+  height: 300px;
   margin-bottom: 10px;
   
 }
@@ -319,4 +361,14 @@ footer .glyphicon {
   .logo {
     font-size: 150px;
   }
+}
+/*-------Footer------*/
+.page-footer{
+  color: #fff;
+}
+/*----------section----------*/
+#sectionBtn{
+  font-family: Comic Sans, Comic Sans MS, cursive;
+  font-size: 40px;
+  color: #FFFFFF;
 }

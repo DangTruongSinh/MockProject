@@ -28,10 +28,11 @@ public class HomeController extends HttpServlet {
 				return;
 			}
 		}
+		AccountModel account = (AccountModel) req.getSession().getAttribute("account");
+		req.setAttribute("account", account);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/view/customer-home.jsp");
 		dispatcher.forward(req, resp);
 	}
-
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");

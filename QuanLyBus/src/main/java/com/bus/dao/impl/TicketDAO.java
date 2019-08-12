@@ -35,9 +35,9 @@ public class TicketDAO extends AbstractDAO<TicketModel> implements ITicketDAO{
 				tickModel.getPrice(),tickModel.getUserUpdate(),tickModel.getIdTicket());
 	}
 	@Override
-	public int deleteTicketModel(TicketModel tickModel) {
+	public int deleteTicketModel(int id) {
 		String sql = "delete from ticket where IDTicket = ?";
-		return delete(sql, tickModel.getIdTicket());
+		return delete(sql, id);
 	}
 	@Override
 	public TicketModel findOneByIDTicket(int id) {

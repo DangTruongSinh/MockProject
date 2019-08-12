@@ -45,12 +45,13 @@ public class AuthorizationFilter implements Filter {
 				response.sendRedirect("/QuanLyBus/view/login.jsp");
 			else
 				authorization(account, "customer", filterChain, servletRequest, servletResponse, response);
-		else if (url.contains("/register.jsp") || url.contains("/login.jsp")) {
+		else if (url.contains("/register.jsp") || url.contains("/login.jsp") || url.contains("/home-web")) {
 			if (result == null)
 				filterChain.doFilter(servletRequest, servletResponse);
 			else
 				response.sendRedirect("/QuanLyBus/" + account.getRole().getName() + "-home");
-		} else {
+		}
+		else {
 			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
@@ -67,10 +68,9 @@ public class AuthorizationFilter implements Filter {
 			} else {
 				response.sendRedirect("/QuanLyBus/view/login.jsp");
 			}
-		} catch (Exception e) { // TODO: handle exception
+		} catch (Exception e) {
 		}
 	}
-
 	@Override
 	public void destroy() {
 

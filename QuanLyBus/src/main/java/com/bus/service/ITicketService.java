@@ -8,7 +8,7 @@ public interface ITicketService {
 	List<TicketModel> findAll();
 	TicketModel insertTicketModel(TicketModel tickModel);
 	TicketModel updateTicketModel(TicketModel tickModel);
-	boolean deleteTicketModel(TicketModel tickModel);
+	boolean deleteTicketModel(int id);
 	List<TicketModel> findAllbyIDUser(int id);
 	TicketModel findOneByIDTicket(int id);
 	List<TicketModel> findAllbyIDBus(int id);

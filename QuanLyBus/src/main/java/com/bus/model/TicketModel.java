@@ -13,6 +13,7 @@ public class TicketModel extends AbstractModel{
 	{
 		
 	}
+
 	
 	public SeatModel getSeat() {
 		return seat;

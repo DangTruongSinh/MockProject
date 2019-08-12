@@ -43,8 +43,8 @@ public class TicketService implements ITicketService{
 	}
 
 	@Override
-	public boolean deleteTicketModel(TicketModel tickModel) {
-		return ticketDao.deleteTicketModel(tickModel) == 1 ? true : false;
+	public boolean deleteTicketModel(int id) {
+		return ticketDao.deleteTicketModel(id) == 1 ? true : false;
 	}
 
 	@Override
@@ -82,6 +82,7 @@ public class TicketService implements ITicketService{
 	{
 		BusDAO busDao = new BusDAO();
 		SeatDAO seatDao = new SeatDAO();
+		
 		if(list != null)
 		{
 			for(TicketModel x : list)
