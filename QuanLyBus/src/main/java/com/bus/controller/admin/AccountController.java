@@ -25,6 +25,7 @@ public class AccountController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
 		String username = req.getParameter("username");
+		req.setAttribute("myAccount", req.getSession().getAttribute("account"));
 		AccountService accService = new AccountService();
 		if (action == null || username.equals("")) {
 			PageModel page = new PageModel();
@@ -62,11 +63,12 @@ public class AccountController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
+		req.setAttribute("myAccount", req.getSession().getAttribute("account"));
 		if(action.equals("update"))
 		{
 			AccountUtil.update(req, resp, 1);			
 		}
-		else
+		else if(action.equals("create"))
 		{
 			AccountModel admin = (AccountModel) req.getSession().getAttribute("account");
 			AccountModel accModel = AccountUtil.register(req, new AccountService(),admin);

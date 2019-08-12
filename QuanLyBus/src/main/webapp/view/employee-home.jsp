@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>employee wellcome</h1>
+	<a href="/QuanLyBus/dang-nhap?action=logout">Logout</a>
 </body>
 </html>

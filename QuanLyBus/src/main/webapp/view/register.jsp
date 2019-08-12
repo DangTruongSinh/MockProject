@@ -72,7 +72,6 @@
 						</div>
 					</form>
 					<ul class="share">
-						<p>Sign in with</p>
 						<li class="middle">
 						<a class="share-icon" href="#"><i
 								class="fa fa-share-square-o"></i></a> 
@@ -90,7 +89,7 @@
 		</div>
 
 
-	</div>
+	
 	<script src="js/classie.js"></script>
 
 	<script

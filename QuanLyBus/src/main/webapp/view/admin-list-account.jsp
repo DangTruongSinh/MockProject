@@ -19,14 +19,16 @@
 </head>
 <body>
 	<div class="container">
-		<a href="/QuanLyBus/dang-nhap?action=logout">logout</a>
-		<a href="/QuanLyBus/view/admin-create-account.jsp">Create account</a>
-		<h2>Basic Table</h2>
-		<p>The .table class adds basic styling (light padding and only
-			horizontal dividers) to a table:</p>
+		<div style="display: flex">
+			<a href="/QuanLyBus/view/admin-create-account.jsp">Create account</a>
+			<a href="/QuanLyBus/dang-nhap?action=logout" style="margin-left: 1000px">logout</a>
+		</div>
+		<br>
+		<h1>Wellcome ${myAccount.userName}</h1>
+		<h3>Table list account</h3>
 		<form action="/QuanLyBus/admin-account" id="formSearch">
 			<input type="hidden" name="action" value="search"> 
-			<input type="text" name="username" id="inputtext">
+			<input type="text" name="username" id="inputtext" placeholder="search username">
 		</form>
 		<form action="/QuanLyBus/admin-account" id="formSubmit">
 			<table class="table">

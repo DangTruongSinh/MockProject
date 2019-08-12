@@ -16,10 +16,10 @@
 	href="${pageContext.request.contextPath}/view/css/Login.css">
 </head>
 
-<body>
-	<div class="background-img">
-
-		<div class="container-fluid bg">
+<body >
+    
+    
+	<div class="container-fluid bg">
 			<div class="row justify-content-center">
 				<div class="col-md-3 col-sm-6 col-xs-12 row-container">
 					<form action="/QuanLyBus/dang-nhap?action=login" method="post">
@@ -27,11 +27,10 @@
 							<div class="alert alert-${alert}">${message}</div>
 						</c:if>
 						<div class="titlelogin">
-							<img class="icon" src="img/icon.PNG" alt="icon">
+							<div class="icon"></div>
 							<h1>
 								<strong>Login</strong>
 							</h1>
-
 						</div>
 
 
@@ -67,12 +66,11 @@
 
 					<ul class="share">
 						<p>Sign in with</p>
-						<li class="middle"><a class="share-icon" href="#"
-							style="background-image: url(img/world.png); background-size: cover"><i
-								class="fa fa-share-square-o"></i></a> <a class="facebook" href="#"
-							style="background-image: url(img/fbicon.png); background-size: cover"></a>
-							<a class="twitter" href="#"
-							style="background-image: url(img/twicon.png); background-size: cover"></a>
+						<li class="middle">
+						<a class="share-icon" href="#">
+						<i class="fa fa-share-square-o"></i></a> 
+						<a class="facebook" href="#"></a>
+						<a class="twitter" href="#"></a>
 						</li>
 
 					</ul>

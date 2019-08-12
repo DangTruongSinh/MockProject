@@ -66,12 +66,12 @@
     <div id="sec1"></div>
 
   </div>
-  <!--Slideshow-->
   <br>
   <br>
   <div id="ScrollImg" class="container section-1">
     <div id="Img-background" class="container text-center">
-      <div id="header-img" class="container">
+      <form action = "/QuanLyBus/customer-ticket">
+      	<div id="header-img" class="container">
         <div id="diemkhoihanh">
           <label for="diemkhoihanh"><b>Điểm Khởi Hành :</b></label>
           <br>
@@ -116,6 +116,7 @@
           </button>
         </div>
       </div>
+      </form>
     </div>
   </div>
 

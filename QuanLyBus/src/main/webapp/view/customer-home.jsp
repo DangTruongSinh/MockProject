@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="../../common/taglib.jsp"%>
     
 <!DOCTYPE html>
 <html lang="en">
@@ -8,64 +9,41 @@
   <meta charset="utf-8">
 
   <!-- Link Swiper's CSS -->
-  <link rel="stylesheet" href="css/swiper.min.css">
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/view/css/swiper.min.css">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/index.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-<link rel="stylesheet"
+	<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/view/css/index.css">
 </head>
 
 <body>
-
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#" style="background-image: url(img/icon.PNG);background-size: cover"> </a>
-
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li class="nav-item">
-    	      <a href="/QuanLyBus/customer-home?action=update">Change your profile</a>
-          </li>
-          <li class="nav-item">
-            <a href="/QuanLyBus/customer-ticket?action=viewTicked">Ve da dat</a>
-          </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/QuanLyBus/dang-nhap" onclick="document.getElementById('id01').style.display='block'"
-              style="width:auto;"><span class="glyphicon glyphicon-log-in"></span> Hello ${account.userName}</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <div class="jumbotron" id="slideshow">
+<%@include file="../../common/header.jsp"%>
+ <div class="jumbotron" id="slideshow">
       <div>
           <a type="button" id="sectionBtn" href="#sec1">Booking Ticket Now</a>
       </div>
     <div class="swiper-container">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" style="background-image:url(img/imgslide.png)"></div>
-        <div class="swiper-slide" style="background-image:url(img/imgslide1.png)"></div>
-        <div class="swiper-slide" style="background-image:url(img/imgslide2.png)"></div>
-        <div class="swiper-slide" style="background-image:url(img/imgslide3.png)"></div>
-        <div class="swiper-slide" style="background-image:url(img/imgslide4.png)"></div>
+        <div id="slide"  class="swiper-slide" ></div>
+        <div id="slide1" class="swiper-slide" ></div>
+        <div id="slide2" class="swiper-slide" ></div>
+        <div id="slide3" class="swiper-slide" ></div>
+        <div id="slide4" class="swiper-slide" ></div>
       </div>
       <div class="swiper-pagination"></div>
     </div>
     <div id="sec1"></div>
 
   </div>
-  <!--Slideshow-->
   <br>
   <br>
-  <div id="ScrollImg" style="background-image: url(img/cover_bg_1.jpg);" class="container section-1">
+  <div id="ScrollImg" class="container section-1">
     <div id="Img-background" class="container text-center">
-      <form action="/QuanLyBus/customer-ticket?action=ticket" method = "post">
+      <form action = "/QuanLyBus/customer-ticket">
       	<div id="header-img" class="container">
         <div id="diemkhoihanh">
           <label for="diemkhoihanh"><b>Điểm Khởi Hành :</b></label>
@@ -140,7 +118,7 @@
     <div></div>
     <div class="row fadein">
         <h2>Famous Tourist Destination</h2>
-      <div  class="column" style="background-image: url(img/img1.jfif);background-size: cover;">
+      <div id="columnImg1" class="column">
         <p>Đà Lạt</p>
       </div>
       <div id="ImgRow" class="column">
@@ -158,7 +136,7 @@
               trong lành, mát mẻ, thích hợp với những du khách muốn tận hưởng không gian yên tĩnh 
               trong chuyến du lịch của mình.</p>
           </div>
-        <div  class="column" style="background-image: url(img/img2.jfif);background-size: cover;">
+        <div id="columnImg2" class="column">
           <p>Đà Lạt</p>
         </div>
       </div>
@@ -166,7 +144,7 @@
       <hr>
       
       <div class="row fadein">
-          <div  class="column" style="background-image: url(img/img3.jfif);background-size: cover;">
+          <div id="columnImg3" class="column">
             <p>Đà Lạt</p>
           </div>
           <div id="ImgRow" class="column">
@@ -177,8 +155,9 @@
           </div>
         </div>
   </div>
+
     <!-- Swiper JS -->
-    <script src="js/swiper.min.js"></script>
+    <script src="view/js/swiper.min.js"></script>
 
     <!-- Initialize Swiper -->
     <script>
@@ -259,11 +238,7 @@
   
       </div>
       <!-- Grid row -->
-  
     </div>
     <!-- Footer Text -->
-  
-    
-  
   </footer>
-</html>
+</html>>
