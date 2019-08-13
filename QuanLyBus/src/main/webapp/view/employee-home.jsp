@@ -18,8 +18,7 @@
 	type="text/javascript"></script>
 </head>
 <body>
-	<h1>employee wellcome</h1>
-	<a href="/QuanLyBus/dang-nhap?action=logout">Logout</a>
+	<h1>Employee</h1>
 	<div class="container">
 		<a href="/QuanLyBus/dang-nhap?action=logout">logout</a>
 		<h2>Basic Table</h2>
@@ -33,14 +32,15 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>idTicket</th>
-						<th>idBus</th>
-						<th>idSeat</th>
-						<th>idUser</th>
-						<th>status</th>
-						<th>price</th>
-						<th>fullName</th>
-						<th>phone</th>
+						<th>IdTicket</th>
+						<th>IdBus</th>
+						<th>Seat Number</th>
+						<th>UserName</th>
+						<th>FullName</th>		
+						<th>Phone</th>
+						<th>Price</th>
+						<th>Status</th>
+						<th>Cancel</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -49,12 +49,20 @@
 							<tr>
 								<td>${item.idTicket}</td>
 								<td>${item.idBus}</td>
-								<td>${item.idSeat}</td>
-								<td>${item.idUser}</td>
-								<td>${item.status}</td>
-								<td>${item.price}</td>
-								<td>${item.accModel.password}</td>
+								<td>${item.seat.name}</td>
+								<td>${item.accModel.userName}</td>
+								<td>${item.accModel.fullName}</td>
 								<td>${item.accModel.phone}</td>
+								<td>${item.price}</td>
+								<td>${item.status}</td>
+								<td>
+									<c:url var="cancelURL" value="/employee-account">
+										<c:param name="action" value="cancel"/>
+										<c:param name="username" value="${item.accModel.userName}"/>
+										<c:param name="IDTICKET" value="${item.idTicket}"/>										
+									</c:url>
+									<a class="btn btn-sm btn-primary btn-danger" href="${cancelURL}">Cancel</a>
+								</td>
 							</tr>
 						</c:forEach>
 					</c:if>
