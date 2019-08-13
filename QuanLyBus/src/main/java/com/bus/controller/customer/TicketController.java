@@ -38,6 +38,11 @@ public class TicketController extends HttpServlet{
 			if(ticketService.deleteTicketModel(id))
 				resp.sendRedirect("/QuanLyBus/customer-ticket?action=viewTicked");
 		}
+		else if(action.equals("ticked"))
+		{
+			RequestDispatcher rq = req.getRequestDispatcher("/view/customer-list-bus.jsp");
+			rq.forward(req, resp);
+		}
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

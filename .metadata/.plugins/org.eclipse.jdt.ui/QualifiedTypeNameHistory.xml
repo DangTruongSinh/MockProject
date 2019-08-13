@@ -28,7 +28,6 @@
     <fullyQualifiedTypeName name="java.lang.Math"/>
     <fullyQualifiedTypeName name="com.bus.model.PageModel"/>
     <fullyQualifiedTypeName name="com.bus.mapper.AccountMapper"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="com.bus.service.imp.RoleService"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
@@ -44,8 +43,6 @@
     <fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
     <fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
     <fullyQualifiedTypeName name="com.bus.service.imp.TicketService"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="com.bus.service.imp.BusService"/>
     <fullyQualifiedTypeName name="com.bus.dao.impl.BusDAO"/>
     <fullyQualifiedTypeName name="com.bus.model.BusModel"/>
     <fullyQualifiedTypeName name="com.bus.dao.impl.SeatDAO"/>
@@ -55,4 +52,9 @@
     <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
     <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
     <fullyQualifiedTypeName name="com.bus.model.AccountModel"/>
+    <fullyQualifiedTypeName name="java.util.HashSet"/>
+    <fullyQualifiedTypeName name="com.bus.service.imp.BusService"/>
+    <fullyQualifiedTypeName name="java.util.Set"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
 </qualifiedTypeNameHistroy>

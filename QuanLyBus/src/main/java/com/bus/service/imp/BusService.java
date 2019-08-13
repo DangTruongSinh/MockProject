@@ -1,6 +1,9 @@
 package com.bus.service.imp;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.bus.dao.impl.BusDAO;
 import com.bus.model.BusModel;
@@ -52,6 +55,24 @@ public class BusService implements IBusService{
 	@Override
 	public BusModel findOneByIdBus(int id) {
 		return busDao.findOneByIdBus(id);
+	}
+	@Override
+	public List<String> findAllPlace() {
+		List<BusModel> listBus = findAll();
+		if(listBus != null)
+		{
+			Set<String> arr = new HashSet<String>();
+			for(int i = 0;i < listBus.size();i++)
+			{
+				String start = listBus.get(i).getPlaceStart();start = start.toUpperCase();
+				String end = listBus.get(i).getPlaceEnd();end = end.toUpperCase();
+				arr.add(start);
+				arr.add(end);
+			}
+			return new ArrayList<String>(arr);
+		}
+		return null;
+		
 	}
 	
 }

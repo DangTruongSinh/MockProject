@@ -77,11 +77,9 @@
           <br>
           <input list="start-input" class="input-start" name="start-input">
           <datalist id="start-input">
-            <option value="Bến Xe Miền Đông">
-            <option value="Ngã ba">
-            <option value="Ngã tư">
-            <option value="Ngã 5">
-            <option value="Ngã 6">
+            <c:forEach var="item" items="${place}">
+            	<option value="${item}">
+            </c:forEach>
           </datalist>
         </div>
         <div id="diemden">
@@ -89,11 +87,9 @@
           <br>
           <input list="start-end" class="input-end" name="start-end">
           <datalist id="start-end">
-            <option value="Đà Lạt">
-            <option value="Nha Trang">
-            <option value="Đà Nẵng">
-            <option value="Ngã 5">
-            <option value="Ngã 6">
+            <c:forEach var="item" items="${place}">
+            	<option value="${item}">
+            </c:forEach>
           </datalist>
         </div>
         <div id="ngaykhoihanh">
@@ -101,12 +97,6 @@
           <br>
           <input class="input-date" type="date" name="bday">
         </div>
-        <div id="soluongve">
-          <label class="soluongve"><b>Số Lượng Vé :</b></label>
-          <br>
-          <input class="input-TicketNumber" placeholder="1">
-        </div>
-
         <div class="submit-button">
           <br>
           <button type="submit" class="btn submit">

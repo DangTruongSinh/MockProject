@@ -1,6 +1,7 @@
 package com.bus.controller.customer;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bus.model.AccountModel;
+import com.bus.service.imp.BusService;
 import com.bus.utils.AccountUtil;
 
 @WebServlet(urlPatterns = "/customer-home")
@@ -30,6 +32,8 @@ public class HomeController extends HttpServlet {
 		}
 		AccountModel account = (AccountModel) req.getSession().getAttribute("account");
 		req.setAttribute("account", account);
+		List<String> list = new BusService().findAllPlace();
+		req.setAttribute("place", list);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/view/customer-home.jsp");
 		dispatcher.forward(req, resp);
 	}
@@ -38,7 +42,6 @@ public class HomeController extends HttpServlet {
 		String action = req.getParameter("action");
 		if (action.equals("update")) {
 			AccountUtil.update(req, resp, 3);
-
 		}	
 	}
 }
