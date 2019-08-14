@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.bus.model.AccountModel;
 import com.bus.model.PageModel;
 import com.bus.model.TicketModel;
@@ -47,20 +46,9 @@ public class AccountController extends HttpServlet {
 			RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/employee-home.jsp");
 			rDispatcher.forward(req, resp);
 		}
-		else if(action.equals("cancel"))
+		else if(action.equals("edit"))
 		{
-			ticketService.deleteTicketModel(Integer.parseInt(IDTICKET));
-			
-			PageModel page = new PageModel();
-			page.setTotalPage((int) Math.ceil((float) ticketService.getTotalTicket() / page.getMaxPageItem()));
-			String curentPage = req.getParameter("curentPage");
-			if (curentPage != null)
-				page.setCurentPage(Integer.parseInt(curentPage));
-			req.setAttribute("tickets", ticketService.findlimit(page));
-			req.setAttribute("pageModel", page);
-			RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/employee-home.jsp");
-			rDispatcher.forward(req, resp);
-			
+						
 		}
 		
 	}
