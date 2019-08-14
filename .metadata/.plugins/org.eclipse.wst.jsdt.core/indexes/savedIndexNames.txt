@@ -1,6 +1,5 @@
 INDEX VERSION 1.4+E:\ProjectCuoiKhoa\MockProject\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
 818000640.index
-1400935422.index
 3079396680.index
 1476270015.index
 2689143894.index

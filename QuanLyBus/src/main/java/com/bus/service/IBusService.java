@@ -13,4 +13,6 @@ public interface IBusService {
 	List<BusModel> findAllByPlaceStartToEnd(String start,String end);
 	BusModel findOneByIdBus(int id);
 	List<String> findAllPlace();
+	List<BusModel> findAllBusByPlaceAndDate(String start,String end,String date);
+	
 }

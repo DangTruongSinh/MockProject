@@ -10,4 +10,5 @@ public interface ISeatDAO extends IGenericDAO<SeatModel> {
 	SeatModel findOneByIdSeat(int id);
 	int insertSeatModel(SeatModel seatModel);
 	int deleteSeatModel(int id);
+	int setStatusSeat(int id,boolean value);
 }

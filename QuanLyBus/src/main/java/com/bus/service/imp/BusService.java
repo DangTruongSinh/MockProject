@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.bus.dao.impl.BusDAO;
+import com.bus.dao.impl.SeatDAO;
 import com.bus.model.BusModel;
+import com.bus.model.SeatModel;
 import com.bus.service.IBusService;
 
 public class BusService implements IBusService{
@@ -17,7 +19,17 @@ public class BusService implements IBusService{
 	}
 	@Override
 	public List<BusModel> findAll() {
-		return busDao.findAll();
+		List<BusModel> list = busDao.findAll();
+		SeatDAO seatDao = new SeatDAO();
+		if(list != null)
+		{
+			for(BusModel x : list)
+			{
+				List<SeatModel> listSeat = seatDao.findAllbyIDBus(x.getIdBus());
+				x.setListSeat(listSeat);
+			}
+		}
+		return list;
 	}
 	@Override
 	public BusModel insertBusModel(BusModel busModel) {
@@ -54,7 +66,10 @@ public class BusService implements IBusService{
 	}
 	@Override
 	public BusModel findOneByIdBus(int id) {
-		return busDao.findOneByIdBus(id);
+		BusModel bus = busDao.findOneByIdBus(id);
+		List<SeatModel> listSeat = new SeatDAO().findAllbyIDBus(id);
+		bus.setListSeat(listSeat);
+		return bus;
 	}
 	@Override
 	public List<String> findAllPlace() {
@@ -74,5 +89,19 @@ public class BusService implements IBusService{
 		return null;
 		
 	}
+	@Override
+	public List<BusModel> findAllBusByPlaceAndDate(String start,String end,String date) {
+		List<BusModel> list = findAll();
+		List<BusModel> result = new ArrayList<BusModel>();
+		for(BusModel x : list)
+		{
+			if(x.getDateKhoiHanh().equalsIgnoreCase(date) 
+					&& x.getPlaceStart().equalsIgnoreCase(start)
+					&& x.getPlaceEnd().equalsIgnoreCase(end))
+				result.add(x);
+		}
+		return result;
+	}
+	
 	
 }

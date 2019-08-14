@@ -68,4 +68,9 @@ public class TicketDAO extends AbstractDAO<TicketModel> implements ITicketDAO{
 		String sql = "select count(*) from ticket";
 		return getTotalItem(sql);
 	}
+	@Override
+	public int getTotalBookedTicketByIdUser(int id) {
+		String sql = "select count(*) from ticket where IDUser = ?"; 
+		return getTotalItem(sql, id);
+	}
 }

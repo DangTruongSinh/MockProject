@@ -44,12 +44,13 @@
   <div id="ScrollImg" class="container section-1">
     <div id="Img-background" class="container text-center">
       <form action = "/QuanLyBus/customer-ticket">
-      	<input type="hidden" name="action" value = "ticked">	
+      	<input type="hidden" name="action" value = "ticket">
+      	<input type="hidden" name="request" value = "listbus">		
       	<div id="header-img" class="container">
         <div id="diemkhoihanh">
           <label for="diemkhoihanh"><b>Điểm Khởi Hành :</b></label>
           <br>
-          <input list="start-input" class="input-start" name="start-input">
+          <input list="start-input" class="input-start" name="startPlace">
           <datalist id="start-input">
             <c:forEach var="item" items="${place}">
             	<option value="${item}">
@@ -59,7 +60,7 @@
         <div id="diemden">
           <label for="diemden"><b>Điểm đến :</b></label>
           <br>
-          <input list="start-end" class="input-end" name="start-end">
+          <input list="start-end" class="input-end" name="endPlace">
           <datalist id="start-end">
             <c:forEach var="item" items="${place}">
             	<option value="${item}">
@@ -69,7 +70,7 @@
         <div id="ngaykhoihanh">
 	          <label for="ngaykhoihanh"><b>Ngày Khởi Hành :</b></label>
 	          <br>
-	          <input class="input-date" type="date" name="bday">
+	          <input class="input-date" type="date" name="date">
         </div>
         <div class="submit-button">
           <br>

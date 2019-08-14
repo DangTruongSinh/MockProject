@@ -32,15 +32,22 @@ public class TicketService implements ITicketService{
 	}
 	@Override
 	public TicketModel insertTicketModel(TicketModel tickModel) {
-		tickModel.setUserCreate("userHienTai");
-		tickModel.setUserUpdate("userHienTai");
-		int id = ticketDao.insertTicketModel(tickModel);
-		if(id != -1)
+		SeatDAO seatDao = new SeatDAO();
+		int id = tickModel.getIdSeat();
+		SeatModel seat = seatDao.findOneByIdSeat(id);
+		if(!seat.isStatus())
 		{
-			return ticketDao.findOneByIDTicket(id);
+			seatDao.setStatusSeat(id, true);
+			int idTicket = ticketDao.insertTicketModel(tickModel);
+			if(idTicket != -1)
+				return ticketDao.findOneByIDTicket(idTicket);
+			else
+				seatDao.setStatusSeat(id, false);
+			
 		}
-		return null;
-	}
+			return null;
+}
+		
 
 	@Override
 	public TicketModel updateTicketModel(TicketModel tickModel) {
@@ -53,7 +60,13 @@ public class TicketService implements ITicketService{
 
 	@Override
 	public boolean deleteTicketModel(int id) {
-		return ticketDao.deleteTicketModel(id) == 1 ? true : false;
+		TicketModel ticket = ticketDao.findOneByIDTicket(id);
+		if(ticketDao.deleteTicketModel(id) == 1)
+		{
+			if(new SeatDAO().setStatusSeat(ticket.getIdSeat(), false) == 1)
+				return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -110,5 +123,9 @@ public class TicketService implements ITicketService{
 	public int getTotalTicket()
 	{
 		return ticketDao.getTotalTicket();
+	}
+	@Override
+	public int getTotalBookedTicketByIdUser(int id) {
+		return ticketDao.getTotalBookedTicketByIdUser(id);
 	}
 }

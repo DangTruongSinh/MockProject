@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="../../common/taglib.jsp"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,32 +15,41 @@
 <body>
 	<%@include file="../../common/header.jsp"%>
 	<div class="container">
-  <h2>Basic Table</h2>
-  <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>            
+  <h2>List Bus</h2>         
   <table class="table">
     <thead>
       <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
+        <th>LicensePlate</th>
+        <th>PlaceStart</th>
+        <th>PlaceEnd</th>
+        <th>TimeStart</th>
+  		<th>EmptySeat</th>
+  		<th>Book</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
+   		<c:forEach var="item" items="${buss}">
+   			<tr>
+   				<td>${item.licensePlate}</td>
+	   			<td>${item.placeStart}</td>
+	   			<td>${item.placeEnd}</td>
+	   			<td>${item.getGioBatDau()}</td>
+	   			<td>${item.getNumberEmptySeat()}</td>
+	   			<td>
+	   				<c:if test="${item.getNumberEmptySeat() > 0 && item.getGioBatDau() ne ''
+	   				&& item.placeStart ne '' && item.placeEnd ne ''}">
+	   					<c:url var="book" value="/customer-ticket">
+	   						<c:param name="action" value = "ticket"/>
+	   						<c:param name="request" value="listseat" />
+	   						<c:param name="idbus" value="${item.idBus}" />
+	   					</c:url>
+	   					<a class="btn btn-sm btn-primary btn-edit" href="${book}">Book</a>
+	   				</c:if>
+	   			</td>
+	   			
+	  			
+   			</tr>
+   		</c:forEach>
     </tbody>
   </table>
 </div>

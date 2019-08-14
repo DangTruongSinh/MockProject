@@ -1,23 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../../common/taglib.jsp"%>
-    
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
 
   <!-- Link Swiper's CSS -->
-	<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/view/css/swiper.min.css">
-
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/swiper.min.css">
+  <script src="${pageContext.request.contextPath}/view/js/swiper.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/index.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-	<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/view/css/index.css">
+
 
   <!-- Demo styles -->
 
@@ -25,10 +22,10 @@
 
 <body>
 
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-defaul">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#" style="background-image: url(img/icon.png);background-size: cover"> </a>
+        <a class="navbar-brand" href="#" style="background-image: url(${pageContext.request.contextPath}/view/img/icon.PNG);background-size: cover"> </a>
 
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
@@ -49,37 +46,32 @@
       </div>
     </div>
   </nav>
-  <div class="jumbotron" id="slideshow">
-      <div>
-          <a type="button" id="sectionBtn" href="#sec1">Booking Ticket Now</a>
-      </div>
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div id="slide"  class="swiper-slide" ></div>
-        <div id="slide1" class="swiper-slide" ></div>
-        <div id="slide2" class="swiper-slide" ></div>
-        <div id="slide3" class="swiper-slide" ></div>
-        <div id="slide4" class="swiper-slide" ></div>
-      </div>
-      <div class="swiper-pagination"></div>
-    </div>
-    <div id="sec1"></div>
 
-  </div>
+
   <br>
-  <br>
-  <div id="ScrollImg" class="container section-1">
-    <div id="Img-background" class="container text-center">
-      <form action = "/QuanLyBus/customer-ticket">
-      	<div id="header-img" class="container">
+  <div class="jumbotron">
+    <!--------------------------header img containing Booking ticket form-------------------------------->
+
+
+    <div class="container text-center" id="brand-img"
+      style="background-image: url(${pageContext.request.contextPath}/view/img/brand-img.PNG);background-position: center;background-repeat: no-repeat;background-size: cover;">
+      <br>
+      <h1>Wellcome To HBUS</h1>
+      <h2>Lets Begin!</h2>
+
+
+       <!---------------------------Booking ticket form -------------------------------------------------->
+      <div id="header-img" class="container">
         <div id="diemkhoihanh">
           <label for="diemkhoihanh"><b>Điểm Khởi Hành :</b></label>
           <br>
           <input list="start-input" class="input-start" name="start-input">
           <datalist id="start-input">
-            <c:forEach var="item" items="${place}">
-            	<option value="${item}">
-            </c:forEach>
+            <option value="Bến Xe Miền Đông">
+            <option value="Ngã ba">
+            <option value="Ngã tư">
+            <option value="Ngã 5">
+            <option value="Ngã 6">
           </datalist>
         </div>
         <div id="diemden">
@@ -87,9 +79,11 @@
           <br>
           <input list="start-end" class="input-end" name="start-end">
           <datalist id="start-end">
-            <c:forEach var="item" items="${place}">
-            	<option value="${item}">
-            </c:forEach>
+            <option value="Đà Lạt">
+            <option value="Nha Trang">
+            <option value="Đà Nẵng">
+            <option value="Ngã 5">
+            <option value="Ngã 6">
           </datalist>
         </div>
         <div id="ngaykhoihanh">
@@ -106,165 +100,250 @@
           </button>
         </div>
       </div>
-      </form>
+      <!--------Booking ticket form end here------>
     </div>
+
+  </div>
   </div>
 
   <br>
-  <div id="Routes" class="jumbotron text-center ">
-      <div></div>
-      <div class="row fadein">
-      <h2>Favorite Car Routes </h2>
-        <div class="column">
-          <p><a>Hồ Chí Minh city to Đà Lạt</a></p>
-          <p><a>Hồ Chí Minh city to Nha Trang</a></p>
-          <p><a>Hồ Chí Minh city to Cần Thơ</a></p>
-          <p><a>Hồ Chí Minh city to Qui Nhơn</a></p>
-          <p><a>Hồ Chí Minh city to Quảng Ngãi</a></p>
-        </div>
-        <div class="column">
-          <p><a>Hồ Chí Minh city to Đà Nẵng</a></p>
-          <p><a>Hồ Chí Minh city to Phan Thiết</a></p>
-          <p><a>Hồ Chí Minh city to Vũng Tàu</a></p>
-          <p><a>Hồ Chí Minh city to Hà Nội</a></p>
-          <p><a>Hồ Chí Minh city to Huế</a></p>
-        </div>
-  
+
+  <!---------------------Welcome Fomr with icons------------------------->
+  <div id="services" class="container-fluid text-center">
+    <h2>Welcome to HBUS </h2>
+    <h4>We bring convenience to your trip</h4>
+    <br>
+    <div class="row slideanim">
+      <div class="col-sm-4">
+        <span class="glyphicon glyphicon-road logo-small"></span>
+        <h4>SAFE</h4>
+        <p>Ensure safety on each trip</p>
       </div>
-   
-    <div></div>
-    <div class="row fadein">
-        <h2>Famous Tourist Destination</h2>
-      <div id="columnImg1" class="column">
-        <p>Đà Lạt</p>
+      <div class="col-sm-4">
+        <span class="glyphicon glyphicon-time logo-small"></span>
+        <h4>FAST</h4>
+        <p>Quick ticket booking</p>
       </div>
-      <div id="ImgRow" class="column">
-        <p>Quảng Trường Lâm Viên nằm kế bên Hồ Xuân Hương, nơi đây thường là chỗ tụ tập của các
-           bạn trẻ đến vui chơi, ăn uống. Đặc biệt, 2 công trình nghệ thuật ấn tượng nhất ở đây
-           chính là khối hoa và búp hoa Dã Quỳ khổng lỗ giữa Quảng Trường.</p>
+      <div class="col-sm-4">
+        <span class="glyphicon glyphicon-lock logo-small"></span>
+        <h4>Profession</h4>
+        <p>Professional working style</p>
       </div>
     </div>
-
-    <hr>
-    
-    <div class="row fadein">
-        <div id="ImgRow" class="column">
-            <p>Suối Đổ là một trong những con suối đẹp nhất ở Nha Trang. Nơi đây có bầu không khí 
-              trong lành, mát mẻ, thích hợp với những du khách muốn tận hưởng không gian yên tĩnh 
-              trong chuyến du lịch của mình.</p>
-          </div>
-        <div id="columnImg2" class="column">
-          <p>Đà Lạt</p>
-        </div>
+    <br><br>
+    <div class="row slideanim">
+      <div class="col-sm-4">
+        <span class="glyphicon glyphicon-usd logo-small"></span>
+        <h4>Saving</h4>
+        <p>Save more with affordable fares</p>
       </div>
+      <div class="col-sm-4">
+        <span class="glyphicon glyphicon-thumbs-up logo-small"></span>
+        <h4>High Quality</h4>
+        <p> \Provide high-class cars with high quality</p>
+      </div>
+      <div class="col-sm-4">
+        <span class="glyphicon glyphicon-cutlery logo-small"></span>
+        <h4 style="color:#303030;">Service</h4>
+        <p>The service comes perfectly</p>
+      </div>
+    </div>
+  </div>
+<!------------------Welcome Fomr with icons end here------------------------>
 
-      <hr>
-      
-      <div class="row fadein">
-          <div id="columnImg3" class="column">
-            <p>Đà Lạt</p>
-          </div>
-          <div id="ImgRow" class="column">
-            <p>"Hai bàn tay bằng đá khổng lồ vươn ra từ dãy núi ở miền trung Việt Nam trông có vẻ già 
-              nua và giống như một tàn tích từ thời cổ đại. Nhưng bạn đừng bị đánh lừa. Đó là mạng lưới 
-              dây kim loại và sợi thủy tinh được dùng để hỗ trợ cho một cây cầu đi bộ đáng kinh ngạc vừa 
-              mới được khánh thành...", tạp chí Mỹ viết.</p>
-          </div>
-        </div>
+  <br>
+  <div class="jumbotron" id="TopDes">
+    <div style="background: #74A600;height: 200px;">
+      <h2>Top destinations </h2>
+      <p>Do you want to be inspired to travel? We have selected for you the destinations below.</p>
+    </div>
   </div>
 
-    <!-- Swiper JS -->
-    <script src="view/js/swiper.min.js"></script>
+<!--------------------------destinations-------------------------------->
+  <div id="portfolio" class="container-fluid text-center bg-grey">
+    <div class="row text-center slideanim">
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <img src="${pageContext.request.contextPath}/view/img/img1.png" alt="Paris" width="400" height="300">
+          <div class="centered">
+          <h3><strong>Đà Lạt</strong></h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <img src="${pageContext.request.contextPath}/view/img/img2.png" alt="New York" width="400" height="300">
+          <div class="centered">
+          <h3><strong>Nha Trang</strong><h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <img src="${pageContext.request.contextPath}/view/img/img3.jfif" alt="San Francisco" width="400" height="300">
+          <div class="centered">
+          <h3><strong>Đà Nẵng</strong></h3>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div id="portfolio" class="container-fluid text-center bg-grey">
+      <div class="row text-center slideanim">
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="${pageContext.request.contextPath}/view/img/img4.png" alt="Paris" width="400" height="300">
+            <div class="centered">
+            <h3><strong>Ninh Bình</strong></h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="${pageContext.request.contextPath}/view/img/img5.png" alt="New York" width="400" height="300">
+            <div class="centered">
+            <h3><strong>Phan Thiết</strong></h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="${pageContext.request.contextPath}/view/img/img6.png" alt="San Francisco" width="400" height="300">
+            <div class="centered">
+            <h3><strong>Hội An</strong></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!------------destinations end here----------------->
 
-    <!-- Initialize Swiper -->
-    <script>
-      var swiper = new Swiper('.swiper-container', {
-        effect: 'coverflow',
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: 'auto',
-        coverflowEffect: {
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        },
-        pagination: {
-          el: '.swiper-pagination',
-        },
-      });
-    </script>
-    <!-- Fadein jquery + js -->
-    <script>
-      $(document).ready(function () {
-        $(window).scroll(function () {
-          $('.fadein').each(function (i) {
 
-            var bottom_of_element = $(this).offset().top + $(this).outerHeight();
-            var bottom_of_window = $(window).scrollTop() + $(window).height();
 
-            if (bottom_of_window > bottom_of_element) {
-              $(this).animate({ 'opacity': '1' }, 1000);
-            }
-
-          });
-        });
-      });
-      $(window).scroll(function () {
-        $(".slideanim").each(function () {
-          var pos = $(this).offset().top;
-
-          var winTop = $(window).scrollTop();
-          if (pos < winTop + 600) {
-            $(this).addClass("slide");
-          }
-        });
-      });
-    </script>
+  <div class="jumbotron" id="TopDes">
+    <div style="background: #9A4542;height: 200px;">
+      <h2>High quality car staging </h2>
+      <p>Ensuring comfort , safety and comfort for customers</p>
+    </div>
+  </div>
 
 
 
-
-    <!---------->
-
-
+  <!------------------------slideshow-------------------------------->
+  <div class="jumbotron" id="slideshow">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-image:url(${pageContext.request.contextPath}/view/img/imgslide3.png)"></div>
+        <div class="swiper-slide" style="background-image:url(${pageContext.request.contextPath}/view/img/imgslide1.png)"></div>
+        <div class="swiper-slide" style="background-image:url(${pageContext.request.contextPath}/view/img/imgslide2.png)"></div>
+        <div class="swiper-slide" style="background-image:url(${pageContext.request.contextPath}/view/img/imgslide.png)"></div>
+        <div class="swiper-slide" style="background-image:url(${pageContext.request.contextPath}/view/img/imgslide4.png)"></div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+    <p>   Draw To View </p>
+  </div>
+    <!------------------------slideshow end here---------------------->
+  <br>
+  <br>
 
 </body>
 <footer class="page-footer font-small teal pt-4">
 
-    <!-- Footer Text -->
-    <div class="container-fluid text-center text-md-left">
-  
-      <!-- Grid row -->
-      <div class="row">
-  
-        <!-- Grid column -->
-        <div class="col-md-6 mt-md-0 mt-3">
-  
-          <!-- Content -->
-          <h4 class="text-uppercase font-weight-bold"><strong>About Us</strong></h4>
-          <p>FaceBook : Huynhtin</p>
-          <p>Gmail: tinanhtom02@gmail.com</p>
-  
-        </div>  
-        <!-- Grid column -->
-        <div class="col-md-6 mb-md-0 mb-3">
-  
-          <!-- Content -->
-          <h4 class="text-uppercase font-weight-bold"><strong></strong></h4>
-          <p>© Công ty TNHH Easybook.com 2006-2019. Đã Đăng Ký Bản Quyền</p>
-          <p>Giấy phép TA: 02152</p>
-          <p>Giấy phép số: KPK/LN:6768</p>
-          <p>Địa chỉ IP của bạn: 1.54.57.180</p> 
-  
-        </div>
-        <!-- Grid column -->
-  
+  <!-- Footer Text -->
+  <div class="container-fluid text-center text-md-left">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-4 mt-md-0 mt-4 " >
+
+        <!-- Content -->
+        <h5 class="text-uppercase font-weight-bold "><strong>THÔNG TIN</strong></h5>
+        <p>Về Chúng Tôi</p>
+        <p>Danh sách nhà vận chuyển</p>
+        <p>Trợ giúp</p>
+        <p>Blog</p>
+
       </div>
-      <!-- Grid row -->
-  
+      <!-- Grid column -->
+      <div class="col-md-2 mb-md-0 mb-4">
+
+        <!-- Content -->
+        <h5 class="text-uppercase font-weight-bold"><strong>THEO DÕI CHÚNG TÔI</strong></h5>
+        <p><a>FaceBook</a></p>
+        <p><a>Instagram</a></p>
+        <p><a>Twitter</a></p>
+      </div>
+      <div class="col-md-6 mt-md-0 mt-4 " >
+        <div class="icon-footer"></div>
+        <br>
+        <h5  class="font-weight-bold ">Your pleasure is our happiness</h5>
+      </div>
+      <!-- Grid column -->
+
     </div>
-    <!-- Footer Text -->
-  </footer>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Text -->
+
+
+
+</footer>
+<!-- Swiper JS -->
+
+
+<!-- Initialize Swiper -->
+<script>
+  var swiper = new Swiper('.swiper-container', {
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+    },
+  });
+</script>
+<!-- Fadein jquery + js -->
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      $('.fadein').each(function (i) {
+
+        var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+        var bottom_of_window = $(window).scrollTop() + $(window).height();
+
+        if (bottom_of_window > bottom_of_element) {
+          $(this).animate({ 'opacity': '1' }, 1000);
+        }
+
+      });
+    });
+  });
+  $(window).scroll(function () {
+    $(".slideanim").each(function () {
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+      if (pos < winTop + 600) {
+        $(this).addClass("slide");
+      }
+    });
+  });
+</script>
+
+
+
+
+<!---------->
 </html>

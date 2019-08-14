@@ -48,5 +48,10 @@ public class SeatService implements ISeatService{
 	public boolean deleteSeatModel(int id) {
 		return seatDao.deleteSeatModel(id) == 1 ? true : false;
 	}
+	@Override
+	public boolean setStatusSeat(int id, boolean value) {
+		// TODO Auto-generated method stub
+		return seatDao.setStatusSeat(id, value) == 1 ? true : false;
+	}
 
 }

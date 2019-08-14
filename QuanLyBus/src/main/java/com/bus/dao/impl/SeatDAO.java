@@ -38,5 +38,10 @@ public class SeatDAO extends AbstractDAO<SeatModel> implements ISeatDAO {
 		String sql = "delete from seat where IDSeat = ?";
 		return delete(sql, id);
 	}
+	@Override
+	public int setStatusSeat(int id, boolean value) {
+		String sql = "UPDATE seat SET Status = ? WHERE IDSeat=?";
+		return update(sql, value,id);
+	}
 	
 }

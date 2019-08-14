@@ -10,4 +10,5 @@ public interface ISeatService {
 	SeatModel findOneByIdSeat(int id);
 	SeatModel insertSeatModel(SeatModel seatModel);
 	boolean deleteSeatModel(int id);
+	boolean setStatusSeat(int id,boolean value);
 }
