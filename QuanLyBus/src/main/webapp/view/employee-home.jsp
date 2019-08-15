@@ -136,7 +136,7 @@
 											<th>Phone</th>
 											<th>Price</th>
 											<th>Status</th>
-											<th>Edit</th>
+											<th>Cancel</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -150,14 +150,26 @@
 													<td>${item.accModel.fullName}</td>
 													<td>${item.accModel.phone}</td>
 													<td>${item.price}</td>
-													<td>${item.status}</td>
-													<td><c:url var="editURL" value="/employee-account">
-															<c:param name="action" value="edit" />
+													<td><c:url var="updateStatusURL"
+															value="/employee-account">
+															<c:param name="action" value="updateStatus" />
+															<c:param name="username" value="${item.accModel.userName}" />
+															<c:param name="IDTICKETUPDATE" value="${item.idTicket}" />
+														</c:url>
+														<script> alert("${item.idTicket}")</script>
+														<button type="button" class="btn btn-primary btn-success"
+															data-toggle="modal" data-target="#updateStatusModal">${item.status}</button>
+												
+													</td>
+													<td><c:url var="cancelURL" value="/employee-account">
+															<c:param name="action" value="cancel" />
 															<c:param name="username"
 																value="${item.accModel.userName}" />
-															<c:param name="IDTICKET" value="${item.idTicket}" />
-														</c:url> <a class="btn btn-sm btn-primary btn-edit"
-														href="${editURL}">Edit</a></td>
+															<c:param name="IDTICKETCANCEL" value="${item.idTicket}" />
+														</c:url>
+														<button type="button" class="btn btn-primary btn-danger"
+															data-toggle="modal" data-target="#cancelModal">Cancel</button>
+													</td>
 												</tr>
 											</c:forEach>
 										</c:if>
@@ -166,7 +178,6 @@
 								</table>
 								<input type="hidden" id="curentPage" name="curentPage" value="">
 							</form>
-
 						</div>
 						<!-- paging -->
 						<div class="container" id="pagingdiv" style="margin-top: 20px">
@@ -195,10 +206,6 @@
 	</div>
 	<!-- /#wrapper -->
 
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
 
 	<!-- Logout Modal-->
 	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
@@ -217,11 +224,61 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
+					<a class="btn btn-primary" href="#">Logout</a>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<!--cancel Modal -->
+	<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Cancel ticket</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">Do you want cancel this ticket ?</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">No</button>
+					<a ><button type="button"
+							class="btn btn-primary">Yes</button></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--update status Modal -->
+	<div class="modal fade" id="updateStatusModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Update ticket
+						status</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">Do you want update ticket status ?</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">No</button>
+					<a >
+						<button type="button" class="btn btn-primary">Yes</button>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 
 	<!-- paging script -->
 	<script type="text/javascript">

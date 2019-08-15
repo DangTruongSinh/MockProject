@@ -22,7 +22,8 @@ public class AccountController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
 		String username = req.getParameter("username");
-		String IDTICKET=req.getParameter("IDTICKET");
+		String IDTICKETUPDATE=req.getParameter("IDTICKETUPDATE");
+		String IDTICKETCANCEL=req.getParameter("IDTICKETCANCEL");
 		TicketService ticketService=new TicketService();
 		AccountService accService=new AccountService();
 		if (action == null || username.equals("")) {
@@ -46,9 +47,13 @@ public class AccountController extends HttpServlet {
 			RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/employee-home.jsp");
 			rDispatcher.forward(req, resp);
 		}
-		else if(action.equals("edit"))
+		else if(action.equals("updateStatus"))
 		{
-						
+			System.out.println(IDTICKETUPDATE);
+		}
+		else if(action.equals("cancel"))
+		{
+			System.out.println(IDTICKETCANCEL);
 		}
 		
 	}
