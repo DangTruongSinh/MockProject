@@ -49,4 +49,41 @@ public class SeatService implements ISeatService{
 		return seatDao.deleteSeatModel(id) == 1 ? true : false;
 	}
 
+	@Override
+	public int totalAvailableSeats (int idBus) {
+		List<SeatModel> seatModel=seatDao.findAllbyIDBus(idBus);
+		int Count=0;
+		for(SeatModel x:seatModel)
+		{
+			if(!x.isStatus()) {
+				Count++;
+			}
+		}
+		return Count;
+	}
+	
+
+	@Override
+	public List<SeatModel> findAllAvailableSeatsByIdBus(int idBus) {
+		List<SeatModel> seatModel=seatDao.findAllbyIDBus(idBus);
+		List<SeatModel> AvailableSeats= new ArrayList<SeatModel>();
+		for( SeatModel x:seatModel) {
+			if(!x.isStatus()) {
+				AvailableSeats.add(x);
+			}
+		}
+		return AvailableSeats;
+	}
+	@Override
+	public boolean updateSeatStatus(int idSeat) {
+		SeatModel seatupdate = seatDao.findOneByIdSeat(idSeat);
+		if(seatupdate.isStatus()) {
+			seatupdate.setStatus(false);
+			seatDao.updateSeatModel(seatupdate);
+		}else {
+			seatupdate.setStatus(true);
+			seatDao.updateSeatModel(seatupdate);
+		}
+		return true;
+	}
 }
