@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="E:\projectchinhsua\cuoikhoa"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -13,6 +14,7 @@
 		</list>
 	</section>
 	<section name="MavenProjectWizardArchetypePage">
+		<item key="catalog" value="All Catalogs"/>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
 			<item value="[artifactId]-TRUNK"/>
@@ -48,7 +50,8 @@
 		<list key="name">
 		</list>
 		<list key="artifactId">
-			<item value="QuanLyBus"/>
+			<item value="mockproject"/>
+			<item value="cuoikhoa"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -60,6 +63,7 @@
 		</list>
 		<list key="version">
 			<item value="1.0"/>
+			<item value="0.0.1-SNAPSHOT"/>
 		</list>
 	</section>
 	<section name="org.eclipse.m2e.core.pom.overview">

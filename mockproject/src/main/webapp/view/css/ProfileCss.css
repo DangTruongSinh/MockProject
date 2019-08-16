@@ -1,0 +1,28 @@
+
+.navbar{
+    margin-bottom: 0;
+    padding: 0 50px 0 50px ;
+    background-color: #fff;
+    font-family: nexa_rust_sansblack, helvetica, arial, sans-serif;
+    height: 70px;
+    border: unset;
+  }
+  @media (min-width: 768px){
+  .navbar-nav>li>a {
+    margin-top:15px;
+  }
+  }
+  .navbar-brand{
+  padding :35px;
+  }
+  .container{
+    background-color:  rgba(56, 57, 59, 0.6);
+    color: #fff;
+    margin-top: 50px;
+  }
+  .col-sm-9 li a{
+    color: #fff;
+  }
+  .col-sm-9 li a:hover{
+    color: #000;
+  }
