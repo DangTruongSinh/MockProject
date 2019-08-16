@@ -9,6 +9,15 @@ public class BusModel extends AbstractModel{
 	private Timestamp timeEnd;
 	private String placeStart;
 	private String placeEnd;
+	private SeatModel Seat;
+	public SeatModel getSeat() {
+		return Seat;
+	}
+
+	public void setSeat(SeatModel seat) {
+		Seat = seat;
+	}
+
 	public BusModel()
 	{
 		
