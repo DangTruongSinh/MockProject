@@ -18,7 +18,6 @@ public class AccountUtil {
 		String fullName = req.getParameter("fullname");
 		String phone = req.getParameter("phone");
 		String ngaySinh = req.getParameter("ngaysinh");
-		
 		SimpleDateFormat sdfFormat = new SimpleDateFormat("yyyy-mm-dd");
 		try {
 			Date date = sdfFormat.parse(ngaySinh);
