@@ -19,6 +19,10 @@
 -- Table structure for table `account`
 --
 
+DROP DATABASE IF EXISTS hbus;
+create database hbus;
+use hbus;
+
 DROP TABLE IF EXISTS `account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
