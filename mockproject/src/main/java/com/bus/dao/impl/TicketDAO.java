@@ -29,10 +29,10 @@ public class TicketDAO extends AbstractDAO<TicketModel> implements ITicketDAO{
 	
 	@Override
 	public int insertTicketModel(TicketModel tickModel) {
-		String sql = "INSERT INTO ticket(IDBus, IDSeat, IDUser, Status, Price, UserCreate, UserUpdate,DateCreate) VALUES (?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO ticket(IDBus, IDSeat, IDUser, Status, Price, UserCreate, UserUpdate,DateCreate,DepartDate) VALUES (?,?,?,?,?,?,?,?,?)";
 		
 		return insert(sql,tickModel.getIdBus(),tickModel.getIdSeat(),tickModel.getIdUser(),tickModel.isStatus(),
-				tickModel.getPrice(),tickModel.getUserCreate(),tickModel.getUserUpdate(),tickModel.getDateCreate());
+				tickModel.getPrice(),tickModel.getUserCreate(),tickModel.getUserUpdate(),tickModel.getDateCreate(),tickModel.getDepartDate());
 	}
 	@Override
 	public int updateTicketModel(TicketModel tickModel) {
@@ -69,9 +69,9 @@ public class TicketDAO extends AbstractDAO<TicketModel> implements ITicketDAO{
 		return getTotalItem(sql);
 	}
 	@Override
-	public int getTotalBookedTicketByIdUser(int id) {
-		String sql = "select count(*) from ticket where IDUser = ?"; 
-		return getTotalItem(sql, id);
+	public int getTotalBookedTicketByIdUserAndIdBusAndDate(int idUser,int idBus,String date) {
+		String sql = "select count(*) from ticket where IDUser = ? and IDBus = ? and DepartDate = ?"; 
+		return getTotalItem(sql, idUser,idBus,date);
 	}
 	@Override
 	public int updateStatusTicket(int id) {

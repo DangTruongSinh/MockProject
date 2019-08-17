@@ -87,9 +87,14 @@ public class BusService implements IBusService {
 		return null;
 	}
 
+	public static void main(String[] args) {
+		PlaceModel place = new PlaceDAO().findPlaceByPlace("Hồ Chí Minh", "Hồ Chí Minh");
+		System.out.println(place);
+	}
 	@Override
 	public List<BusModel> findAllBusByPlace(String start, String end, String date) {
 		PlaceModel place = new PlaceDAO().findPlaceByPlace(start, end);
+		System.out.println("place:"+place);
 		if(place != null)
 		{
 			List<Integer> listIdBus = new BusPlaceDAO().findAllIDBusByIdPlace(place.getIdPlace());

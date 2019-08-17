@@ -25,6 +25,7 @@
 					<th>Seat</th>
 					<th>PlaceStart</th>
 					<th>PlaceEnd</th>
+					<th>DepartDate</th>
 					<th>TimeStart</th>
 					<th>TimeEnd</th>
 					<th>DateBook</th>
@@ -41,6 +42,7 @@
 						<td>${item.seat.name}</td>
 						<td>${item.place.startPlace}</td>
 						<td>${item.place.stopPlace}</td>
+						<td>${item.departDate}</td>
 						<td>${item.place.getTimeStart()}</td>
 						<td>${item.place.getTimeEnd()}</td>
 						<td>${item.dateCreate}</td>

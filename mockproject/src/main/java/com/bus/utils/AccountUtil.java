@@ -18,6 +18,7 @@ public class AccountUtil {
 		String fullName = req.getParameter("fullname");
 		String phone = req.getParameter("phone");
 		String ngaySinh = req.getParameter("ngaysinh");
+		
 		SimpleDateFormat sdfFormat = new SimpleDateFormat("yyyy-mm-dd");
 		try {
 			Date date = sdfFormat.parse(ngaySinh);
@@ -30,8 +31,14 @@ public class AccountUtil {
 			accModel.setIdRole(3);
 			accModel.setUserCreate("");
 			accModel.setUserUpdate("");
+			accModel.setDateCreate(new Timestamp(System.currentTimeMillis()));
 			if (accountHeThong != null)
-				accModel.setUserCreate(accountHeThong.getUserName());
+				{
+					accModel.setUserCreate(accountHeThong.getUserName());
+					String role = req.getParameter("idRole");
+					int idRole = Integer.parseInt(role);
+					accModel.setIdRole(idRole);
+				}
 			return acService.insertAccountModel(accModel);
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -42,21 +49,26 @@ public class AccountUtil {
 	public static void update(HttpServletRequest req, HttpServletResponse resp, int idRole) {
 		AccountModel userHeThong = (AccountModel) req.getSession().getAttribute("account");
 		AccountModel account = new AccountModel();
-		account.setIdUser(Integer.parseInt(req.getParameter("idUser")));
+		String idUser = req.getParameter("idUser");
+		System.out.println("idUser :"+idUser);
+		account.setIdUser(Integer.parseInt(idUser));
 		if(idRole == 3)	
 			account.setIdRole(idRole);
 		else
 			account.setIdRole(Integer.parseInt(req.getParameter("idRole")));
-		account.setFullName(req.getParameter("fullName"));
-		account.setPassword(req.getParameter("password"));
-		account.setPhone(req.getParameter("phone"));
+		String fullName = req.getParameter("fullName");
+		account.setFullName(fullName);
+		String password =req.getParameter("password");
+		account.setPassword(password);
+		String phone = req.getParameter("phone");
+		account.setPhone(phone);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
 		account.setUserUpdate(userHeThong.getUserName());
 		Date date;
 		try {
 			date = format.parse(req.getParameter("dateBirth"));
-			System.out.println("date:"+date);
 			account.setDateBirth(new Timestamp(date.getTime()));
+			account.setDateUpdate(new Timestamp(System.currentTimeMillis()));
 			AccountModel accountNew = new AccountService().updateAccountModel(account);
 			if (accountNew != null) {
 				if (userHeThong.getUserName().equals(accountNew.getUserName())

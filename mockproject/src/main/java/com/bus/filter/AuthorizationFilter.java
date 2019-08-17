@@ -28,6 +28,7 @@ public class AuthorizationFilter implements Filter {
 		String url = request.getRequestURI();
 		AccountModel account = (AccountModel) request.getSession().getAttribute("account");
 		AccountModel result = null;
+		
 		if (account != null)
 			result = new AccountService().checkLogin(account.getUserName(), account.getPassword());
 		if (url.contains("/admin"))

@@ -111,16 +111,10 @@ public class TicketService implements ITicketService{
 		{
 			for(TicketModel x : list)
 			{
-				System.out.println(x.getIdTicket());
 				BusModel busModel = busDao.findOneByIdBus(x.getIdBus());
-				System.out.println(busModel.getLicensePlate());
 				SeatModel seatModel = seatDao.findOneByIdSeat(x.getIdSeat());
-				System.out.println(seatModel.getName());
-				System.out.println(seatModel.getIdPlace());
 				AccountModel accModel=accDAO.findOneByIDModel(x.getIdUser());
-				System.out.println(accModel.getUserName());
 				PlaceModel place = new PlaceDAO().findPlaceModel(seatModel.getIdPlace());
-				System.out.println(place.getStartPlace());
 				x.setPlace(place);
 				x.setSeat(seatModel);
 				x.setBus(busModel);
@@ -135,8 +129,8 @@ public class TicketService implements ITicketService{
 		return ticketDao.getTotalTicket();
 	}
 	@Override
-	public int getTotalBookedTicketByIdUser(int id) {
-		return ticketDao.getTotalBookedTicketByIdUser(id);
+	public int getTotalBookedTicketByIdUserAndIdBusAndDate(int idUser,int idBus,String date) {
+		return ticketDao.getTotalBookedTicketByIdUserAndIdBusAndDate(idUser,idBus,date);
 	}
 	@Override
 	public boolean updateStatusTicket(int id) {

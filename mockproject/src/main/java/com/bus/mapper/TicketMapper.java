@@ -2,6 +2,8 @@ package com.bus.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+
 import com.bus.model.TicketModel;
 
 public class TicketMapper implements IRowMapper<TicketModel>{
@@ -21,7 +23,8 @@ public class TicketMapper implements IRowMapper<TicketModel>{
 			tickModel.setDateUpdate(resultSet.getTimestamp("DateUpdate"));
 			tickModel.setUserCreate(resultSet.getString("UserCreate"));
 			tickModel.setUserUpdate(resultSet.getString("UserUpdate"));
-			
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			tickModel.setDepartDate(format.format(resultSet.getDate("DepartDate")));
 		
 			return tickModel;
 		} catch (SQLException e) {

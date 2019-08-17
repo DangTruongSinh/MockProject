@@ -1,0 +1,181 @@
+body {
+  font-family: "Lato", sans-serif;
+  background: aliceblue;
+}
+
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+.pagination {
+    
+    padding-left: 824px;
+   
+}
+#sticky-footer {
+  flex-shrink: none;
+}
+
+
+fieldset {
+         padding: 86px;
+    padding-top: 5px;
+    margin-right: 329px;
+  
+}
+
+
+@keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 100% 0; }
+}
+@-webkit-keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 100% 0; }
+}
+@-ms-keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 100% 0; }
+}
+@-moz-keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 100% 0; }
+}
+
+#animate-area	{ 
+	
+	    margin-left: -78px;
+    margin-top: -238px;
+    width: 114%;
+    height: 200px;
+	background-image: url(../img/bg-clouds.png);
+	background-position: 0px 0px;
+	background-repeat: repeat-x;
+ 
+	animation: animatedBackground 40s linear infinite;
+	-ms-animation: animatedBackground 40s linear infinite;
+	-moz-animation: animatedBackground 40s linear infinite;
+	-webkit-animation: animatedBackground 40s linear infinite;
+}
+legend {
+    text-align: center;
+}
+.content-table
+{
+          margin-left: 155px;
+}
+img {
+      
+   
+    margin-left: 15px;
+ 
+}
+.text-center {
+   padding-top: 29px;
+}
+.form-horizontal .control-label {
+    font-family: cursive;
+  
+}
+.h2, h2 {
+    text-align: center;
+}
+.container {
+    text-align: center;
+    
+}
+
+#message {
+  display:none;
+  background: transparent;
+    color: #000;
+    float: left;
+    position: fixed;
+    margin-left: 279px;
+    padding: 5px;
+    margin-top: -44px;
+    height: 268px;
+}
+h3 {
+    font-size: 14.5px;
+}
+#message p {
+ padding: 0px 39px;
+    font-size: 13px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input
+{
+	    height: 30px;
+    width: 203px;
+}
+.btn-success {
+  width: 94px;
+    height: 31px;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+.controls
+{
+  float: right;
+}
+
+
+
+
+
+
+
+

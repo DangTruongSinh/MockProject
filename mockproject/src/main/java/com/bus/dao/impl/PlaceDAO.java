@@ -20,7 +20,8 @@ public class PlaceDAO extends AbstractDAO<PlaceModel> implements IPlaceDAO {
 	@Override
 	public PlaceModel findPlaceByPlace(String start, String end) {
 		String sql = "select * from place where StartPlace = ? and StopPlace = ?";
-		return query(sql, new PlaceMapper(), start, end).get(0);
+		List<PlaceModel> list = query(sql, new PlaceMapper(), start, end);
+		return list.size() > 0 ? list.get(0) : null;
 	}
 	
 }

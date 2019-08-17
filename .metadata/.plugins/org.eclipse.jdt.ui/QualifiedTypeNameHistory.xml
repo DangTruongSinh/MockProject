@@ -11,8 +11,6 @@
     <fullyQualifiedTypeName name="com.bus.service.imp.PlaceService"/>
     <fullyQualifiedTypeName name="com.bus.service.imp.BusService"/>
     <fullyQualifiedTypeName name="com.bus.mapper.SeatMapper"/>
-    <fullyQualifiedTypeName name="java.sql.Date"/>
-    <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
     <fullyQualifiedTypeName name="com.bus.dao.IBusPlaceDAO"/>
     <fullyQualifiedTypeName name="com.bus.model.BusPlaceModel"/>
     <fullyQualifiedTypeName name="com.bus.mapper.BusPlaceMapper"/>
@@ -23,10 +21,15 @@
     <fullyQualifiedTypeName name="com.bus.dao.impl.BusDAO"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="com.bus.model.BusModel"/>
-    <fullyQualifiedTypeName name="com.bus.model.PlaceModel"/>
-    <fullyQualifiedTypeName name="com.bus.dao.impl.PlaceDAO"/>
     <fullyQualifiedTypeName name="com.bus.service.imp.TicketService"/>
     <fullyQualifiedTypeName name="com.bus.model.TicketModel"/>
     <fullyQualifiedTypeName name="java.sql.Time"/>
+    <fullyQualifiedTypeName name="java.sql.Timestamp"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+    <fullyQualifiedTypeName name="com.bus.dao.impl.PlaceDAO"/>
+    <fullyQualifiedTypeName name="com.bus.model.PlaceModel"/>
+    <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
     <fullyQualifiedTypeName name="java.lang.Integer"/>
 </qualifiedTypeNameHistroy>

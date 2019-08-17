@@ -25,15 +25,15 @@ public class AccountDAO  extends AbstractDAO<AccountModel> implements IAccountDA
 	
 	@Override
 	public int insertAccountModel(AccountModel accModel) {
-		String sql = "INSERT INTO account(IDRole, UserName, Password, FullName, Phone, DateBirth, UserCreate,UserUpdate) VALUES (?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO account(IDRole, UserName, Password, FullName, Phone, DateBirth, UserCreate,UserUpdate,DateCreate) VALUES (?,?,?,?,?,?,?,?,?)";
 		return insert(sql,accModel.getIdRole(),accModel.getUserName(),accModel.getPassword(),accModel.getFullName(),accModel.getPhone(),
-				accModel.getDateBirth(),accModel.getUserCreate(),accModel.getUserUpdate());
+				accModel.getDateBirth(),accModel.getUserCreate(),accModel.getUserUpdate(),accModel.getDateCreate());
 	}
 	@Override
 	public int updateAccountModel(AccountModel accModel) {
-		String sql = "UPDATE account SET IDRole=?, Password =?, FullName=?, Phone=?,DateBirth=?,UserUpdate=? WHERE IDUser = ?";
+		String sql = "UPDATE account SET IDRole=?, Password =?, FullName=?, Phone=?,DateBirth=?,UserUpdate=?, DateUpdate = ? WHERE IDUser = ?";
 		return update(sql,accModel.getIdRole(),accModel.getPassword(),accModel.getFullName(),
-				accModel.getPhone(),accModel.getDateBirth(),accModel.getUserUpdate(),accModel.getIdUser());
+				accModel.getPhone(),accModel.getDateBirth(),accModel.getUserUpdate(),accModel.getDateUpdate(),accModel.getIdUser());
 	}
 	@Override
 	public int deleteAccountModel(int id) {

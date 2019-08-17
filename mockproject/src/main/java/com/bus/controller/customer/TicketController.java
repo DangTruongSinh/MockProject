@@ -50,7 +50,9 @@ public class TicketController extends HttpServlet {
 				String start = req.getParameter("startPlace");
 				String end = req.getParameter("endPlace");
 				String date = req.getParameter("date");
+				System.out.println(start+"-"+end+"-"+date);
 				List<BusModel> listBus = new BusService().findAllBusByPlace(start, end,date);
+				System.out.println("listbus:"+listBus);
 				if(listBus!=null)
 					{
 						req.setAttribute("buss", listBus);
@@ -61,14 +63,14 @@ public class TicketController extends HttpServlet {
 			} else if (request.equals("listseat")) {
 				RequestDispatcher rq = req.getRequestDispatcher("/view/customer-book-seat.jsp");
 				int idBus = Integer.parseInt(req.getParameter("idbus"));
-				int soluong = new TicketService().getTotalBookedTicketByIdUser(account.getIdUser());
 				String date = req.getParameter("date");
+				int soluong = new TicketService().getTotalBookedTicketByIdUserAndIdBusAndDate(account.getIdUser(),idBus,date);
+				System.out.println("so luong:"+soluong);
 				String startPlace = req.getParameter("startPlace");
 				String stopPlace = req.getParameter("stopPlace");
 				String timeStart = req.getParameter("timeStart");
 				String timeEnd = req.getParameter("timeEnd");
 				BusModel bus = new BusService().findOneByIdBus(idBus,startPlace,stopPlace,date);
-				System.out.println(bus.getPlace().getPrice()+" price");
 				req.setAttribute("bus", bus);
 				req.setAttribute("date", date);
 				req.setAttribute("slvedadat", soluong);
@@ -81,12 +83,11 @@ public class TicketController extends HttpServlet {
 			} else if (request.equals("book")) {
 				int idBus = Integer.parseInt(req.getParameter("idbus"));
 				String strListBookedSeat = req.getParameter("listBookedSeat");
+				String departDate = req.getParameter("date");
 				String arrListBookedSeat[] = strListBookedSeat.split(",");
-				System.out.println("idBus:"+idBus);
-				for(String x : arrListBookedSeat)
-					System.out.println(x);
 				String price = req.getParameter("price");
-				if (arrListBookedSeat.length > 0) {
+				System.out.println("date:"+departDate);
+				if (arrListBookedSeat.length > 0	) {
 					for (String x : arrListBookedSeat) {
 						TicketModel ticketModel = new TicketModel();
 						ticketModel.setIdBus(idBus);
@@ -96,8 +97,9 @@ public class TicketController extends HttpServlet {
 						ticketModel.setPrice(price);
 						ticketModel.setDateCreate(new Timestamp(System.currentTimeMillis()));
 						ticketModel.setUserCreate(account.getUserName());
+						ticketModel.setDepartDate(departDate);
 						TicketModel ticket = new TicketService().insertTicketModel(ticketModel);
-						System.out.println(ticket);
+						System.out.println("model:"+ticket);
 					}
 					
 					resp.sendRedirect("/mockproject/customer-ticket?action=viewTicked");

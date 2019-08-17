@@ -8,7 +8,7 @@ body {
   box-sizing: border-box;
 }
 
-.row {
+.row1 {
   display: -ms-flexbox; /* IE10 */
   display: flex;
   -ms-flex-wrap: wrap; /* IE10 */
@@ -39,6 +39,7 @@ body {
 
 
 .container {
+  width: 99%;
   background-color: #f2f2f2;
   padding: 5px 20px 15px 20px;
   border: 1px solid lightgrey;
@@ -62,10 +63,6 @@ input[type=text] {
   border-radius: 3px;
 }
 
-label {
-  margin-bottom: 10px;
-  display: block;
-}
 
 .icon-container {
 margin-bottom: 12px;
@@ -118,4 +115,16 @@ span.price {
   }
 }
 
-
+.modal-content {
+   
+    background-color: #f2f2f2;
+    
+}
+label {
+  margin-bottom: 10px;
+  display: block;
+}
+.btn:focus {
+    color: #fff;
+    text-decoration: none;
+}

@@ -279,6 +279,7 @@
             <input type = "hidden" name ="idbus" value = "${idbus}">
             <input type = "hidden" name ="listBookedSeat" id = "listBookedSeat">
             <input type="hidden" name = "price" value = "${bus.place.price}">
+            <input type="hidden" name="date" value = "${date}">
             <button type="submit" class="btn btn-primary" id = "btnBook" style="margin-left: 20px">Đặt vé</button>
           </form>
         </div>        

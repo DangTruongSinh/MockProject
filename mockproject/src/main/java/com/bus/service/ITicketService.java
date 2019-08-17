@@ -16,6 +16,6 @@ public interface ITicketService {
 	List<TicketModel> findAllbyIDBus(int id);
 	TicketModel findOneByIDSeat(int id);
 	int getTotalTicket();
-	int getTotalBookedTicketByIdUser(int id);
+	int getTotalBookedTicketByIdUserAndIdBusAndDate(int idUser,int idBus,String date);
 	boolean updateStatusTicket(int id);
 }

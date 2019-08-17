@@ -63,6 +63,7 @@ public class AccountController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
+		System.out.println("action:"+action);
 		req.setAttribute("myAccount", req.getSession().getAttribute("account"));
 		if(action.equals("update"))
 		{
@@ -72,6 +73,7 @@ public class AccountController extends HttpServlet {
 		{
 			AccountModel admin = (AccountModel) req.getSession().getAttribute("account");
 			AccountModel accModel = AccountUtil.register(req, new AccountService(),admin);
+			System.out.println("account:"+accModel);
 			if(accModel != null)
 			{
 				List<AccountModel> list = new ArrayList<AccountModel>();

@@ -22,7 +22,7 @@
 				<div class="col-md-3 col-sm-6 col-xs-12 row-container">
 					<form action="/mockproject/dang-nhap?action=login" method="post">
 						<c:if test="${not empty message}">
-							<div class="alert alert-${alert}">${message}</div>
+							<div class="alert alert-${alert}" style="text-align: center;">${message}</div>
 						</c:if>
 						<div class="titlelogin">
 							<div class="icon" style="background-image: url(${pageContext.request.contextPath}/view/img/icon.png)"></div>

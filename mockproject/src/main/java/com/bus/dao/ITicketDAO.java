@@ -15,6 +15,6 @@ public interface ITicketDAO extends IGenericDAO<TicketModel>{
 	List<TicketModel> findAllbyIDBus(int id);
 	TicketModel findOneByIDSeat(int id);
 	int getTotalTicket();
-	int getTotalBookedTicketByIdUser(int id);
+	int getTotalBookedTicketByIdUserAndIdBusAndDate(int idUser,int idBus,String date);
 	int updateStatusTicket(int id);
 }

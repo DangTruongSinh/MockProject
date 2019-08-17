@@ -11,11 +11,12 @@ public class TicketModel extends AbstractModel{
 	private SeatModel seat;
 	private PlaceModel place;
 	private AccountModel accModel;
+	private String departDate;
 	public AccountModel getAccModel() {
 		return accModel;
 	}
 
-
+	
 	public void setAccModel(AccountModel accModel) {
 		this.accModel = accModel;
 	}
@@ -25,8 +26,26 @@ public class TicketModel extends AbstractModel{
 	{
 		
 	}
+	
+	
+	
+
 
 	
+
+	
+
+
+	public String getDepartDate() {
+		return departDate;
+	}
+
+
+	public void setDepartDate(String departDate) {
+		this.departDate = departDate;
+	}
+
+
 	public PlaceModel getPlace() {
 		return place;
 	}
