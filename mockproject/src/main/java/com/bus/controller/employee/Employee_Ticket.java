@@ -1,5 +1,4 @@
 package com.bus.controller.employee;
-
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.bus.model.PageModel;
 import com.bus.model.TicketModel;
 import com.bus.service.imp.TicketService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/employee-ticket")
 public class Employee_Ticket extends HttpServlet {
@@ -31,8 +33,7 @@ public class Employee_Ticket extends HttpServlet {
 			rDispatcher.forward(req, resp);
 		}
 		else if (action.equals("search")) {
-			
-			
+
 		}
 		else if(action.equals("updateStatus"))
 		{
