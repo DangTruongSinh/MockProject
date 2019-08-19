@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../../common/taglib.jsp"%>
+<c:url var="APIurl" value="/home-place"/>
  <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,7 +65,7 @@
         <div id="diemkhoihanh">
           <label for="diemkhoihanh"><b>Điểm Khởi Hành :</b></label>
           <br>
-          <input list="start-input" class="input-start" name="start-input">
+          <input list="start-input" class="input-start" name="start-input" id="startinput">
           <datalist id="start-input">
             <c:forEach var="place" items="${startPlaces}">
             	<option value="${place}">
@@ -243,7 +244,10 @@
     <!------------------------slideshow end here---------------------->
   <br>
   <br>
-
+  <form id="formSubmit">
+  	<input id="test" name="place">
+  </form>
+	
 </body>
 <footer class="page-footer font-small teal pt-4">
 
@@ -294,6 +298,7 @@
 
 <!-- Initialize Swiper -->
 <script>
+  		
   var swiper = new Swiper('.swiper-container', {
     effect: 'coverflow',
     grabCursor: true,
@@ -338,9 +343,40 @@
     });
   });
 </script>
+<script>
 
-
-
-
+$("#startinput").on('input', function (e) {
+	 e.preventDefault();
+    var val = this.value;
+    if($('#start-input option').filter(function(){
+        return this.value.toUpperCase() === val.toUpperCase();        
+    }).length) {
+    	$("#test").val(this.value);
+    	var formData = $('#formSubmit').serializeArray();
+    	$.each(formData, function (i, v) {
+    		var data={};
+    		data[""+v.name+""] = v.value;
+            $.ajax({
+                url: '${APIurl}',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result);
+                    $("#start-end").children('option').remove();
+                    for(i = 0;i < result.length;i++)
+                    	{
+                    		$("#start-end").append(new Option("", result[i]));
+                    	}
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    }
+});
+</script>
 <!---------->
 </html>

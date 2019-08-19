@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="../../common/taglib.jsp"%>
 <!DOCTYPE html>
+<c:url var="APIurl" value="/home-place"/>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -43,7 +44,7 @@
           <br>
 	    		<input type="hidden" name="action" value = "ticket">
 	      		<input type="hidden" name="request" value = "listbus">	
-          		<input list="start-input" class="input-start" name="startPlace">
+          		<input list="start-input" class="input-start" name="startPlace" id="startinput">
           	<datalist id="start-input">
             <c:forEach var="place" items="${startPlaces}">
             	<option value="${place}">
@@ -221,7 +222,9 @@
     <!------------------------slideshow end here---------------------->
   <br>
   <br>
-
+	<form id="formSubmit">
+  		<input id="test" name="place">
+  	</form>
 </body>
 <footer class="page-footer font-small teal pt-4">
 
@@ -316,7 +319,41 @@
     });
   });
 </script>
+<script>
 
+$("#startinput").on('input', function (e) {
+	 e.preventDefault();
+    var val = this.value;
+    if($('#start-input option').filter(function(){
+        return this.value.toUpperCase() === val.toUpperCase();        
+    }).length) {
+    	$("#test").val(this.value);
+    	var formData = $('#formSubmit').serializeArray();
+    	$.each(formData, function (i, v) {
+    		var data={};
+    		data[""+v.name+""] = v.value;
+            $.ajax({
+                url: '${APIurl}',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result);
+                    $("#start-end").children('option').remove();
+                    for(i = 0;i < result.length;i++)
+                    	{
+                    		$("#start-end").append(new Option("", result[i]));
+                    	}
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    }
+});
+</script>
 
 
 

@@ -9,4 +9,5 @@ public interface IPlaceService {
 	List<PlaceModel> findAllPlace();
 	Set<String> findAllPlaceStart();
 	Set<String> findAllPlaceEnd();
+	Set<String> findEndPlaceByStartPlace(String start);
 }

@@ -23,5 +23,10 @@ public class PlaceDAO extends AbstractDAO<PlaceModel> implements IPlaceDAO {
 		List<PlaceModel> list = query(sql, new PlaceMapper(), start, end);
 		return list.size() > 0 ? list.get(0) : null;
 	}
+	@Override
+	public List<PlaceModel> findAllEndPlaceByStartPlace(String start) {
+		String sql = "select * from place where StartPlace = ?";
+		return query(sql, new PlaceMapper(), start);
+	}
 	
 }

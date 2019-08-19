@@ -44,4 +44,20 @@ public class PlaceService implements IPlaceService{
 		}
 		return null;
 	}
+	@Override
+	public Set<String> findEndPlaceByStartPlace(String start) {
+		
+		List<PlaceModel> places = placeDao.findAllEndPlaceByStartPlace(start);
+		if(places != null)
+		{
+			Set<String> result = new HashSet<String>();
+			for(int i = 0 ;i < places.size();i++)
+			{
+				String x = places.get(i).getStopPlace();
+				result.add(x);
+			}
+			return result;
+		}
+		return null;
+	}
 }
