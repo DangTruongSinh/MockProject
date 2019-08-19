@@ -206,8 +206,6 @@ figure {
 img {
   vertical-align: middle;
   border-style: none;
-    width: 48px;
-    height: 40px;
 }
 
 svg {
@@ -1117,6 +1115,18 @@ pre code {
     flex: 0 0 50%;
     max-width: 50%;
   }
+
+   /* tiendat viet lai */
+  .col-md-6 {
+    display: none
+  }
+
+  .col-sm-12 #dataTable_paginate,#dataTable_info{
+    display: none
+  }
+
+
+  /* -- */
   .col-md-7 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 58.33333%;
@@ -6987,7 +6997,7 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-  background-color: black !important;
+  background-color: #343a40 !important;
 }
 
 a.bg-dark:hover, a.bg-dark:focus,
@@ -10913,8 +10923,4 @@ body.sidebar-toggled footer.sticky-footer {
   body.sidebar-toggled footer.sticky-footer {
     width: calc(100% - 90px);
   }
-}
-.table th, .table td {
-    padding: 0.35rem;
- 
 }
