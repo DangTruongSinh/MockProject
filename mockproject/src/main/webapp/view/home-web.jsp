@@ -83,9 +83,14 @@
           </datalist>
         </div>
         <div id="ngaykhoihanh">
-          <label for="ngaykhoihanh"><b>Ngày Khởi Hành :</b></label>
+          <label for="ngaykhoihanh"><b>Ngày Khởi Hành Hiện Có:</b></label>
           <br>
-          <input class="input-date" type="date" name="bday">
+          <input list="aa" class="inputend" name="startend">
+          <datalist id="aa">
+            <c:forEach var="date" items="${dates}">
+            	<option value="${date}">
+            </c:forEach>
+          </datalist>
         </div>
         <div class="submit-button">
           <br>

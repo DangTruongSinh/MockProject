@@ -3,6 +3,7 @@ package com.bus.service.imp;
 import java.util.List;
 
 import com.bus.dao.impl.SeatDAO;
+import com.bus.model.PageModel;
 import com.bus.model.SeatModel;
 import com.bus.service.ISeatService;
 
@@ -52,6 +53,17 @@ public class SeatService implements ISeatService{
 	public boolean setStatusSeat(int id, boolean value) {
 		// TODO Auto-generated method stub
 		return seatDao.setStatusSeat(id, value) == 1 ? true : false;
+	}
+	@Override
+	public int getTotalSeat() {
+		return seatDao.getTotalSeat();
+	}
+	@Override
+	public List<SeatModel> findlimit(PageModel page) {
+		int start = (page.getCurentPage()-1)*page.getMaxPageItem();
+		int limit = page.getMaxPageItem();
+		List<SeatModel> list=seatDao.findlimit(start, limit);
+		return list;
 	}
 
 }

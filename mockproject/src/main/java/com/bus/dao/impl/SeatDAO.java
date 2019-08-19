@@ -59,5 +59,16 @@ public class SeatDAO extends AbstractDAO<SeatModel> implements ISeatDAO {
 		
 		return query(sql, new SeatMapper(), idPlace);
 	}
+	@Override
+	public List<SeatModel> findlimit(int start, int limit) {
+		String sql = "select * from seat limit ?,?";
+		List<SeatModel> list= query(sql,new SeatMapper(),start,limit);
+		return list.size() == 0 ? null : list;
+	}
+	@Override
+	public int getTotalSeat() {
+		String sql = "select count(*) from seat";
+		return getTotalItem(sql);
+	}
 	
 }

@@ -125,7 +125,7 @@ pageEncoding="UTF-8"%>
                   <!-- Username -->
                   <label class="control-label"  for="username">Username</label>
                   <div class="controls">
-                    <input type="text" id="username" name="username" placeholder="" class="form-control" value = "">
+                    <input type="text" id="username" name="username" placeholder="ABC XYZ " class="form-control" value = "">
                   </div>
                 </div>
 

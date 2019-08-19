@@ -90,18 +90,6 @@ public class TicketService implements ITicketService{
 	public TicketModel findOneByIDSeat(int id) {
 		return ticketDao.findOneByIDSeat(id);
 	}
-	//De lam gi vay 
-//	private TicketModel setBusForATicket(TicketModel ticketModel)
-//	{
-//		if(ticketModel != null)
-//		{
-//			BusDAO busDao = new BusDAO();
-//			BusModel busModel = busDao.findOneByIdBus(ticketModel.getIdBus());
-//			ticketModel.setBus(busModel);
-//			return ticketModel;
-//		}
-//		return null;
-//	}
 	private List<TicketModel> setBusForListTicket(List<TicketModel> list)
 	{
 		BusDAO busDao = new BusDAO();

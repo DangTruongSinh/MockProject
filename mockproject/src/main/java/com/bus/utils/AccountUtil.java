@@ -51,24 +51,27 @@ public class AccountUtil {
 		String idUser = req.getParameter("idUser");
 		System.out.println("idUser :"+idUser);
 		account.setIdUser(Integer.parseInt(idUser));
-		if(idRole == 3)	
+		if(idRole == 3 || idRole == 2)	
 			account.setIdRole(idRole);
 		else
 			account.setIdRole(Integer.parseInt(req.getParameter("idRole")));
 		String fullName = req.getParameter("fullName");
+		System.out.println(fullName);
 		account.setFullName(fullName);
-		String password =req.getParameter("password");
+		String password =req.getParameter("password");System.out.println(password);
 		account.setPassword(password);
-		String phone = req.getParameter("phone");
+		String phone = req.getParameter("phone");System.out.println(phone);
 		account.setPhone(phone);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
 		account.setUserUpdate(userHeThong.getUserName());
+		System.out.println(userHeThong.getUserName());
 		Date date;
 		try {
 			date = format.parse(req.getParameter("dateBirth"));
 			account.setDateBirth(new Timestamp(date.getTime()));
 			account.setDateUpdate(new Timestamp(System.currentTimeMillis()));
 			AccountModel accountNew = new AccountService().updateAccountModel(account);
+			System.out.println(accountNew);
 			if (accountNew != null) {
 				if (userHeThong.getUserName().equals(accountNew.getUserName())
 						&& !userHeThong.getPassword().equals(accountNew.getPassword())) {
@@ -82,6 +85,11 @@ public class AccountUtil {
 							req.getSession().setAttribute("account", accountNew);
 							resp.sendRedirect("/mockproject/view/customer-updateprofile.jsp");
 						}
+					else if(idRole == 2)
+					{
+						req.getSession().setAttribute("account", accountNew);
+						resp.sendRedirect("/mockproject/view/employee-UpdateProfile.jsp");
+					}
 				}
 			}
 

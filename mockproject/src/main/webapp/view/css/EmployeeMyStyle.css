@@ -1,0 +1,23 @@
+.mainInput {
+    margin-left: 35%;
+    margin-top: 5px;
+}
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+.mainInput .input-group .input-group-append{
+   margin-left: 7px;
+   margin-bottom: 10px;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}

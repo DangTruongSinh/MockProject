@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bus.model.PageModel;
 import com.bus.service.imp.TicketService;
+import com.bus.utils.AccountUtil;
 
 @WebServlet(urlPatterns = "/employee-account")
 public class AccountController extends HttpServlet {
@@ -53,23 +54,11 @@ public class AccountController extends HttpServlet {
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		String action = req.getParameter("action");
-//		if(action.equals("update"))
-//		{
-//			AccountUtil.update(req, resp, 1);			
-//		}
-//		else
-//		{
-//			AccountModel admin = (AccountModel) req.getSession().getAttribute("account");
-//			AccountModel accModel = AccountUtil.register(req, new AccountService(),admin);
-//			if(accModel != null)
-//			{
-//				List<AccountModel> list = new ArrayList<AccountModel>();
-//				list.add(accModel);
-//				req.setAttribute("accounts", list);
-//			}
-//			RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/admin-list-account.jsp");
-//			rDispatcher.forward(req, resp);
-//		}
+		String action = req.getParameter("action");
+		System.out.println(action + " hehe");
+		if (action.equals("update")) {
+			System.out.println("mama");
+			AccountUtil.update(req, resp, 2);
 	}
+}
 }
