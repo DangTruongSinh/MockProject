@@ -9,6 +9,15 @@ public class SeatModel extends AbstractModel {
 	private boolean status;
 	private Date dateStart;
 	private int idPlace;
+	BusModel bus;
+	public BusModel getBus() {
+		return bus;
+	}
+
+	public void setBus(BusModel bus) {
+		this.bus = bus;
+	}
+
 	public SeatModel()
 	{
 		

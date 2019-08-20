@@ -2,7 +2,9 @@ package com.bus.service.imp;
 
 import java.util.List;
 
+import com.bus.dao.impl.BusDAO;
 import com.bus.dao.impl.SeatDAO;
+import com.bus.model.BusModel;
 import com.bus.model.PageModel;
 import com.bus.model.SeatModel;
 import com.bus.service.ISeatService;
@@ -10,9 +12,11 @@ import com.bus.service.ISeatService;
 public class SeatService implements ISeatService{
 
 	SeatDAO seatDao;
+	BusDAO busDAO;
 	public SeatService()
 	{
 		seatDao = new SeatDAO();
+		busDAO=new BusDAO();
 	}
 	@Override
 	public SeatModel updateSeatModel(SeatModel seatModel) {
@@ -25,7 +29,7 @@ public class SeatService implements ISeatService{
 
 	@Override
 	public List<SeatModel> findAllbyIDBus(int id) {
-		return seatDao.findAllbyIDBus(id);
+		return setBusforSeat(seatDao.findAllbyIDBus(id));
 	}
 
 	@Override
@@ -63,7 +67,31 @@ public class SeatService implements ISeatService{
 		int start = (page.getCurentPage()-1)*page.getMaxPageItem();
 		int limit = page.getMaxPageItem();
 		List<SeatModel> list=seatDao.findlimit(start, limit);
+		return  setBusforSeat(list);
+	}
+	@Override
+	public List<SeatModel> setBusforSeat(List<SeatModel> list)
+	{
+		
+		for(SeatModel x:list)
+		{
+			BusModel busModel=busDAO.findOneByIdBus(x.getIdBus());
+			x.setBus(busModel);
+		}
 		return list;
 	}
-
+	@Override
+	public List<SeatModel> findAllbylicensePlate(String licensePlate) {
+		BusModel busModel=busDAO.findOneByLicensePlate(licensePlate);
+		List<SeatModel> list=setBusforSeat(seatDao.findAllbyIDBus(busModel.getIdBus()));		
+		return setBusforSeat(list);
+	}
+	
+	public List<SeatModel> findlimitforSearch(PageModel page,String licensePlate) {
+		int start = (page.getCurentPage()-1)*page.getMaxPageItem();
+		int limit = page.getMaxPageItem();
+		BusModel bus = new BusDAO().findOneByLicensePlate(licensePlate);
+		List<SeatModel> list2 = new SeatDAO().findlimitBus(start, limit, bus.getIdBus());
+		return  setBusforSeat(list2);
+	}
 }

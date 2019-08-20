@@ -72,6 +72,7 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Users\sinh\Desktop\MockProject-sourcemoi"/>
 			<item value="E:\projectchinhsua"/>
 		</list>
 		<list key="projectNameTemplate">

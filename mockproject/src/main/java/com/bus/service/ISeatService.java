@@ -14,4 +14,6 @@ public interface ISeatService {
 	boolean setStatusSeat(int id,boolean value);
 	int getTotalSeat();
 	List<SeatModel> findlimit(PageModel page);
+	List<SeatModel> setBusforSeat(List<SeatModel> list);
+	List<SeatModel> findAllbylicensePlate(String licensePlate);
 }

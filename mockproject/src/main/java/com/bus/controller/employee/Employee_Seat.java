@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bus.model.BusModel;
 import com.bus.model.PageModel;
 import com.bus.model.SeatModel;
 import com.bus.model.TicketModel;
+import com.bus.service.imp.BusService;
 import com.bus.service.imp.SeatService;
 import com.bus.service.imp.TicketService;
 
@@ -25,14 +27,17 @@ public class Employee_Seat extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
-		String IDBUS=req.getParameter("IDBUS");
+		System.out.println("action:"+action);
 		String IDSEATUPDATE = req.getParameter("IDSEATUPDATE");
 		String STATUS=req.getParameter("STATUS");
 		String DATESTART=req.getParameter("DATESTART");
 		String SEATNUMBER=req.getParameter("SEATNUMBER");
+		String licensePlate=req.getParameter("licensePlate");
 		SeatService seatService =new SeatService();
 		TicketService ticketService=new TicketService();
-		if (action == null || IDBUS.equals("")) {
+		BusService busService=new BusService();
+		req.setAttribute("search", 0);
+		if (action == null || licensePlate.equals("")) {
 			PageModel page = new PageModel();
 			page.setTotalPage((int) Math.ceil((float) seatService.getTotalSeat()/ page.getMaxPageItem()));
 			String curentPage = req.getParameter("curentPage");
@@ -42,13 +47,15 @@ public class Employee_Seat extends HttpServlet {
 			req.setAttribute("pageModel", page);
 			RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/employee-seat.jsp");
 			rDispatcher.forward(req, resp);
+			
 		}
 		else if(action.equals("update"))
 			{
 		 		
 				if(STATUS.equals("true"))
-				{				
-					List<TicketModel> list=ticketService.findAllbyIDBus(Integer.parseInt(IDBUS));
+				{	
+					BusModel busModel=busService.findOneByLicensePlate(licensePlate);
+					List<TicketModel> list=ticketService.findAllbyIDBus(busModel.getIdBus());
 					if(list !=null)
 						for(TicketModel x:list)
 						{
@@ -65,7 +72,6 @@ public class Employee_Seat extends HttpServlet {
 					page.setCurentPage(Integer.parseInt(curentPage));
 				req.setAttribute("seats", seatService.findlimit(page));
 				req.setAttribute("pageModel", page);
-				
 				RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/employee-seat.jsp");
 				rDispatcher.forward(req, resp);
 			
@@ -73,16 +79,23 @@ public class Employee_Seat extends HttpServlet {
 		
 		else if(action.equals("search"))
 		{
-			
-			List<SeatModel> list=seatService.findAllbyIDBus(Integer.parseInt(IDBUS));
-			System.out.println("size:"+list.size());
-			req.setAttribute("seats",list);
+			PageModel page = new PageModel();
+			String curentPage = req.getParameter("curentPage");
+			page.setTotalPage((int) Math.ceil((float) seatService.findAllbylicensePlate(licensePlate).size()/ page.getMaxPageItem()));
+			if (curentPage != null)
+				page.setCurentPage(Integer.parseInt(curentPage));	
+			else 
+				page.setCurentPage(1);
+			req.setAttribute("seats", seatService.findlimitforSearch(page, licensePlate));
+			req.setAttribute("pageModel", page);
+			req.setAttribute("search", 1);
+			req.setAttribute("licensePlate", licensePlate);
 			RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/employee-seat.jsp");
 			rDispatcher.forward(req, resp);
 		}
 		else if(action.equals("redirect2SeatURL"))
 		{
-			List<SeatModel> list=seatService.findAllbyIDBus(Integer.parseInt(IDBUS));
+			List<SeatModel> list=seatService.findAllbylicensePlate(licensePlate);
 			List<SeatModel> list2=new ArrayList<SeatModel>();
 			for(SeatModel x:list)
 			{ 

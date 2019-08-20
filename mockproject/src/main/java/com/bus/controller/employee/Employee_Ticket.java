@@ -8,9 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.bus.model.AccountModel;
 import com.bus.model.PageModel;
 import com.bus.model.TicketModel;
-import com.bus.model.AccountModel;
 import com.bus.service.imp.AccountService;
 import com.bus.service.imp.TicketService;
 
@@ -21,6 +22,7 @@ public class Employee_Ticket extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
 		String username = req.getParameter("username");
+		String date = req.getParameter("DATE");
 		String IDTICKETCANCEL = req.getParameter("IDTICKETCANCEL");
 		String IDTICKETUPDATE = req.getParameter("IDTICKETUPDATE");
 		TicketService ticketService=new TicketService();
@@ -59,13 +61,19 @@ public class Employee_Ticket extends HttpServlet {
 		else if(action.equals("cancel"))
 		{
 			ticketService.deleteTicketModel(Integer.parseInt(IDTICKETCANCEL));
-			PageModel page = new PageModel();
-			page.setTotalPage((int) Math.ceil((float) ticketService.getTotalTicket() / page.getMaxPageItem()));
-			String curentPage = req.getParameter("curentPage");
-			if (curentPage != null)
-				page.setCurentPage(Integer.parseInt(curentPage));
-			req.setAttribute("tickets", ticketService.findlimit(page));
-			req.setAttribute("pageModel", page);
+//			PageModel page = new PageModel();
+//			page.setTotalPage((int) Math.ceil((float) ticketService.getTotalTicket() / page.getMaxPageItem()));
+//			String curentPage = req.getParameter("curentPage");
+//			if (curentPage != null)
+//				page.setCurentPage(Integer.parseInt(curentPage));
+//			req.setAttribute("tickets", ticketService.findlimit(page));
+//			req.setAttribute("pageModel", page);
+//			RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/employee-ticket.jsp");
+//			rDispatcher.forward(req, resp);
+			
+			AccountModel accModel= accService.findOneByUsername(username);
+			List<TicketModel> list=ticketService.findAllbyIDUser(accModel.getIdUser());
+			req.setAttribute("tickets", list);
 			RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/employee-ticket.jsp");
 			rDispatcher.forward(req, resp);
 		}

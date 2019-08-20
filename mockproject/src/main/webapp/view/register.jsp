@@ -41,11 +41,11 @@
 						<div class="form-group"></div>
 						<input name="password" type="password" class="form-control"
 							id="password" placeholder="Password"
-							pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+							pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 						<p class="passwordError"></p>
 						<div class="form-group">
 							<input type="password" class="form-control" id="repassword"
-								placeholder="Repeat Password">
+								placeholder="Repeat Password"title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 							<p class="repasswordError"></p>
 						</div>
 						<div class="form-group">
@@ -57,7 +57,7 @@
 							<input name="phone" type="tel" class="form-control"
 								id="phonenumber" placeholder="Phone Number"
 								onkeypress="return keyPhone(event);"
-								pattern="^\+?(?:[0-9]??).{5,14}[0-9]$">
+								pattern="^\+?(?:[0-9]??).{5,14}[0-9]$"title="Must contain 10 numbers" required>
 							<p class="passwordError"></p>
 						</div>
 						<div class="form-group">
@@ -95,5 +95,19 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </body>
+<script>
+  var password = document.getElementById("password")
+  , confirm_password = document.getElementById("repassword");
 
+  function validatePassword(){
+    if(password.value != confirm_password.value) {
+      confirm_password.setCustomValidity("Passwords Don't Match");
+    } else {
+      confirm_password.setCustomValidity('');
+    }
+  }
+
+  password.onchange = validatePassword;
+  confirm_password.onkeyup = validatePassword;
+</script>
 </html>

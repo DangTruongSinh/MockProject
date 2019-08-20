@@ -15,8 +15,8 @@
 <script src="/mockproject/view/js/Employeejquery.min.js"></script>
 <script src="/mockproject/view/js/Employeebootstrap.min.js"></script>
 <script src="/mockproject/view/js/Employeejquery.twbsPagination.js"></script>
-<link href="/mockproject/view/css/Employeebootstrap.min.css" rel="stylesheet"
-	type="text/css">
+<link href="/mockproject/view/css/Employeebootstrap.min.css"
+	rel="stylesheet" type="text/css">
 
 <!-- Custom fonts for this template -->
 <link href="/mockproject/view/css/Employeeall.min.css" rel="stylesheet"
@@ -46,17 +46,10 @@
 		<form
 			class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
 			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search for..."
-					aria-label="Search" aria-describedby="basic-addon2">
 				<div class="input-group-append">
-					<button class="btn btn-primary" type="button">
-						<i class="fas fa-search"></i>
-					</button>
 				</div>
 			</div>
 		</form>
-
-		<!-- Navbar -->
 		<ul class="navbar-nav ml-auto ml-md-0">
 			<li class="nav-item dropdown no-arrow"><a
 				class="nav-link dropdown-toggle" href="#" id="userDropdown"
@@ -65,7 +58,7 @@
 			</a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">Settings</a>
+					<a class="dropdown-item" href="/mockproject/view/employee-UpdateProfile.jsp">Settings</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="#" data-toggle="modal"
 						data-target="#logoutModal">Logout</a>
@@ -79,10 +72,11 @@
 		<!-- Sidebar -->
 		<ul class="sidebar navbar-nav">
 			<li class="nav-item active"><a class="nav-link"
-				href="/mockproject/employee-ticket"> <i class="fas fa-fw fa-table"></i> <span>Tickets</span></a>
-			</li>
-			<li class="nav-item active"><a class="nav-link" href="/mockproject/employee-seat">
-					<i class="fas fa-fw fa-table"></i> <span>Seats</span>
+				href="/mockproject/employee-ticket"> <i
+					class="fas fa-fw fa-table"></i> <span>Tickets</span></a></li>
+			<li class="nav-item active"><a class="nav-link"
+				href="/mockproject/employee-seat"> <i class="fas fa-fw fa-table"></i>
+					<span>Seats</span>
 			</a></li>
 		</ul>
 
@@ -106,9 +100,11 @@
 							<div class="mainInput">
 								<div class="input-group">
 									<form action="/mockproject/employee-seat" id="formSearch">
-										<input type="hidden" name="action" value="search"> <input
-											type="text" name="IDBUS" class="form-control"
-											id="inputtext" placeholder="Search for idBus">
+										<input type = "hidden" name="curentPage" id = "sinh" value = "1">
+										<input type="hidden" name="action" value="search"> 
+										<input type="text" name="licensePlate" class="form-control" id="inputtext"
+											placeholder="Search for LicensePlate">
+			
 									</form>
 									<div class="input-group-append">
 										<button class="btn btn-secondary" type="submit"
@@ -124,7 +120,7 @@
 									cellspacing="0">
 									<thead>
 										<tr>
-											<th>idBus</th>
+											<th>LicensePlate</th>
 											<th>name</th>
 											<th>dateStart</th>
 											<th>Status</th>
@@ -134,19 +130,19 @@
 										<c:if test="${not empty seats}">
 											<c:forEach var="item" items="${seats}">
 												<tr>
-													<td>${item.idBus}</td>
+													<td>${item.bus.licensePlate}</td>
 													<td>${item.name}</td>
 													<td>${item.dateStart}</td>
 													<td><c:url var="updateURL" value="/employee-seat">
 															<c:param name="action" value="update" />
-															<c:param name="IDBUS"
-																value="${item.idBus}" />
+															<c:param name="IDBUS" value="${item.idBus}" />
+															<c:param name="licensePlate"
+																value="${item.bus.licensePlate}" />
 															<c:param name="IDSEATUPDATE" value="${item.idSeat}" />
 															<c:param name="STATUS" value="${item.status}" />
 															<c:param name="DATESTART" value="${item.dateStart}" />
-														</c:url>
-														<a class="btn btn-sm btn-primary btn-edit" href="${updateURL}">${item.status}</a>
-													</td>
+														</c:url> <a class="btn btn-sm btn-primary btn-edit"
+														href="${updateURL}">${item.status}</a></td>
 												</tr>
 											</c:forEach>
 										</c:if>
@@ -182,6 +178,8 @@
 
 	</div>
 	<!-- /#wrapper -->
+
+
 	<!-- Logout Modal-->
 	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -199,18 +197,21 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="/mockproject/dang-nhap?action=logout">Logout</a>
+					<a class="btn btn-primary"
+						href="/mockproject/dang-nhap?action=logout">Logout</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
+	
 	<!-- paging script -->
 	<script type="text/javascript">
 		var limit = 2;
+		var x = ${search};
+		console.log("x:"+x);
 		var curentPage = ${pageModel.curentPage};
 		var totalPage = ${pageModel.totalPage};
+		console.log("total:"+totalPage);
 		$(function() {
 			console.log(totalPage);
 			window.pagObj = $('#pagination').twbsPagination({
@@ -219,16 +220,29 @@
 				startPage : curentPage,
 				onPageClick : function(event, page) {
 					if (curentPage != page) {
-						$('#curentPage').val(page);
-						$('#formSubmit').submit();
+						console.log("value :"+x);
+						if(x == 0)
+						{
+							$('#curentPage').val(page);
+							$('#formSubmit').submit();
+						}
+						else
+						{
+							$('#sinh').val(page);
+							var z ="${licensePlate}";
+							$('#inputtext').val(z);
+							$("#formSearch").submit();
+						}
+						
 					}
 				}
 			})
 		});
 		$("#inputtext").keyup(function(event) {
 			if (event.keyCode == 13) {
-				$("#pagination").hide();
-				$("#formSearch").submit("search");
+				console.log("curentPage:"+curentPage);
+				$("#sinh").val(1);
+				$("#formSearch").submit();
 			}
 		});
 	</script>

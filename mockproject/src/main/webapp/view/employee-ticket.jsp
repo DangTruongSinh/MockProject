@@ -15,8 +15,8 @@
 <script src="/mockproject/view/js/Employeejquery.min.js"></script>
 <script src="/mockproject/view/js/Employeebootstrap.min.js"></script>
 <script src="/mockproject/view/js/Employeejquery.twbsPagination.js"></script>
-<link href="/mockproject/view/css/Employeebootstrap.min.css" rel="stylesheet"
-	type="text/css">
+<link href="/mockproject/view/css/Employeebootstrap.min.css"
+	rel="stylesheet" type="text/css">
 
 <!-- Custom fonts for this template -->
 <link href="/mockproject/view/css/Employeeall.min.css" rel="stylesheet"
@@ -45,13 +45,8 @@
 		<!-- Navbar Search -->
 		<form
 			class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search for..."
-					aria-label="Search" aria-describedby="basic-addon2">
+			<div class="input-group">				
 				<div class="input-group-append">
-					<button class="btn btn-primary" type="button">
-						<i class="fas fa-search"></i>
-					</button>
 				</div>
 			</div>
 		</form>
@@ -65,7 +60,8 @@
 			</a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="/mockproject/view/employee-UpdateProfile.jsp">Settings</a>
+					<a class="dropdown-item"
+						href="/mockproject/view/employee-UpdateProfile.jsp">Settings</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="#" data-toggle="modal"
 						data-target="#logoutModal">Logout</a>
@@ -79,10 +75,11 @@
 		<!-- Sidebar -->
 		<ul class="sidebar navbar-nav">
 			<li class="nav-item active"><a class="nav-link"
-				href="/mockproject/employee-ticket"> <i class="fas fa-fw fa-table"></i> <span>Tickets</span></a>
-			</li>
-			<li class="nav-item active"><a class="nav-link" href="/mockproject/employee-seat">
-					<i class="fas fa-fw fa-table"></i> <span>Seats</span>
+				href="/mockproject/employee-ticket"> <i
+					class="fas fa-fw fa-table"></i> <span>Tickets</span></a></li>
+			<li class="nav-item active"><a class="nav-link"
+				href="/mockproject/employee-seat"> <i class="fas fa-fw fa-table"></i>
+					<span>Seats</span>
 			</a></li>
 		</ul>
 
@@ -106,8 +103,9 @@
 							<div class="mainInput">
 								<div class="input-group">
 									<form action="/mockproject/employee-ticket" id="formSearch">
-										<input type="hidden" name="action" value="search"> <input
-											type="text" name="username" class="form-control"
+										<input type="hidden" name="action" value="search"> 
+				
+										<input type="text" name="username" class="form-control"
 											id="inputtext" placeholder="Search for UserName">
 									</form>
 									<div class="input-group-append">
@@ -124,8 +122,7 @@
 									cellspacing="0">
 									<thead>
 										<tr>
-											<th>IdTicket</th>
-											<th>IdBus</th>
+											<th>LicensePlate</th>
 											<th>Seat Number</th>
 											<th>UserName</th>
 											<th>FullName</th>
@@ -140,18 +137,17 @@
 										<c:if test="${not empty tickets}">
 											<c:forEach var="item" items="${tickets}">
 												<tr>
-													<td>${item.idTicket}</td>
-													<td>${item.idBus}</td>
-													<td>
-													<c:url var="redirect2SeatURL"
+													<td>${item.bus.licensePlate}</td>
+													<td><c:url var="redirect2SeatURL"
 															value="/employee-seat">
 															<c:param name="action" value="redirect2SeatURL" />
 															<c:param name="IDBUS" value="${item.idBus}" />
+															<c:param name="licensePlate"
+																value="${item.bus.licensePlate}" />
 															<c:param name="SEATNUMBER" value="${item.seat.name}" />
 															<c:param name="DATESTART" value="${item.seat.dateStart}" />
-														</c:url>
-														<a class="btn btn-primary btn-success" href="${redirect2SeatURL}">${item.seat.name}</a>
-													</td>
+														</c:url> <a class="btn btn-primary btn-success"
+														href="${redirect2SeatURL}">${item.seat.name}</a></td>
 													<td>${item.accModel.userName}</td>
 													<td>${item.accModel.fullName}</td>
 													<td>${item.accModel.phone}</td>
@@ -160,19 +156,18 @@
 													<td><c:url var="updateStatusURL"
 															value="/employee-ticket">
 															<c:param name="action" value="updateStatus" />
-															<c:param name="username" value="${item.accModel.userName}" />
+															<c:param name="username"
+																value="${item.accModel.userName}" />
 															<c:param name="IDTICKETUPDATE" value="${item.idTicket}" />
-														</c:url>
-														<a class="btn btn-sm btn-primary btn-success" href="${updateStatusURL}">${item.status}</a>
-													</td>
+														</c:url> <a class="btn btn-sm btn-primary btn-success"
+														href="${updateStatusURL}">${item.status}</a></td>
 													<td><c:url var="cancelURL" value="/employee-ticket">
 															<c:param name="action" value="cancel" />
 															<c:param name="username"
 																value="${item.accModel.userName}" />
 															<c:param name="IDTICKETCANCEL" value="${item.idTicket}" />
-														</c:url>
-														<a class="btn btn-sm btn-primary btn-danger" href="${cancelURL}">Cancel</a>
-													</td>
+														</c:url> <a class="btn btn-sm btn-primary btn-danger"
+														href="${cancelURL}">Cancel</a></td>
 												</tr>
 											</c:forEach>
 										</c:if>
@@ -227,7 +222,8 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="/mockproject/dang-nhap?action=logout">Logout</a>
+					<a class="btn btn-primary"
+						href="/mockproject/dang-nhap?action=logout">Logout</a>
 				</div>
 			</div>
 		</div>

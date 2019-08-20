@@ -3,9 +3,7 @@ package com.bus.dao.impl;
 import java.util.List;
 
 import com.bus.dao.ISeatDAO;
-
 import com.bus.mapper.SeatMapper;
-
 import com.bus.model.SeatModel;
 
 public class SeatDAO extends AbstractDAO<SeatModel> implements ISeatDAO {
@@ -69,6 +67,11 @@ public class SeatDAO extends AbstractDAO<SeatModel> implements ISeatDAO {
 	public int getTotalSeat() {
 		String sql = "select count(*) from seat";
 		return getTotalItem(sql);
+	}
+	@Override
+	public List<SeatModel> findlimitBus(int start, int limit, int IDBus) {
+		String sql = "select * from seat where IDBus = ? limit ?,?";
+		return query(sql, new SeatMapper(), IDBus,start,limit);
 	}
 	
 }
