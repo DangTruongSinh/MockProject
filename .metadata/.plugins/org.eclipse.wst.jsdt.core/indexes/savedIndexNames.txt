@@ -1,7 +1,6 @@
 INDEX VERSION 1.4+E:\projectchinhsua\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
 2746768188.index
 3435160287.index
-2883447808.index
 3306727267.index
 3662057527.index
 499278206.index
