@@ -27,24 +27,26 @@ public class AccountController extends HttpServlet {
 		String username = req.getParameter("username");
 		req.setAttribute("myAccount", req.getSession().getAttribute("account"));
 		AccountService accService = new AccountService();
+		PageModel page = new PageModel();
+		page.setTotalPage((int) Math.ceil((float) accService.getTotalAccount() / page.getMaxPageItem()));
+		String curentPage = req.getParameter("curentPage");
+		if (curentPage != null)
+			page.setCurentPage(Integer.parseInt(curentPage));
 		if (action == null || username.equals("")) {
-			PageModel page = new PageModel();
-			page.setTotalPage((int) Math.ceil((float) accService.getTotalAccount() / page.getMaxPageItem()));
-			String curentPage = req.getParameter("curentPage");
-			if (curentPage != null)
-				page.setCurentPage(Integer.parseInt(curentPage));
 			req.setAttribute("accounts", accService.findlimit(page));
 			req.setAttribute("pageModel", page);
 			RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/admin-list-account.jsp");
 			rDispatcher.forward(req, resp);
 		}
 		else if (action.equals("search")) {
-			
 			AccountModel account = accService.findOneByUsername(username);
 			if (account != null) {
 				List<AccountModel> list = new ArrayList<AccountModel>();
 				list.add(account);
+				page.setTotalPage(0);
 				req.setAttribute("accounts", list);
+				req.setAttribute("pageModel", page);
+	
 			}
 			RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/admin-list-account.jsp");
 			rDispatcher.forward(req, resp);
@@ -65,11 +67,7 @@ public class AccountController extends HttpServlet {
 		String action = req.getParameter("action");
 		System.out.println("action:"+action);
 		req.setAttribute("myAccount", req.getSession().getAttribute("account"));
-		if(action.equals("update"))
-		{
-			AccountUtil.update(req, resp, 1);			
-		}
-		else if(action.equals("create"))
+		if(action.equals("create"))
 		{
 			AccountModel admin = (AccountModel) req.getSession().getAttribute("account");
 			AccountModel accModel = AccountUtil.register(req, new AccountService(),admin);

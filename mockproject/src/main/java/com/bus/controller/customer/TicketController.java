@@ -34,25 +34,14 @@ public class TicketController extends HttpServlet {
 			req.setAttribute("tickets", list);
 			RequestDispatcher rq = req.getRequestDispatcher("/view/customer-list-ticket.jsp");
 			rq.forward(req, resp);
-		} else if (action.equals("delete")) {
-			int id = Integer.parseInt(req.getParameter("idTicket"));
-			if (ticketService.deleteTicketModel(id))
-				resp.sendRedirect("/mockproject/customer-ticket?action=viewTicked");
-		}else if(action.equals("pay"))
-		{
-			int id = Integer.parseInt(req.getParameter("idTicket"));
-			if (ticketService.updateStatusTicket(id))
-				resp.sendRedirect("/mockproject/customer-ticket?action=viewTicked");
 		}
 		else if (action.equals("ticket")) {
 			String request = req.getParameter("request");
 			if (request.equals("listbus")) {
-				String start = req.getParameter("startPlace");
-				String end = req.getParameter("endPlace");
+				String start = req.getParameter("start-input");
+				String end = req.getParameter("end-input");
 				String date = req.getParameter("date");
-				System.out.println(start+"-"+end+"-"+date);
 				List<BusModel> listBus = new BusService().findAllBusByPlace(start, end,date);
-				System.out.println("listbus:"+listBus);
 				if(listBus!=null)
 					{
 						req.setAttribute("buss", listBus);
@@ -65,7 +54,6 @@ public class TicketController extends HttpServlet {
 				int idBus = Integer.parseInt(req.getParameter("idbus"));
 				String date = req.getParameter("date");
 				int soluong = new TicketService().getTotalBookedTicketByIdUserAndIdBusAndDate(account.getIdUser(),idBus,date);
-				System.out.println("so luong:"+soluong);
 				String startPlace = req.getParameter("startPlace");
 				String stopPlace = req.getParameter("stopPlace");
 				String timeStart = req.getParameter("timeStart");
@@ -86,7 +74,6 @@ public class TicketController extends HttpServlet {
 				String departDate = req.getParameter("date");
 				String arrListBookedSeat[] = strListBookedSeat.split(",");
 				String price = req.getParameter("price");
-				System.out.println("date:"+departDate);
 				if (arrListBookedSeat.length > 0	) {
 					for (String x : arrListBookedSeat) {
 						TicketModel ticketModel = new TicketModel();
@@ -98,19 +85,12 @@ public class TicketController extends HttpServlet {
 						ticketModel.setDateCreate(new Timestamp(System.currentTimeMillis()));
 						ticketModel.setUserCreate(account.getUserName());
 						ticketModel.setDepartDate(departDate);
-						TicketModel ticket = new TicketService().insertTicketModel(ticketModel);
-						System.out.println("model:"+ticket);
+						new TicketService().insertTicketModel(ticketModel);
 					}
-					
 					resp.sendRedirect("/mockproject/customer-ticket?action=viewTicked");
 				}
 			}
 		}
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String action = req.getParameter("action");
-		System.out.println(action);
-	}
 }

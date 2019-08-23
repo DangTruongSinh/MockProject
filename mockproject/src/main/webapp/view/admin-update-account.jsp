@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@include file="../../common/taglib.jsp"%>
+<c:url var="APIurl" value="/api-account"/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -112,9 +113,15 @@ pageEncoding="UTF-8"%>
       <div class="card mb-3">
         <div class="card-header">
           <i class="fas fa-table"></i>
-        Form </div>
+        </div>
+        <div class="alert alert-success" style="text-align: center;" hidden="true" id = "success">
+  			<strong>Success!</strong> Update success.
+		</div>
+		<div class="alert danger" style="text-align: center;" hidden="true" id = "danger">
+  			<strong>Fail!</strong> Update fail.
+		</div>
         <div class="card-body">
-          <form  class="form-horizontal" action="/mockproject/admin-account?action=update" method="post">
+          <form id="formUpdate">
             <fieldset>
               <div id="legend">
                 <legend class="">Information</legend>
@@ -124,7 +131,7 @@ pageEncoding="UTF-8"%>
                   <!-- Username -->
                   <label class="control-label"  for="username">Username</label>
                   <div class="controls">
-                    <input type="text" id="username" name="username" value="${account.userName}" class="form-control">
+                    <input type="text" id="username" disabled="disabled" name="userName" value="${account.userName}" class="form-control">
                   </div>
                 </div>
 
@@ -141,7 +148,7 @@ pageEncoding="UTF-8"%>
                   <!-- Password-->
                   <label class="control-label" for="password">Re-Password</label>
                   <div class="controls">
-                   <input type="password" id="repsw" name="re-password" value = "${account.password}" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                   <input type="password" id="repsw" value = "${account.password}" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                    <div id="message">
                     <h3>Password must contain the following:</h3>
                     <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
@@ -197,12 +204,14 @@ pageEncoding="UTF-8"%>
         <div class="control-group">
           <!-- Button -->
           <div class="controls">
-            <button class="btn btn-success" type="submit">Update</button>
+             <input type="button" class="btn btn-success" id="btnSubmit" value="Update">
           </div>
-        </div>
+       	</div>
       </div>
     </fieldset>
+   
   </form>
+  
 </div>
 </div>
 
@@ -250,8 +259,6 @@ pageEncoding="UTF-8"%>
 
 <!-- Bootstrap core JavaScript-->
 <script src="${pageContext.request.contextPath}/view/js/jquery.min.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
-
 <!-- Core plugin JavaScript-->
 <script src="${pageContext.request.contextPath}/view/js/jquery.easing.min.js"></script>
 
@@ -342,10 +349,44 @@ myInput.onkeyup = function() {
   confirm_password.onkeyup = validatePassword;
 </script>
 <script>
+	document.addEventListener("DOMContentLoaded",function(){
+	
+		var btn = document.getElementById("btnSubmit");
+		btn.onclick = function(e)
+		{
+			e.preventDefault();
+			var formData = $('#formUpdate').serializeArray();
+	    	var data={};
+	    	$.each(formData, function (i, v) {
+	    		data[""+v.name+""] = v.value;
+	        });
+	    	$.ajax({
+	            url: '${APIurl}',
+	            type: 'put',
+	            contentType: 'application/json',
+	            data: JSON.stringify(data),
+	            dataType: 'json',
+	            success: function (result) {
+	                console.log(result);
+	                if(result == 1)
+	                	document.getElementById("success").hidden = false;
+	                else
+	                	document.getElementById("#danger").hidden = false;
+	            },
+	            error: function (error) {
+	            	document.getElementById("#danger").hidden = false;
+	                console.log(error);
+	            }
+	        });
+			
+		}
+	},false);
   $('.select').change(function(e) {
     var optionSelected = $("option:selected", this);
     var valueSelected = optionSelected.index() + 1;
     $("#roleSelect").val(valueSelected);
   });
+  
 </script>
+
 </html>

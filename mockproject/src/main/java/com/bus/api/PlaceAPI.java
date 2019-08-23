@@ -26,10 +26,22 @@ public class PlaceAPI  extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		String action = req.getParameter("action");
+		System.out.println(action);
 		Place place = HttpUtil.of(req.getReader()).toModel(Place.class);
 		ObjectMapper mapper = new ObjectMapper();
-		Set<String> set = new PlaceService().findEndPlaceByStartPlace(place.getPlace());
+		Set<String> set = null;
+		if(action.equals("endplace"))
+		{
+			set = new PlaceService().findEndPlaceByStartPlace(place.getStartPlace());
+			
+		}
+		else if(action.equals("date"))
+		{
+			System.out.println(place.getStartPlace() + "-" + place.getEndPlace());
+			set = new PlaceService().findAllDateByPlace(place.getStartPlace(), 
+					place.getEndPlace());
+		}
 		mapper.writeValue(resp.getOutputStream(), set);
-		//System.out.println(place.getPlace());
 	}
 }

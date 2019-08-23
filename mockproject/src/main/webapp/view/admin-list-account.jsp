@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
+<c:url var="APIurl" value="/api-account"/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,15 +44,12 @@ pageEncoding="UTF-8"%>
 		</button>
 
 		<!-- Navbar Search -->
-		<form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+		<form id = "formSearch" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
 			<div class="input-group">
-				<form action="/mockproject/admin-account" id="formSearch">
-					<input type="text" class="form-control" name="username" id="inputtext" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-					<div class="input-group-append">
-						<input type="hidden" name="action" value="search">
-						<button  class="btn btn-success btn-xs">Search</button>
-					</div>
-				</form>
+				<input type="text" class="form-control" name="userName" id="inputtext" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+				<div class="input-group-append">
+					<input  type = "button" class="btn btn-success btn-xs" value = "Search" id = "btnSearch">
+				</div>
 			</div>
 		</form>
 
@@ -117,11 +115,21 @@ pageEncoding="UTF-8"%>
 					<div class="card-header">
 						<i class="fas fa-table">Acount Table</i>
 					</div>
+					<div>
+						<select id = "select">
+							<option>All</option>
+							<option>Admin</option>
+							<option>Employee</option>
+							<option>Customer</option>
+						</select>
+						<form id = "formfilter">
+							<input type="hidden" name = "namefilter" id = "namefilter" name = "admin">
+						</form>
+					</div>
 					<div class="card-body">
-						<form action="/mockproject/admin-account" id="formSubmit">
-							<div class="table-responsive">
-								<table class="table">
-									<thead>
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
 										<tr>
 											<th>UserName</th>
 											<th>FullName</th>
@@ -136,7 +144,7 @@ pageEncoding="UTF-8"%>
 											<th>Edit</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody id = "tableBody">
 										<c:if test="${not empty accounts}">
 										<c:forEach var="item" items="${accounts}">
 										<tr>
@@ -152,24 +160,24 @@ pageEncoding="UTF-8"%>
 											<td>${item.lastTimeLogin}</td>
 											<td>
 												<c:url var="editURL" value="/admin-account">
-												<c:param name="action" value="edit"/>
-												<c:param name="username" value="${item.userName}"/>
-											</c:url>
-											<a class="btn btn-sm btn-primary btn-edit" href="${editURL}">Edit</a>
-										</td>
+													<c:param name="action" value="edit"/>
+													<c:param name="username" value="${item.userName}"/>
+												</c:url>
+												<a class="btn btn-sm btn-primary btn-edit" href="${editURL}">Edit</a>
+											</td>
 									</tr>
 								</c:forEach>
 							</c:if>
 
 						</tbody>
 					</table>
+				<form id="formSubmit">
 					<input type="hidden" id="curentPage" name="curentPage" value="">
 				</form>
 				<nav aria-label="Page navigation">
 					<ul class="pagination" id="pagination">
 					</ul>
 				</nav>
-				<input type="hidden" id="curentPage" name="curentPage" value="">
 			</div>
 		</div>
 	</div>
@@ -215,9 +223,7 @@ pageEncoding="UTF-8"%>
 	</div>
 </div>
 
-<!-- Bootstrap core JavaScript-->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
+
 
 <!-- Core plugin JavaScript-->
 <script src="${pageContext.request.contextPath}/view/js/jquery.easing.min.js"></script>
@@ -233,37 +239,190 @@ pageEncoding="UTF-8"%>
 <script src="${pageContext.request.contextPath}/view/js/datatables-demo.js"></script>
 </body>
 <script type="text/javascript">
+document.addEventListener("DOMContentLoaded",function()
+{
 	var limit = 2;
 	var curentPage = ${pageModel.curentPage};
 	var totalPage = ${pageModel.totalPage};
-	$(function() {
+	var bien = $(function() {
 		console.log(totalPage);
 		window.pagObj = $('#pagination').twbsPagination({
 			totalPages : totalPage,
 			visiblePages : 10,
 			startPage : curentPage,
 			onPageClick : function(event, page) {
-				if (curentPage != page) {
+					console.log("page:"+page);
 					$('#curentPage').val(page);
-					$('#formSubmit').submit();
-				}
+					var formData = $('#formSubmit').serializeArray();
+				   	var data={};
+				   	$.each(formData, function (i, v) {
+				   		data[""+v.name+""] = v.value;
+				   	});          
+				   	console.log(data);
+					$.ajax({
+								url : '${APIurl}?action=getAll',
+								type : 'post',
+								contentType : 'application/json',
+								data : JSON.stringify(data),
+								dataType : 'json',
+								success : function(result) {
+									console.log(result);
+									var tableBody = document.getElementById("tableBody");
+									var arrayTable = tableBody.children;
+									clearData();
+									for(var i = 0 ; i < arrayTable.length; i++)
+									{
+										var arrTd = arrayTable[i].children;
+										var element = result[i];
+										mapData(arrTd,element);
+		
+									}
+								
+								},
+								error : function(error) {
+									console.log(error);
+								}
+							});
+				
 			}
 		})
 	});
-	$("#inputtext").keyup(function(event) {
-		console.log(event.keyCode);
-		if (event.keyCode == 13) {
-			$("#pagination").hide();
-			$("#formSearch").submit("search");
-		}
+	document.getElementById("btnSearch").onclick = function()
+	{
+		sentData();
+	}
+	var node = document.getElementById("inputtext");
+	node.addEventListener("keydown", function(event) {
+	    if (event.key === "Enter") {
+	        event.preventDefault();
+	        sentData();
+	    }
 	});
+	function mapData(arrTd,element)
+	{
+		arrTd[0].innerText = element.userName;
+		arrTd[1].innerText = element.fullName;
+		arrTd[2].innerText = element.role.name;
+		arrTd[3].innerText = element.phone;
+		if(element.dateBirth!=null)
+		{
+			var dateBirth = new Date(element.dateBirth);
+			arrTd[4].innerText = dateBirth.toLocaleDateString("en-US");
+		}
+		else arrTd[4].innerText = "";
+		if(element.dateCreate!=null)
+		{
+			var dateCreate = new Date(element.dateCreate);
+			arrTd[5].innerText = dateCreate.toLocaleDateString("en-US");
+		}
+		else arrTd[5].innerText ="";
+		if(element.dateUpdate != null)
+		{
+			var dateUpdate = new Date(element.dateUpdate);
+			arrTd[6].innerText = dateUpdate;
+		}
+		else arrTd[6].innerText ="";
+		arrTd[7].innerText = element.userCreate;
+		arrTd[8].innerText = element.userUpdate;
+		if(element.lastTimeLogin != null)
+		{
+			var lastTimeLogin = new Date(element.lastTimeLogin);
+			arrTd[9].innerText = lastTimeLogin;
+		}
+		else arrTd[9].innerText ="";
+		if(arrTd[10].children[0] == null)
+		{
+			var node = document.createElement("a");
+			node.classList.add("btn");   
+			node.classList.add("btn-sm");
+			node.classList.add("btn-primary");
+			node.classList.add("btn-edit");
+			node.innerHTML = "edit";
+			arrTd[10].appendChild(node);
+		}
+		arrTd[10].children[0].href = "/mockproject/admin-account?action=edit&username="+element.userName;
+	}
+	function clearData()
+	{
+		var tableBody = document.getElementById("tableBody");
+		var arrayTable = tableBody.children;
+		for(var i = arrayTable.length - 1; i >= 0 ;i--)
+		{
+			var z = arrayTable[i].children;
+			for(var j = 0; j < z.length; j++)
+			{
+				z[j].innerText = null;	
+			}		
+		}
+	}
+	function sentData()
+	{
+		var formData = $('#formSearch').serializeArray();
+		var data={};
+	   	$.each(formData, function (i, v) {
+	   		console.log(v);
+	   		data[""+v.name+""] = v.value;
+	   	});   
+	   	$.ajax({
+			url : '${APIurl}?action=search',
+			type : 'post',
+			contentType : 'application/json',
+			data : JSON.stringify(data),
+			dataType : 'json',
+			success : function(result) {
+				console.log(result);
+				$("#pagination").hide();
+				clearData();
+				var tableBody = document.getElementById("tableBody");
+				var arrayTable = tableBody.children;
+				var arrTd = arrayTable[0].children;
+				mapData(arrTd,result);
+			},
+			error : function(error) {
+				console.log(error);
+				$("#pagination").hide();
+				clearData();
+			}
+		});
+	}
+});
 </script>
 <script>
-  $('.select').change(function(e) {
+  $('#select').change(function(e) {
     var optionSelected = $("option:selected", this);
-    var valueSelected = optionSelected.index() + 1;
-    console.log(valueSelected);
-    $("#roleSelect").val(valueSelected);
+    var valueSelected = optionSelected.index();
+    if(valueSelected == 0)
+    	$("#namefilter").val("admin");
+    else if(valueSelected == 1)
+    	$("#namefilter").val("employee");
+    else if(valueSelected == 2)
+    	$("#namefilter").val("customer");
+    console.log($("#namefilter").val());
+	var curentPage = 5;
+	var totalPage = 20;
+ 	$('#pagination').twbsPagination({
+ 		disabledClass:'disabled',
+			});
   });
+    /*var formData = $('#formfilter').serializeArray();
+	var data={};
+   	$.each(formData, function (i, v) {
+   		console.log(v);
+   		data[""+v.name+""] = v.value;
+   	});   
+   	$.ajax({
+		url : '${APIurl}?action=filter',
+		type : 'post',
+		contentType : 'application/json',
+		data : JSON.stringify(data),
+		dataType : 'json',
+		success : function(result) {
+			console.log(result);
+			clearData();
+		},
+		error : function(error) {
+			console.log(error);
+		}
+	});*/
 </script>
 </html>

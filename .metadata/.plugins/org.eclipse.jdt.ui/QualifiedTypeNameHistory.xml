@@ -12,8 +12,6 @@
     <fullyQualifiedTypeName name="com.bus.dao.impl.BusPlaceDAO"/>
     <fullyQualifiedTypeName name="com.bus.service.imp.TicketService"/>
     <fullyQualifiedTypeName name="java.sql.Time"/>
-    <fullyQualifiedTypeName name="java.sql.Timestamp"/>
-    <fullyQualifiedTypeName name="java.lang.System"/>
     <fullyQualifiedTypeName name="java.sql.Date"/>
     <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
     <fullyQualifiedTypeName name="java.lang.Integer"/>
@@ -21,7 +19,6 @@
     <fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
     <fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
     <fullyQualifiedTypeName name="java.io.BufferedReader"/>
-    <fullyQualifiedTypeName name="com.bus.utils.HttpUtil"/>
     <fullyQualifiedTypeName name="com.bus.model.PlaceModel"/>
     <fullyQualifiedTypeName name="com.bus.model.Place"/>
     <fullyQualifiedTypeName name="org.codehaus.jackson.map.ObjectMapper"/>
@@ -31,18 +28,23 @@
     <fullyQualifiedTypeName name="java.util.Set"/>
     <fullyQualifiedTypeName name="java.util.Iterator"/>
     <fullyQualifiedTypeName name="com.bus.utils.AccountUtil"/>
-    <fullyQualifiedTypeName name="com.bus.model.AccountModel"/>
-    <fullyQualifiedTypeName name="com.bus.service.imp.AccountService"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="com.bus.service.imp.BusService"/>
     <fullyQualifiedTypeName name="com.bus.model.BusModel"/>
     <fullyQualifiedTypeName name="com.bus.service.imp.SeatService"/>
-    <fullyQualifiedTypeName name="com.bus.model.PageModel"/>
     <fullyQualifiedTypeName name="com.bus.dao.impl.BusDAO"/>
     <fullyQualifiedTypeName name="com.bus.mapper.SeatMapper"/>
     <fullyQualifiedTypeName name="com.bus.model.SeatModel"/>
     <fullyQualifiedTypeName name="com.bus.dao.impl.SeatDAO"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="com.bus.model.TicketModel"/>
+    <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+    <fullyQualifiedTypeName name="java.sql.Timestamp"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="com.bus.model.PageModel"/>
+    <fullyQualifiedTypeName name="com.bus.utils.HttpUtil"/>
+    <fullyQualifiedTypeName name="com.bus.model.AccountModel"/>
+    <fullyQualifiedTypeName name="com.bus.service.imp.AccountService"/>
 </qualifiedTypeNameHistroy>

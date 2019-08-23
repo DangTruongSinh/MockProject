@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
+<c:url var="APIurl" value="/api-ticket"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,9 +36,9 @@
 					<th>Cancel</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="cha">
 				<c:forEach var="item" items="${tickets}">
-					<tr>
+					<tr id = "${item.idTicket}">
 						<td>${item.bus.licensePlate}</td>
 						<td>${item.seat.name}</td>
 						<td>${item.place.startPlace}</td>
@@ -56,19 +57,15 @@
 							</c:otherwise>
 						</c:choose>
 						<c:if test="${item.status == false}">
-							<td><c:url var="payURL" value="/customer-ticket">
-								<c:param name="action" value="pay" />
-								<c:param name="idTicket" value="${item.idTicket}" />
-							</c:url> <a class="btn btn-sm btn-primary btn-edit" href="${payURL}">Pay</a>
+							<td>
+								<button class="btn btn-sm btn-primary btn-edit btnPay" data-idTicket ="${item.idTicket}">Pay</button>
 							</td>
 						</c:if>
 						<c:if test="${item.status == true}">
 							<td></td>
 						</c:if>
-						<td><c:url var="deleteURL" value="/customer-ticket">
-								<c:param name="action" value="delete" />
-								<c:param name="idTicket" value="${item.idTicket}" />
-							</c:url> <a class="btn btn-sm btn-primary btn-edit" href="${deleteURL}">Cancel</a>
+						<td>
+							<button class="btn btn-sm btn-primary btn-edit btnDelete" data-idTicket ="${item.idTicket}">Cancel</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -76,6 +73,75 @@
 			</tbody>
 		</table>
 	</div>
-
+	<form>
+		<input type="hidden" name = "idTicket">
+	</form>
 </body>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded",function()
+	{
+		var btnDeletes = document.getElementsByClassName("btnDelete");
+		var btnPays = document.getElementsByClassName("btnPay");
+		console.log(btnPays);
+		for(var i = 0;i < btnPays.length;i++)
+		{
+			btnPays[i].onclick = function()
+			{
+				var id = this.getAttribute("data-idTicket");
+				var data = {};
+				var nut = this;
+				data[""+"idTicket"+""] = id;
+				$.ajax({
+	                url: '${APIurl}',
+	                type: 'put',
+	                contentType: 'application/json',
+	                data: JSON.stringify(data),
+	                dataType: 'json',
+	                success: function (result) {
+	                    console.log(result);
+	             		if(result.idTicket != -1)
+	             		{
+	             			nut.style.visibility = "hidden";
+	             			var row = document.getElementById(result.idTicket).children;
+	             			row[9].innerText = "Paided";
+	             		}
+	                },
+	                error: function (error) {
+	                    console.log(error);
+	                }
+	            });
+			}
+		}
+		for(var i = 0;i < btnDeletes.length;i++)
+		{
+			btnDeletes[i].onclick = function()
+			{
+				var id = this.getAttribute("data-idTicket");
+				var data = {};
+				data[""+"idTicket"+""] = id;
+				$.ajax({
+	                url: '${APIurl}',
+	                type: 'delete',
+	                contentType: 'application/json',
+	                data: JSON.stringify(data),
+	                dataType: 'json',
+	                success: function (result) {
+	                    console.log(result);
+	             		if(result.idTicket != -1)
+	             		{
+	             			var parent = document.getElementById("cha");
+		                	var row = document.getElementById(result.idTicket);
+		                	parent.removeChild(row);
+	             		}	
+	                },
+	                error: function (error) {
+	                    console.log(error);
+	                }
+	            });
+			}
+		}
+		
+				
+	},false)
+</script>
 </html>

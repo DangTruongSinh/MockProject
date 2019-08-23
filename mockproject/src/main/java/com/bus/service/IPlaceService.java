@@ -10,4 +10,5 @@ public interface IPlaceService {
 	Set<String> findAllPlaceStart();
 	Set<String> findAllPlaceEnd();
 	Set<String> findEndPlaceByStartPlace(String start);
+	Set<String> findAllDateByPlace(String start,String end);
 }

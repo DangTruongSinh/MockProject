@@ -63,7 +63,7 @@
        <!---------------------------Booking ticket form -------------------------------------------------->
       <div id="header-img" class="container">
         <div id="diemkhoihanh">
-          <label for="diemkhoihanh"><b>Điểm Khởi Hành :</b></label>
+          <label for="diemkhoihanh"><b>Điểm Khởi Hành:</b></label>
           <br>
           <input list="start-input" class="input-start" name="start-input" id="startinput">
           <datalist id="start-input">
@@ -75,8 +75,8 @@
         <div id="diemden">
           <label for="diemden"><b>Điểm đến :</b></label>
           <br>
-          <input list="start-end" class="input-end" name="start-end">
-          <datalist id="start-end">
+          <input list="input-end" class="input-end" name="start-end" id="inputend">
+          <datalist id="input-end">
             <c:forEach var="place" items="${endPlaces}">
             	<option value="${place}">
             </c:forEach>
@@ -85,8 +85,8 @@
         <div id="ngaykhoihanh">
           <label for="ngaykhoihanh"><b>Ngày Khởi Hành Hiện Có:</b></label>
           <br>
-          <input list="aa" class="inputend" name="startend">
-          <datalist id="aa">
+          <input class="input-date" type="text" name="date" id="dateinput" list = "input-date">
+          <datalist id="input-date">
             <c:forEach var="date" items="${dates}">
             	<option value="${date}">
             </c:forEach>
@@ -107,7 +107,7 @@
     </div>
 
   </div>
-  </div>
+ 
 
   <br>
 
@@ -250,7 +250,8 @@
   <br>
   <br>
   <form id="formSubmit">
-  	<input id="test" name="place">
+  	<input id="start" name="startPlace">
+  	<input id = "end" name = "endPlace">
   </form>
 	
 </body>
@@ -356,32 +357,64 @@ $("#startinput").on('input', function (e) {
     if($('#start-input option').filter(function(){
         return this.value.toUpperCase() === val.toUpperCase();        
     }).length) {
-    	$("#test").val(this.value);
+    	$("#start").val(this.value);
     	var formData = $('#formSubmit').serializeArray();
+    	var data={};
     	$.each(formData, function (i, v) {
-    		var data={};
     		data[""+v.name+""] = v.value;
-            $.ajax({
-                url: '${APIurl}',
-                type: 'post',
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                dataType: 'json',
-                success: function (result) {
-                    console.log(result);
-                    $("#start-end").children('option').remove();
-                    for(i = 0;i < result.length;i++)
-                    	{
-                    		$("#start-end").append(new Option("", result[i]));
-                    	}
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
+        });
+    	$.ajax({
+            url: '${APIurl}?action=endplace',
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                $("#input-end").children('option').remove();
+                for(i = 0;i < result.length;i++)
+                	{
+                		$("#input-end").append(new Option("", result[i]));
+                	}
+            },
+            error: function (error) {
+                console.log(error);
+            }
         });
     }
 });
+$("#inputend").on('input', function (e) {
+	 e.preventDefault();
+   var val = this.value;
+   if($('#input-end option').filter(function(){
+       return this.value.toUpperCase() === val.toUpperCase();        
+   }).length) {   
+   	$("#end").val(this.value);
+   	var formData = $('#formSubmit').serializeArray();
+   	var data={};
+   	$.each(formData, function (i, v) {
+   		data[""+v.name+""] = v.value;
+   	});          
+   	console.log(data);
+	$.ajax({
+				url : '${APIurl}?action=date',
+				type : 'post',
+				contentType : 'application/json',
+				data : JSON.stringify(data),
+				dataType : 'json',
+				success : function(result) {
+					console.log(result);
+					$("#input-date").children('option').remove();
+					for (i = 0; i < result.length; i++) {
+						$("#input-date").append(new Option("", result[i]));
+					}
+				},
+				error : function(error) {
+					console.log(error);
+				}
+			});
+		}
+	});
 </script>
 <!---------->
 </html>
