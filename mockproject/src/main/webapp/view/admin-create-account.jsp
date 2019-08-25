@@ -65,7 +65,7 @@ pageEncoding="UTF-8"%>
         <i class="fas fa-user-circle fa-fw"></i>
       </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-        <a class="dropdown-item" href="#">Settings</a>
+        <a class="dropdown-item" href="/mockproject/admin-account?action=editselft">Settings</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
       </div>
@@ -116,6 +116,11 @@ pageEncoding="UTF-8"%>
         Create Form</div>
         <div class="card-body">
           <form class="form-horizontal" action='/mockproject/admin-account?action=create' method="POST">
+            <c:if test="${not empty result}">
+            	<div class="alert alert-warning" style="text-align: center;">
+  					<strong>Warning!</strong> Username has used.Please choose other!
+				</div>
+            </c:if>
             <fieldset>
               <div id="legend">
                 <legend class="">Create Account</legend>
@@ -192,11 +197,7 @@ pageEncoding="UTF-8"%>
               <div class="control-group">
                 <!-- Button -->
                 <div class="controls">
-                  <button class="btn btn-success" type="submit"style="
-    margin-top: 29px;
-    width: 97px;
-    height: 49px;
-">Submit</button>
+                  <button class="btn btn-success" type="submit"style="margin-top: 29px;width: 97px;height: 49px;">Submit</button>
                 </div>
               </div>
             </div>

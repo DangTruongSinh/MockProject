@@ -100,24 +100,34 @@
 					<div class="card-body">
 						<div class="table-responsive">
 							<!-- Search for UserName -->
+							<select id = "selectlicensePlate">
+								<c:forEach var="item" items="${licensePlates}">
+									<option>${item}</option>
+								</c:forEach>
+							</select>
+							<select id = "selectDateDepart">
+								<c:forEach var="item" items="${dateDeparts}">
+									<option>${item}</option>
+								</c:forEach>
+							</select>
+							<select id = "selectOption">
+								<option>All</option>
+								<option>UnPay</option>
+								<option>Payed</option>
+							</select>
 							<div class="mainInput">
 								<div class="input-group">
-									<form action="/mockproject/employee-ticket" id="formSearch">
-										<input type="hidden" name="action" value="search"> 
-				
-										<input type="text" name="username" class="form-control"
+									<input type="text" name="username" class="form-control"
 											id="inputtext" placeholder="Search for UserName">
-									</form>
 									<div class="input-group-append">
 										<button class="btn btn-secondary" type="submit"
 											form="formSearch">
 											<i class="fa fa-search"></i>
-										</button>
+											</button>
 									</div>
 								</div>
 							</div>
 							<!-- --- -->
-							<form action="/mockproject/employee-ticket" id="formSubmit">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<thead>
@@ -129,53 +139,27 @@
 											<th>Phone</th>
 											<th>Price</th>
 											<th>Booking Date</th>
+											<th>Route</th>
+											<th>TimeDepart</th>
 											<th>Status</th>
 											<th>Cancel</th>
 										</tr>
 									</thead>
-									<tbody>
-										<c:if test="${not empty tickets}">
-											<c:forEach var="item" items="${tickets}">
-												<tr>
-													<td>${item.bus.licensePlate}</td>
-													<td><c:url var="redirect2SeatURL"
-															value="/employee-seat">
-															<c:param name="action" value="redirect2SeatURL" />
-															<c:param name="IDBUS" value="${item.idBus}" />
-															<c:param name="licensePlate"
-																value="${item.bus.licensePlate}" />
-															<c:param name="SEATNUMBER" value="${item.seat.name}" />
-															<c:param name="DATESTART" value="${item.seat.dateStart}" />
-														</c:url> <a class="btn btn-primary btn-success"
-														href="${redirect2SeatURL}">${item.seat.name}</a></td>
-													<td>${item.accModel.userName}</td>
-													<td>${item.accModel.fullName}</td>
-													<td>${item.accModel.phone}</td>
-													<td>${item.price}</td>
-													<td>${item.dateCreate}</td>
-													<td><c:url var="updateStatusURL"
-															value="/employee-ticket">
-															<c:param name="action" value="updateStatus" />
-															<c:param name="username"
-																value="${item.accModel.userName}" />
-															<c:param name="IDTICKETUPDATE" value="${item.idTicket}" />
-														</c:url> <a class="btn btn-sm btn-primary btn-success"
-														href="${updateStatusURL}">${item.status}</a></td>
-													<td><c:url var="cancelURL" value="/employee-ticket">
-															<c:param name="action" value="cancel" />
-															<c:param name="username"
-																value="${item.accModel.userName}" />
-															<c:param name="IDTICKETCANCEL" value="${item.idTicket}" />
-														</c:url> <a class="btn btn-sm btn-primary btn-danger"
-														href="${cancelURL}">Cancel</a></td>
-												</tr>
-											</c:forEach>
-										</c:if>
+									<tbody id ="tableBody">
+										<c:forEach begin="1" end = "${pageModel.maxPageItem}">
+											<tr>
+												<c:forEach begin="1" end = "11">
+													<td/>
+												</c:forEach>
+											</tr>
+										</c:forEach>
+											
 
 									</tbody>
 								</table>
-								<input type="hidden" id="curentPage" name="curentPage" value="">
-							</form>
+							<form id="formSubmit">
+									<input type="hidden" id="curentPage" name="curentPage" value="">
+							</form>	
 						</div>
 						<!-- paging -->
 						<div class="container" id="pagingdiv" style="margin-top: 20px">
@@ -231,31 +215,250 @@
 
 
 	<!-- paging script -->
-	<script type="text/javascript">
-		var limit = 2;
-		var curentPage = ${pageModel.curentPage};
-		var totalPage = ${pageModel.totalPage};
-		$(function() {
-			console.log(totalPage);
-			window.pagObj = $('#pagination').twbsPagination({
-				totalPages : totalPage,
-				visiblePages : 10,
-				startPage : curentPage,
-				onPageClick : function(event, page) {
-					if (curentPage != page) {
-						$('#curentPage').val(page);
-						$('#formSubmit').submit();
-					}
-				}
-			})
-		});
+<script type="text/javascript">
+initPagination($("#selectlicensePlate option:selected").text()
+			,$("#selectDateDepart option:selected").text(),$("#selectOption option:selected").text(),"");
 		$("#inputtext").keyup(function(event) {
 			if (event.keyCode == 13) {
-				$("#pagination").hide();
-				$("#formSearch").submit("search");
+				initPagination($("#selectlicensePlate option:selected").text()
+						,$("#selectDateDepart option:selected").text(),$("#selectOption option:selected").text(),$(this).val());
 			}
 		});
-	</script>
+		$('#selectlicensePlate').change(function(e) {
+		    var optionSelected = $("option:selected", this);
+		    var valueSelected = $( "#selectlicensePlate option:selected" ).text();
+		    var data = {};
+		    data[""+"licensePlate"+""] = valueSelected;
+		    console.log(data);
+		   
+		    $.ajax({
+	            url: '/mockproject/api-seat?action=getDate',
+	            type: 'post',
+	            contentType: 'application/json',
+	            data: JSON.stringify(data),
+	            dataType: 'json',
+	            success: function (result) {
+	                console.log(result);
+	                console.log("index:"+$("#selectDateDepart option:selected").index());
+	                $("#selectDateDepart").children('option').remove();
+	                console.log("index:"+$("#selectDateDepart option:selected").index());
+	                for(i = 0;i < result.length;i++)
+	                	{
+	                	$('#selectDateDepart')
+	                    .append($("<option></option>")
+	                    			.attr("selected","selected")
+	                               .text(result[i])); 
+	                	}
+	               		initPagination($("#selectlicensePlate option:selected").text()
+	               			,$("#selectDateDepart option:selected").text(),$("#selectOption option:selected").text(),"");
+	            },
+	            error: function (error) {
+	                console.log(error);
+	            }
+	        });
+		    
+		});		
+		$('#selectDateDepart').change(function(e) {
+			console.log("date:hhehe");
+		    var optionSelected = $("option:selected", this);
+		    var valueSelected = $( "#selectDateDepart option:selected" ).text();
+		    console.log(valueSelected);
+		    initPagination($("#selectlicensePlate option:selected").text()
+           			,$("#selectDateDepart option:selected").text(),$("#selectOption option:selected").text(),"");
+		});
+		$('#selectOption').change(function(e) {
+			console.log("date:hhehe");
+		    var optionSelected = $("option:selected", this);
+		    var valueSelected = $( "#selectDateDepart option:selected" ).text();
+		    initPagination($("#selectlicensePlate option:selected").text()
+           			,$("#selectDateDepart option:selected").text(),$("#selectOption option:selected").text(),"");
+		});
+		function initPagination(valueSelected,date,type,userName)
+		{
+			$('#pagination').html('');
+		    $('#pagination').twbsPagination('destroy');
+		    console.log($('#pagination'));
+			$('#pagination').html('<ul id="pagination" class="pagination-sm"></ul>');
+			console.log("dsadsadsa");
+			var limit = 2;
+		/*	var x = ${search};
+			console.log("x:"+x);*/
+			var curentPage = ${pageModel.curentPage};
+			var totalPage = ${pageModel.totalPage};
+			console.log("total:"+totalPage);
+			$(function() {
+				console.log(totalPage);
+				window.pagObj = $('#pagination').twbsPagination({
+					totalPages : totalPage,
+					visiblePages : 10,
+					startPage : curentPage,
+					onPageClick : function(event, page) {
+							console.log("page:"+page);
+							$('#curentPage').val(page);
+							var formData = $('#formSubmit').serializeArray();
+						   	var data={};
+						   	$.each(formData, function (i, v) {
+						   		data[""+v.name+""] = v.value;
+						   	});          
+						   	console.log(data);
+							$.ajax({
+										url : '/mockproject/api-ticket?action=getAll&licensePlate='+valueSelected+"&date="
+												+date+"&type="+type+"&userName="+userName,
+										type : 'post',
+										contentType : 'application/json',
+										data : JSON.stringify(data),
+										dataType : 'json',
+										success : function(result) {
+											handleSuccess(result);
+										},
+										error : function(error) {
+											console.log(error);
+										}
+							});						
+						
+					}
+				});
+			});
+		}
+		function clearData()
+		{
+			var tableBody = document.getElementById("tableBody");
+			var arrayTable = tableBody.children;
+			for(var i = arrayTable.length - 1; i >= 0 ;i--)
+			{
+				var z = arrayTable[i].children;
+				for(var j = 0; j < z.length; j++)
+				{
+					z[j].innerText = null;	
+				}		
+			}
+		}
+		
+		
+		
+		function handleSuccess(result)
+		{
+			console.log(result);
+			var tableBody = document.getElementById("tableBody");
+			console.log(tableBody);
+			var arrayTable = tableBody.children;
+			clearData();
+			
+			for(var i = 0 ; i < result.length; i++)
+			{
+				if(arrayTable[i].children.length == 0)
+				{
+					for(j = 0; j < 11;j++)
+					{
+						const x = document.createElement("td");
+						arrayTable[i].appendChild(x);
+					}
+				}
+				var arrTd = arrayTable[i].children;
+				var element = result[i];
+				arrayTable[i].setAttribute("id",element.idTicket);
+				console.log(element);
+				arrTd[0].innerText = element.bus.licensePlate;
+				arrTd[1].innerText = element.seat.name;
+				arrTd[2].innerText = element.accModel.userName;
+				arrTd[3].innerText = element.accModel.fullName;
+				arrTd[4].innerText = element.accModel.phone;
+				arrTd[5].innerText = element.price;
+				var dateCreate = new Date(element.dateCreate);
+				arrTd[6].innerText = dateCreate;
+				arrTd[7].innerText = element.place.startPlace + " - " +element.place.stopPlace;
+				var timeStart = new Date();
+				var timeEnd = new Date();
+				
+				arrTd[8].innerText = element.place.timeStart +" - " 
+				+ element.place.timeEnd;
+				var node = document.createElement("a");
+				if(arrTd[9].children[0] == null)
+				{
+					node.classList.add("btnStatus");
+					node.classList.add("btn");   
+					node.classList.add("btn-sm");
+					node.classList.add("btn-primary");
+					node.classList.add("btn-edit");
+					var att = document.createAttribute("data-idTicket");
+					att.value = element.idTicket;
+					node.setAttributeNode(att);
+					arrTd[9].appendChild(node);
+					console.log(node);
+				}
+				arrTd[9].children[0].innerText = element.status;
+				addEventForBtn("btnStatus","put");
+				var node1 = document.createElement("a");
+				if(arrTd[10].children[0] == null)
+				{
+					node1.classList.add("btnDelete");
+					node1.classList.add("btn");   
+					node1.classList.add("btn-sm");
+					node1.classList.add("btn-primary");
+					node1.classList.add("btn-edit");
+					var att = document.createAttribute("data-idTicket");
+					att.value = element.idTicket;
+					node1.setAttributeNode(att);
+					arrTd[10].appendChild(node1);
+					console.log(node1);
+				}
+				arrTd[10].children[0].innerText = "Cancel";
+				addEventForBtn("btnDelete","delete");
+			}
+			
+		}
+		function addEventForBtn(classNameBtn,method){
+			var btnStatus = document.getElementsByClassName(classNameBtn);
+			console.log("list:"+btnStatus.length);
+			for(var i = 0;i < btnStatus.length;i++)
+			{
+				btnStatus[i].onclick = function()
+				{
+					console.log("btnStatus:");
+					var id = this.getAttribute("data-idTicket");
+					var data = {};
+					var nut = this;
+					data[""+"idTicket"+""] = id;
+					console.log(data);
+					$.ajax({
+		                url: '/mockproject/api-ticket',
+		                type: method,
+		                contentType: 'application/json',
+		                data: JSON.stringify(data),
+		                dataType: 'json',
+		                success: function (result) {
+		                    console.log("cc:"+result);
+		                    if(result == 1)
+		                    {
+		                    	if(classNameBtn.localeCompare('btnStatus') == 0)
+		                    	{
+		                    		var z = nut.innerText;
+		                    		nut.innerText = true;
+		                    	}
+		                    	else
+		                    	{
+		     
+				                	var row = document.getElementById(id);
+				                	console.log(row);
+				                	row.innerHTML = "";
+		                    	}	
+		                    }
+		                    else
+		                    {
+		                    	
+		                    	}
+		                    
+		             		
+		                },
+		                error: function (error) {
+		                    console.log(error);
+		                }
+		            });
+				}
+			}
+		}
+		
+</script>
 
 	<!-- Bootstrap core JavaScript-->
 	<script src="/mockproject/view/js/Employeebootstrap.bundle.min.js"></script>

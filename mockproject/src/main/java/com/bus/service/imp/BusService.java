@@ -2,7 +2,9 @@ package com.bus.service.imp;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.bus.dao.impl.BusDAO;
 import com.bus.dao.impl.BusPlaceDAO;
@@ -19,7 +21,7 @@ public class BusService implements IBusService {
 	public BusService() {
 		busDao = new BusDAO();
 	}
-
+	
 	@Override
 	public List<BusModel> findAllByDate(String date) {
 		List<BusModel> list = busDao.findAll();
@@ -87,10 +89,7 @@ public class BusService implements IBusService {
 		return null;
 	}
 
-	public static void main(String[] args) {
-		PlaceModel place = new PlaceDAO().findPlaceByPlace("Hồ Chí Minh", "Hồ Chí Minh");
-		System.out.println(place);
-	}
+
 	@Override
 	public List<BusModel> findAllBusByPlace(String start, String end, String date) {
 		PlaceModel place = new PlaceDAO().findPlaceByPlace(start, end);
@@ -116,5 +115,27 @@ public class BusService implements IBusService {
 		
 		return null;
 	}
-	
+
+	@Override
+	public List<String> findAllLicensePlate() {
+		List<BusModel> list = busDao.findAll();
+		List<String> result = new ArrayList<String>();
+		for(BusModel x : list)
+			result.add(x.getLicensePlate());
+		return result;
+	}
+
+	@Override
+	public ArrayList<String> findAllDateDepartByLicensePlate(String licensePlate) {
+		BusModel bus = busDao.findOneByLicensePlate(licensePlate);
+		List<SeatModel> seats = new SeatDAO().findAllbyIDBus(bus.getIdBus());
+		Set<String> result = new HashSet<String>();
+		for(SeatModel x : seats)
+		{
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			result.add(format.format(x.getDateStart()));
+		}
+		ArrayList<String> resulttt = new ArrayList<String>(result);
+		return resulttt;
+	}
 }

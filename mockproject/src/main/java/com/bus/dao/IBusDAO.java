@@ -12,4 +12,5 @@ public interface IBusDAO extends IGenericDAO<BusModel>{
 	BusModel findOneByLicensePlate(String licensePlace);
 	List<BusModel> findAllByPlaceStartToEnd(String start,String end);
 	BusModel findOneByIdBus(int id);
+	List<BusModel> findAllBus();
 }

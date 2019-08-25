@@ -60,7 +60,7 @@ pageEncoding="UTF-8"%>
 					<i class="fas fa-user-circle fa-fw"></i>
 				</a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">Settings</a>
+					<a class="dropdown-item" href="/mockproject/admin-account?action=editselft">Settings</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
 				</div>
@@ -115,7 +115,7 @@ pageEncoding="UTF-8"%>
 					<div class="card-header">
 						<i class="fas fa-table">Acount Table</i>
 					</div>
-					<div>
+					<div style="margin-left: 20px;margin-top: 5px;">
 						<select id = "select">
 							<option>All</option>
 							<option>Admin</option>
@@ -160,15 +160,14 @@ pageEncoding="UTF-8"%>
 											<td>${item.lastTimeLogin}</td>
 											<td>
 												<c:url var="editURL" value="/admin-account">
-													<c:param name="action" value="edit"/>
-													<c:param name="username" value="${item.userName}"/>
-												</c:url>
-												<a class="btn btn-sm btn-primary btn-edit" href="${editURL}">Edit</a>
-											</td>
+												<c:param name="action" value="edit"/>
+												<c:param name="username" value="${item.userName}"/>
+											</c:url>
+											<a class="btn btn-sm btn-primary btn-edit" href="${editURL}">Edit</a>
+										</td>
 									</tr>
 								</c:forEach>
 							</c:if>
-
 						</tbody>
 					</table>
 				<form id="formSubmit">
@@ -192,7 +191,7 @@ pageEncoding="UTF-8"%>
 		</div>
 	</div>
 </footer>
-
+								
 </div>
 <!-- /.content-wrapper -->
 
@@ -241,61 +240,85 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded",function()
 {
-	var limit = 2;
 	var curentPage = ${pageModel.curentPage};
 	var totalPage = ${pageModel.totalPage};
-	var bien = $(function() {
-		console.log(totalPage);
-		window.pagObj = $('#pagination').twbsPagination({
-			totalPages : totalPage,
-			visiblePages : 10,
-			startPage : curentPage,
-			onPageClick : function(event, page) {
-					console.log("page:"+page);
-					$('#curentPage').val(page);
-					var formData = $('#formSubmit').serializeArray();
-				   	var data={};
-				   	$.each(formData, function (i, v) {
-				   		data[""+v.name+""] = v.value;
-				   	});          
-				   	console.log(data);
-					$.ajax({
-								url : '${APIurl}?action=getAll',
-								type : 'post',
-								contentType : 'application/json',
-								data : JSON.stringify(data),
-								dataType : 'json',
-								success : function(result) {
-									console.log(result);
-									var tableBody = document.getElementById("tableBody");
-									var arrayTable = tableBody.children;
-									clearData();
-									for(var i = 0 ; i < arrayTable.length; i++)
-									{
-										var arrTd = arrayTable[i].children;
-										var element = result[i];
-										mapData(arrTd,element);
-		
-									}
-								
-								},
-								error : function(error) {
-									console.log(error);
-								}
-							});
-				
-			}
-		})
+	 initPagination(0);
+	 $('#select').change(function(e) {
+		    var optionSelected = $("option:selected", this);
+		    var valueSelected = optionSelected.index();
+		    $('#pagination').html('');
+		    $('#pagination').twbsPagination('destroy');
+		    console.log($('#pagination'));
+			$('#pagination').html('<ul id="pagination" class="pagination-sm"></ul>');
+			initPagination(valueSelected);
 	});
+	function initPagination(x)
+	{
+		var valueAction;
+		if(x == 0)
+			valueAction = "getAll";
+		else if(x == 1)
+			valueAction = "getAdmin";
+		else if(x == 2)
+			valueAction = "getEmployee";
+		else if(x == 3)
+			valueAction = "getCustomer";
+		$(function() {
+		console.log(totalPage);	
+		window.pagObj = $('#pagination').twbsPagination({
+				totalPages : totalPage,
+				visiblePages : 10,
+				startPage : curentPage,
+				onPageClick : function(event, page) {
+						console.log("page:"+page);
+						var select = $("#select").index();
+						console.log("index:"+select);
+						$('#curentPage').val(page);
+						var formData = $('#formSubmit').serializeArray();
+					   	var data={};
+					   	$.each(formData, function (i, v) {
+					   		data[""+v.name+""] = v.value;
+					   	});          
+					   	console.log(data);
+						$.ajax({
+									url : '${APIurl}?action='+valueAction,
+									type : 'post',
+									contentType : 'application/json',
+									data : JSON.stringify(data),
+									dataType : 'json',
+									success : function(result) {
+										console.log(result);
+										var tableBody = document.getElementById("tableBody");
+										var arrayTable = tableBody.children;
+										clearData();
+										for(var i = 0 ; i < arrayTable.length; i++)
+										{
+											var arrTd = arrayTable[i].children;
+											var element = result[i];
+											mapData(arrTd,element);
+			
+										}
+									
+									},
+									error : function(error) {
+										console.log(error);
+									}
+								});
+				}
+			})
+		});
+	}
 	document.getElementById("btnSearch").onclick = function()
 	{
-		sentData();
+		var select = $( "#select option:selected" ).index();
+        sentData(select);
 	}
 	var node = document.getElementById("inputtext");
 	node.addEventListener("keydown", function(event) {
 	    if (event.key === "Enter") {
 	        event.preventDefault();
-	        sentData();
+	        var select = $( "#select option:selected" ).index();
+	        sentData(select);
 	    }
 	});
 	function mapData(arrTd,element)
@@ -355,8 +378,9 @@ document.addEventListener("DOMContentLoaded",function()
 			}		
 		}
 	}
-	function sentData()
+	function sentData(select)
 	{
+		console.log('${APIurl}?action=search&filter='+select);
 		var formData = $('#formSearch').serializeArray();
 		var data={};
 	   	$.each(formData, function (i, v) {
@@ -364,14 +388,13 @@ document.addEventListener("DOMContentLoaded",function()
 	   		data[""+v.name+""] = v.value;
 	   	});   
 	   	$.ajax({
-			url : '${APIurl}?action=search',
+			url : '${APIurl}?action=search&filter='+select,
 			type : 'post',
 			contentType : 'application/json',
 			data : JSON.stringify(data),
 			dataType : 'json',
 			success : function(result) {
 				console.log(result);
-				$("#pagination").hide();
 				clearData();
 				var tableBody = document.getElementById("tableBody");
 				var arrayTable = tableBody.children;
@@ -380,49 +403,12 @@ document.addEventListener("DOMContentLoaded",function()
 			},
 			error : function(error) {
 				console.log(error);
-				$("#pagination").hide();
 				clearData();
 			}
 		});
 	}
 });
+
 </script>
-<script>
-  $('#select').change(function(e) {
-    var optionSelected = $("option:selected", this);
-    var valueSelected = optionSelected.index();
-    if(valueSelected == 0)
-    	$("#namefilter").val("admin");
-    else if(valueSelected == 1)
-    	$("#namefilter").val("employee");
-    else if(valueSelected == 2)
-    	$("#namefilter").val("customer");
-    console.log($("#namefilter").val());
-	var curentPage = 5;
-	var totalPage = 20;
- 	$('#pagination').twbsPagination({
- 		disabledClass:'disabled',
-			});
-  });
-    /*var formData = $('#formfilter').serializeArray();
-	var data={};
-   	$.each(formData, function (i, v) {
-   		console.log(v);
-   		data[""+v.name+""] = v.value;
-   	});   
-   	$.ajax({
-		url : '${APIurl}?action=filter',
-		type : 'post',
-		contentType : 'application/json',
-		data : JSON.stringify(data),
-		dataType : 'json',
-		success : function(result) {
-			console.log(result);
-			clearData();
-		},
-		error : function(error) {
-			console.log(error);
-		}
-	});*/
-</script>
+
 </html>

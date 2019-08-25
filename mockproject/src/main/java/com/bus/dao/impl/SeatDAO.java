@@ -69,9 +69,29 @@ public class SeatDAO extends AbstractDAO<SeatModel> implements ISeatDAO {
 		return getTotalItem(sql);
 	}
 	@Override
-	public List<SeatModel> findlimitBus(int start, int limit, int IDBus) {
-		String sql = "select * from seat where IDBus = ? limit ?,?";
-		return query(sql, new SeatMapper(), IDBus,start,limit);
+	public List<SeatModel> findlimitBus(int start, int limit, int IDBus,String date,Object ...param) {
+		String sql = "select * from seat where IDBus = ? and DateStart = ? ";
+		if(param.length > 0)
+		{
+			sql = sql + "and Status = ? ";
+			sql = sql +"limit ?,?";	
+			return query(sql, new SeatMapper(), IDBus, date, (int)param[0], start, limit);
+		}
+		sql = sql +"limit ?,?";	
+		return query(sql, new SeatMapper(), IDBus, date, start, limit);
+	}
+	@Override
+	public SeatModel findSeatByNumberAndType(String number, Object... param) {
+		String sql = "select * from seat where Name = ? ";
+		List<SeatModel> list;
+		if(param.length > 0)
+		{
+			sql = sql + "and Status = ? ";
+			list = query(sql, new SeatMapper(), number,(int)param[0]);
+			return list.size()>0?list.get(0):null;
+		}
+		list = query(sql, new SeatMapper(), number);
+		return list.size()>0?list.get(0):null;
 	}
 	
 }

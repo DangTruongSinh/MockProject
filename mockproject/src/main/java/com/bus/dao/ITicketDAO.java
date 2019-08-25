@@ -6,10 +6,12 @@ import com.bus.model.TicketModel;
 
 public interface ITicketDAO extends IGenericDAO<TicketModel>{
 	List<TicketModel> findAll();
-	List<TicketModel>findlimit(int start,int limit);
+	List<TicketModel>findlimitForFilter(int start,int limit,int idBus,int status, String date,int idUser);
+	List<TicketModel> findlimit(int start,int limit);
 	int insertTicketModel(TicketModel tickModel);
 	int updateTicketModel(TicketModel tickModel);
-	int deleteTicketModel(int id);
+	int deleteTicketModel(int idTicket);
+	int deleteTicketModelByIdSeat(int idSeat);
 	List<TicketModel> findAllbyIDUser(int id);
 	TicketModel findOneByIDTicket(int id);
 	List<TicketModel> findAllbyIDBus(int id);

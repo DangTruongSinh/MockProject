@@ -79,7 +79,10 @@ public class AccountUtil {
 					resp.sendRedirect("/mockproject/view/login.jsp");
 				} else {
 					if(idRole == 1)
+					{
+						
 						resp.sendRedirect("/mockproject/admin-account?" + "action=search&username=" + accountNew.getUserName());
+					}
 					else if(idRole == 3)
 						{
 							req.getSession().setAttribute("account", accountNew);

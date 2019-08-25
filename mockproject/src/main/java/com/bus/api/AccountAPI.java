@@ -2,6 +2,7 @@ package com.bus.api;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,29 +29,51 @@ public class AccountAPI extends HttpServlet {
 		String action = req.getParameter("action");
 		System.out.println(action);
 		ObjectMapper mapper = new ObjectMapper();
+		AccountService accService = new AccountService();
+		
 		if(action.equals("getAll"))
 		{
-			AccountService accService = new AccountService();
-		
-			PageModel page = HttpUtil.of(req.getReader()).toModel(PageModel.class);
-			page.setTotalPage((int) Math.ceil((float) accService.getTotalAccount() / page.getMaxPageItem()));
-			String curentPage = req.getParameter("curentPage");
-			if (curentPage != null)
-				page.setCurentPage(Integer.parseInt(curentPage));
-			mapper.writeValue(resp.getOutputStream(), accService.findlimit(page));
+			mapper.writeValue(resp.getOutputStream(), findListAccountByRole(req,resp,accService));
 		}
 		else if(action.equals("search"))
 		{
+			int role = Integer.parseInt(req.getParameter("filter"));
 			AccountModel account = HttpUtil.of(req.getReader()).toModel(AccountModel.class);
-			account = new AccountService().findOneByUsername(account.getUserName());
+			account = new AccountService().findOneByUsernameByRole(account.getUserName(),role);
 			if (account != null) {
 				mapper.writeValue(resp.getOutputStream(), account);
 			}
 		}
-		else if(action.equals("filter"))
+		else if(action.equals("getAdmin"))
 		{
-			
+			mapper.writeValue(resp.getOutputStream(), findListAccountByRole(req,resp,accService,1));
 		}
+		else if(action.equals("getEmployee"))
+		{
+			mapper.writeValue(resp.getOutputStream(), findListAccountByRole(req,resp,accService,2));
+		}
+		else if(action.equals("getCustomer"))
+		{
+			mapper.writeValue(resp.getOutputStream(), findListAccountByRole(req,resp,accService,3));
+		}
+	}
+	private List<AccountModel> findListAccountByRole(HttpServletRequest req, HttpServletResponse resp,
+			AccountService accService, Object ...param)
+	{
+		try
+		{
+			PageModel page = HttpUtil.of(req.getReader()).toModel(PageModel.class);
+			page.setTotalPage((int) Math.ceil((float) accService.getTotalAccountByRole(param) / page.getMaxPageItem()));
+			String curentPage = req.getParameter("curentPage");
+			if (curentPage != null)
+				page.setCurentPage(Integer.parseInt(curentPage));
+			List<AccountModel> list =accService.findlimitByRole(page,param);
+			return list;
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
 	}
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

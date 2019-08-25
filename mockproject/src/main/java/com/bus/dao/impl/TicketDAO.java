@@ -15,9 +15,34 @@ public class TicketDAO extends AbstractDAO<TicketModel> implements ITicketDAO{
 		return list.size() == 0 ? null : list;
 	}
 	@Override
-	public List<TicketModel> findlimit(int start,int limit){
-		String sql = "select * from ticket limit ?,?";
-		List<TicketModel>list=query(sql, new TicketMapper(),start,limit);
+	public List<TicketModel> findlimitForFilter(int start,int limit,int idBus,int status, String date,int idUser){
+		String sql = "select * from ticket where IDBus = ? and DepartDate = ? ";
+		List<TicketModel>list;
+		if(status == -1 && idUser == -1)	
+		{
+			System.out.println("-1 -1");
+			sql = sql + "limit ?,?";
+			list =query(sql, new TicketMapper(),idBus, date,start,limit);
+		}
+		else if(status == -1)
+		{
+			System.out.println("2");
+			sql = sql + "and IDUser = ? limit ?,?";
+			list =query(sql, new TicketMapper(),idBus, date , idUser ,start,limit);
+		}
+		else if(idUser == -1)
+		{
+			System.out.println("3");
+			sql = sql + "and Status = ? limit ?,?";
+			list =query(sql, new TicketMapper(),idBus, date , status ,start,limit);
+		}
+		else
+		{
+			System.out.println("4");
+			sql = sql + "and Status = ? and IDUser = ? limit ?,?";
+			
+			list =query(sql, new TicketMapper(),idBus, date , status , idUser , start,limit);
+		}
 		return list.size() == 0 ? null : list;
 	}
 	@Override
@@ -77,5 +102,15 @@ public class TicketDAO extends AbstractDAO<TicketModel> implements ITicketDAO{
 	public int updateStatusTicket(int id) {
 		String sql = "update ticket set Status = true where IDTicket = ?";
 		return update(sql, id);
+	}
+	@Override
+	public int deleteTicketModelByIdSeat(int idSeat) {
+		String sql = "delete from ticket where IDSeat = ?";
+		return delete(sql, idSeat);
+	}
+	@Override
+	public List<TicketModel> findlimit(int start, int limit) {
+		String sql = "select * from ticket limit ?,?";
+		return query(sql, new TicketMapper(), start, limit);
 	}
 }

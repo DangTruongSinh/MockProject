@@ -97,36 +97,36 @@
 					<div class="card-body">
 						<div class="table-responsive">
 							<!-- Search for UserName -->
-							<div class="mainInput">
-								<div class="input-group">
-									<form action="/mockproject/employee-seat" id="formSearch">
-										<input type = "hidden" name="curentPage" id = "sinh" value = "1">
-										<input type="hidden" name="action" value="search"> 
-										<input type="text" name="licensePlate" class="form-control" id="inputtext"
-											placeholder="Search for LicensePlate">
-			
-									</form>
-									<div class="input-group-append">
-										<button class="btn btn-secondary" type="submit"
-											form="formSearch">
-											<i class="fa fa-search"></i>
-										</button>
-									</div>
-								</div>
-							</div>
+							
+							<select id = "selectlicensePlate">
+								<c:forEach var="item" items="${licensePlates}">
+									<option>${item}</option>
+								</c:forEach>
+							</select>
+							<select id = "selectDateDepart">
+								<c:forEach var="item" items="${dateDeparts}">
+									<option>${item}</option>
+								</c:forEach>
+							</select>
+							<select id = "selectOption">
+								<option>All</option>
+								<option>Empty</option>
+								<option>Booked</option>
+							</select>
+							
 							<!-- --- -->
-							<form action="/mockproject/employee-seat" id="formSubmit">
+							
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<thead>
 										<tr>
 											<th>LicensePlate</th>
-											<th>name</th>
+											<th>Number Of Seat</th>
 											<th>dateStart</th>
 											<th>Status</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody id = "tableBody">
 										<c:if test="${not empty seats}">
 											<c:forEach var="item" items="${seats}">
 												<tr>
@@ -149,8 +149,12 @@
 
 									</tbody>
 								</table>
-								<input type="hidden" id="curentPage" name="curentPage" value="">
-							</form>
+								<form id="formSubmit">
+									<input type="hidden" id="curentPage" name="curentPage" value="">
+								</form>
+								<form id="formSearch">
+									<input type="hidden" id= "licensePlate" name = "licensePlate">		
+								</form>
 						</div>
 						<!-- paging -->
 						<div class="container" id="pagingdiv" style="margin-top: 20px">
@@ -205,46 +209,205 @@
 	</div>
 	
 	<!-- paging script -->
-	<script type="text/javascript">
-		var limit = 2;
-		var x = ${search};
-		console.log("x:"+x);
-		var curentPage = ${pageModel.curentPage};
-		var totalPage = ${pageModel.totalPage};
-		console.log("total:"+totalPage);
-		$(function() {
-			console.log(totalPage);
-			window.pagObj = $('#pagination').twbsPagination({
-				totalPages : totalPage,
-				visiblePages : 10,
-				startPage : curentPage,
-				onPageClick : function(event, page) {
-					if (curentPage != page) {
-						console.log("value :"+x);
-						if(x == 0)
-						{
+<script type="text/javascript">
+initPagination($("#selectlicensePlate option:selected").text()
+			,$("#selectDateDepart option:selected").text(),$("#selectOption option:selected").text());
+		$('#selectlicensePlate').change(function(e) {
+		    var optionSelected = $("option:selected", this);
+		    var valueSelected = $( "#selectlicensePlate option:selected" ).text();
+		    var data = {};
+		    data[""+"licensePlate"+""] = valueSelected;
+		    console.log(data);
+		   
+		    $.ajax({
+	            url: '/mockproject/api-seat?action=getDate',
+	            type: 'post',
+	            contentType: 'application/json',
+	            data: JSON.stringify(data),
+	            dataType: 'json',
+	            success: function (result) {
+	                console.log(result);
+	                console.log("index:"+$("#selectDateDepart option:selected").index());
+	                $("#selectDateDepart").children('option').remove();
+	                console.log("index:"+$("#selectDateDepart option:selected").index());
+	                for(i = 0;i < result.length;i++)
+	                	{
+	                	$('#selectDateDepart')
+	                    .append($("<option></option>")
+	                    			.attr("selected","selected")
+	                               .text(result[i])); 
+	                	}
+	               	initPagination($("#selectlicensePlate option:selected").text()
+	               			,$("#selectDateDepart option:selected").text(),$("#selectOption option:selected").text());
+	            },
+	            error: function (error) {
+	                console.log(error);
+	            }
+	        });
+		    
+		});
+		$('#selectDateDepart').change(function(e) {
+			console.log("date:hhehe");
+		    var optionSelected = $("option:selected", this);
+		    var valueSelected = $( "#selectDateDepart option:selected" ).text();
+		    console.log(valueSelected);
+		    initPagination($("#selectlicensePlate option:selected").text()
+           			,$("#selectDateDepart option:selected").text(),$("#selectOption option:selected").text());
+		});
+		$('#selectOption').change(function(e) {
+			console.log("date:hhehe");
+		    var optionSelected = $("option:selected", this);
+		    var valueSelected = $( "#selectDateDepart option:selected" ).text();
+		    initPagination($("#selectlicensePlate option:selected").text()
+           			,$("#selectDateDepart option:selected").text(),$("#selectOption option:selected").text());
+		});
+		function initPagination(valueSelected,date,type)
+		{
+			$('#pagination').html('');
+		    $('#pagination').twbsPagination('destroy');
+		    console.log($('#pagination'));
+			$('#pagination').html('<ul id="pagination" class="pagination-sm"></ul>');
+			console.log("dsadsadsa");
+			var limit = 2;
+			var x = ${search};
+			console.log("x:"+x);
+			var curentPage = ${pageModel.curentPage};
+			var totalPage = ${pageModel.totalPage};
+			console.log("total:"+totalPage);
+			$(function() {
+				console.log(totalPage);
+				window.pagObj = $('#pagination').twbsPagination({
+					totalPages : totalPage,
+					visiblePages : 10,
+					startPage : curentPage,
+					onPageClick : function(event, page) {
+							console.log("page:"+page);
 							$('#curentPage').val(page);
-							$('#formSubmit').submit();
-						}
-						else
-						{
-							$('#sinh').val(page);
-							var z ="${licensePlate}";
-							$('#inputtext').val(z);
-							$("#formSearch").submit();
-						}
+							var formData = $('#formSubmit').serializeArray();
+						   	var data={};
+						   	$.each(formData, function (i, v) {
+						   		data[""+v.name+""] = v.value;
+						   	});          
+						   	console.log(data);
+							$.ajax({
+										url : '/mockproject/api-seat?action=getAll&licensePlate='+valueSelected+"&date="+date+"&type="+type,
+										type : 'post',
+										contentType : 'application/json',
+										data : JSON.stringify(data),
+										dataType : 'json',
+										success : function(result) {
+											handleSuccess(result);
+										},
+										error : function(error) {
+											console.log(error);
+										}
+							});						
 						
 					}
-				}
-			})
-		});
-		$("#inputtext").keyup(function(event) {
-			if (event.keyCode == 13) {
-				console.log("curentPage:"+curentPage);
-				$("#sinh").val(1);
-				$("#formSearch").submit();
+				});
+			});
+		}
+		function clearData()
+		{
+			var tableBody = document.getElementById("tableBody");
+			var arrayTable = tableBody.children;
+			for(var i = arrayTable.length - 1; i >= 0 ;i--)
+			{
+				var z = arrayTable[i].children;
+				for(var j = 0; j < z.length; j++)
+				{
+					z[j].innerText = null;	
+				}		
 			}
-		});
+		}
+		
+		
+		
+		function handleSuccess(result)
+		{
+			console.log(result);
+			var tableBody = document.getElementById("tableBody");
+			var arrayTable = tableBody.children;
+			clearData();
+			
+			for(var i = 0 ; i < result.length; i++)
+			{
+				var arrTd = arrayTable[i].children;
+				var element = result[i];
+				console.log("i:"+element);
+				arrTd[0].innerText = element.bus.licensePlate;
+				arrTd[1].innerText = element.name;
+				arrTd[2].innerText = element.dateStart;
+				var node = document.createElement("a");
+				if(arrTd[3].children[0] == null)
+				{
+					node.classList.add("btnStatus");
+					node.classList.add("btn");   
+					node.classList.add("btn-sm");
+					node.classList.add("btn-primary");
+					node.classList.add("btn-edit");
+					var att = document.createAttribute("data-idSeat");
+					att.value = element.idSeat;
+					node.setAttributeNode(att);
+					node.innerHTML = element.status;
+					arrTd[3].appendChild(node);
+					console.log(node);
+				}
+				arrTd[3].children[0].innerText = element.status;
+				
+			}
+			addEventForBtnStatus();
+		}
+		function addEventForBtnStatus(){
+			var btnStatus = document.getElementsByClassName("btnStatus");
+			console.log("list:"+btnStatus.length);
+			for(var i = 0;i < btnStatus.length;i++)
+			{
+				btnStatus[i].onclick = function()
+				{
+					console.log("btnStatus:");
+					var id = this.getAttribute("data-idSeat");
+					var data = {};
+					var nut = this;
+					data[""+"idSeat"+""] = id;
+					$.ajax({
+		                url: '/mockproject/api-seat',
+		                type: 'put',
+		                contentType: 'application/json',
+		                data: JSON.stringify(data),
+		                dataType: 'json',
+		                success: function (result) {
+		                    console.log("cc:"+result);
+		                    if(result == 1)
+		                    {
+		                    	var z = nut.innerText;
+		                    	if(z.localeCompare('false') == 0)
+		                    	{
+		                 
+		                    		nut.innerText = true;
+		                    	}
+		                    	else
+		                    	{
+		     
+		                    		nut.innerText = false;
+		                    	}
+		                    }
+		                    else
+		                    {
+		                    	
+		                    	}
+		                    
+		             		
+		                },
+		                error: function (error) {
+		                    console.log(error);
+		                }
+		            });
+				}
+			}
+		}
+		
+		
 	</script>
 
 	<!-- Bootstrap core JavaScript-->

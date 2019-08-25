@@ -17,10 +17,10 @@ public class AccountService implements IAccountService{
 		accountDao =  new AccountDAO();
 	}
 	@Override
-	public List<AccountModel> findlimit(PageModel page) {
+	public List<AccountModel> findlimitByRole(PageModel page, Object ...param) {
 		int start = (page.getCurentPage()-1)*page.getMaxPageItem();
 		int limit = page.getMaxPageItem();
-		List<AccountModel> list = accountDao.findlimit(start, limit);
+		List<AccountModel> list = accountDao.findlimitByRole(start, limit,param);
 		return setRoleForListAccount(list);
 	}
 	@Override
@@ -95,11 +95,18 @@ public class AccountService implements IAccountService{
 		return account;
 	}
 	@Override
-	public int getTotalAccount() {
-		return accountDao.getTotalAccount();
+	public int getTotalAccountByRole(Object ...param) {
+			return accountDao.getTotalAccount(param);
 	}
 	@Override
 	public List<AccountModel> findAll() {
 		return accountDao.findAll();
+	}
+	@Override
+	public AccountModel findOneByUsernameByRole(String username, Object... param) {
+		if((int)param[0] == 0)
+			return findOneByUsername(username);
+		else
+			return accountDao.findOneByUsernameByRole(username, (int)param[0]);
 	}
 }

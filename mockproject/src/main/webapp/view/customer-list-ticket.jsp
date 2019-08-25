@@ -130,7 +130,7 @@
 	             		if(result.idTicket != -1)
 	             		{
 	             			var parent = document.getElementById("cha");
-		                	var row = document.getElementById(result.idTicket);
+		                	var row = document.getElementById(id);
 		                	parent.removeChild(row);
 	             		}	
 	                },

@@ -13,6 +13,7 @@ import com.bus.model.AccountModel;
 import com.bus.model.PageModel;
 import com.bus.model.TicketModel;
 import com.bus.service.imp.AccountService;
+import com.bus.service.imp.BusService;
 import com.bus.service.imp.TicketService;
 
 @WebServlet(urlPatterns = "/employee-ticket")
@@ -33,15 +34,11 @@ public class Employee_Ticket extends HttpServlet {
 			String curentPage = req.getParameter("curentPage");
 			if (curentPage != null)
 				page.setCurentPage(Integer.parseInt(curentPage));
-			req.setAttribute("tickets", ticketService.findlimit(page));
+			BusService busService = new BusService();
+			List<String> listLicese =busService.findAllLicensePlate();
+			req.setAttribute("dateDeparts", busService.findAllDateDepartByLicensePlate(listLicese.get(0)));
+			req.setAttribute("licensePlates", listLicese);
 			req.setAttribute("pageModel", page);
-			RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/employee-ticket.jsp");
-			rDispatcher.forward(req, resp);
-		}
-		else if (action.equals("search")) {
-			AccountModel accModel= accService.findOneByUsername(username);
-			List<TicketModel> list=ticketService.findAllbyIDUser(accModel.getIdUser());
-			req.setAttribute("tickets", list);
 			RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/employee-ticket.jsp");
 			rDispatcher.forward(req, resp);
 		}
@@ -53,7 +50,7 @@ public class Employee_Ticket extends HttpServlet {
 			String curentPage = req.getParameter("curentPage");
 			if (curentPage != null)
 				page.setCurentPage(Integer.parseInt(curentPage));
-			req.setAttribute("tickets", ticketService.findlimit(page));
+			//req.setAttribute("tickets", ticketService.findlimitForFilter(page, licensePlate, IDTICKETUPDATE, type));
 			req.setAttribute("pageModel", page);
 			RequestDispatcher rDispatcher = req.getRequestDispatcher("/view/employee-ticket.jsp");
 			rDispatcher.forward(req, resp);

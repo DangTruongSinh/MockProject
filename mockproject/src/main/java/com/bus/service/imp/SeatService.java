@@ -87,11 +87,15 @@ public class SeatService implements ISeatService{
 		return setBusforSeat(list);
 	}
 	
-	public List<SeatModel> findlimitforSearch(PageModel page,String licensePlate) {
+	public List<SeatModel> findlimitforFilter(PageModel page,String licensePlate,String date,int type) {
 		int start = (page.getCurentPage()-1)*page.getMaxPageItem();
 		int limit = page.getMaxPageItem();
 		BusModel bus = new BusDAO().findOneByLicensePlate(licensePlate);
-		List<SeatModel> list2 = new SeatDAO().findlimitBus(start, limit, bus.getIdBus());
+		List<SeatModel> list2;
+		if(type != -1)
+			list2 = new SeatDAO().findlimitBus(start, limit, bus.getIdBus(),date,type);
+		else
+			list2 = new SeatDAO().findlimitBus(start, limit, bus.getIdBus(),date);
 		return  setBusforSeat(list2);
 	}
 }

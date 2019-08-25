@@ -53,6 +53,11 @@ public class BusDAO extends AbstractDAO<BusModel> implements IBusDAO{
 		List<BusModel> list = query(sql, new BusMapper(), id);
 		return list.size() == 0 ? null : list.get(0);
 	}
+	@Override
+	public List<BusModel> findAllBus() {
+		String sql = "select * from bus";
+		return query(sql, new BusMapper());
+	}
 	
 	
 }

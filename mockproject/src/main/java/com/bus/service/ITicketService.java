@@ -10,7 +10,8 @@ public interface ITicketService {
 	List<TicketModel> findlimit(PageModel page);
 	TicketModel insertTicketModel(TicketModel tickModel);
 	TicketModel updateTicketModel(TicketModel tickModel);
-	boolean deleteTicketModel(int id);
+	boolean deleteTicketModel(int idTicket);
+	boolean deleteTicketModelByIdSeat(int idSeat);
 	List<TicketModel> findAllbyIDUser(int id);
 	TicketModel findOneByIDTicket(int id);
 	List<TicketModel> findAllbyIDBus(int id);

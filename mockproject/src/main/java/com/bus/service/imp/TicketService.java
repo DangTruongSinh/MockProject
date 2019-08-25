@@ -25,13 +25,7 @@ public class TicketService implements ITicketService{
 	public List<TicketModel> findAll() {
 		return ticketDao.findAll();
 	}
-	@Override 
-	 public List<TicketModel> findlimit(PageModel page){
-		int start = (page.getCurentPage()-1)*page.getMaxPageItem();
-		int limit = page.getMaxPageItem();
-		List<TicketModel>list=ticketDao.findlimit(start, limit);
-		return setBusForListTicket(list);
-	}
+	
 	@Override
 	public TicketModel insertTicketModel(TicketModel tickModel) {
 		SeatDAO seatDao = new SeatDAO();
@@ -61,9 +55,10 @@ public class TicketService implements ITicketService{
 	}
 
 	@Override
-	public boolean deleteTicketModel(int id) {
-		TicketModel ticket = ticketDao.findOneByIDTicket(id);
-		if(ticketDao.deleteTicketModel(id) == 1)
+	public boolean deleteTicketModel(int idTicket) {
+		TicketModel ticket = ticketDao.findOneByIDTicket(idTicket);
+		System.out.println(ticket);
+		if(ticketDao.deleteTicketModel(idTicket) == 1)
 		{
 			if(new SeatDAO().setStatusSeat(ticket.getIdSeat(), false) == 1)
 				return true;
@@ -124,5 +119,39 @@ public class TicketService implements ITicketService{
 	public boolean updateStatusTicket(int id) {
 		return ticketDao.updateStatusTicket(id) == 1 ? true : false;
 	}
+	@Override
+	public boolean deleteTicketModelByIdSeat(int idSeat) {
+		return ticketDao.deleteTicketModelByIdSeat(idSeat) == 1 ? true : false;
+	}
+
+	public List<TicketModel> findlimitForFilter(PageModel page,String licensePlate,String date,int type,Object ...param) {
+		int start = (page.getCurentPage()-1)*page.getMaxPageItem();
+		int limit = page.getMaxPageItem();
+		int id = -1;
+		String s = (String)param[0];
+		if(s.length() > 0)
+		{
+			AccountModel account = new AccountService().findOneByUsername((String)param[0]);
+			id = account.getIdUser();
+			System.out.println("idUser:"+id);
+		}
+		BusModel bus = new BusDAO().findOneByLicensePlate(licensePlate);
+		List<TicketModel>list=ticketDao.findlimitForFilter(start, limit, bus.getIdBus(), type, date,id);
+		return setBusForListTicket(list);
+	}
 	
+	@Override
+	public List<TicketModel> findlimit(PageModel page) {
+		int start = (page.getCurentPage()-1)*page.getMaxPageItem();
+		int limit = page.getMaxPageItem();
+		List<TicketModel>list = ticketDao.findlimit(start, limit);
+		return setBusForListTicket(list);
+	}
+/*	public static void main(String[] args) {
+		PageModel page = new PageModel();
+		page.setCurentPage(1);
+		List<TicketModel> list =new TicketService().findlimitForFilter(page, "79A-H2", "2019-08-21", -1,"");
+		for(TicketModel x : list)
+			System.out.println(x.getPlace().getTimeStart() + " - "+ x.getPlace().getTimeEnd());
+	}*/
 }

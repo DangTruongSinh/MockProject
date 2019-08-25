@@ -16,5 +16,6 @@ public interface ISeatDAO extends IGenericDAO<SeatModel> {
 	List<SeatModel> findAllbyIDBusAndIDPlaceAndDate(int idBus,int idPlace,String date);
 	List<SeatModel> findAllByIDPlace(int idPlace);
 	int getTotalSeat();
-	List<SeatModel> findlimitBus(int start,int limit,int IDBus);
+	List<SeatModel> findlimitBus(int start, int limit, int IDBus,String date,Object ...param);
+	SeatModel findSeatByNumberAndType(String number,Object ...param);
 }

@@ -10,8 +10,14 @@ import com.bus.model.AccountModel;
 public class AccountDAO  extends AbstractDAO<AccountModel> implements IAccountDAO {
 
 	@Override
-	public List<AccountModel> findlimit(int start,int limit) {
-		String sql = "select * from account order by IDRole ASC limit ?,?";
+	public List<AccountModel> findlimitByRole(int start,int limit,Object ...param) {
+		String sql = "select * from account ";
+		if(param.length > 0)
+		{
+			String s = "where IDRole = " + param[0];
+			sql += s;
+		}
+		sql += " order by IDRole ASC limit ?,?";
 		List<AccountModel> list = query(sql, new AccountMapper(),start,limit);
 		return list.size() == 0 ? null : list;
 	}
@@ -69,8 +75,14 @@ public class AccountDAO  extends AbstractDAO<AccountModel> implements IAccountDA
 	}
 
 	@Override
-	public int getTotalAccount() {
-		String sql = "select count(*) from account";
+	public int getTotalAccount(Object ...param) {
+		String sql = "select count(*) from account ";
+		String clause = "";
+		if(param.length > 0)
+		{
+			clause = "where IDRole = " + param[0];
+		}
+		sql += clause;
 		return getTotalItem(sql);
 	}
 
@@ -79,6 +91,15 @@ public class AccountDAO  extends AbstractDAO<AccountModel> implements IAccountDA
 		String sql ="select * from account";
 		return query(sql, new AccountMapper());
 	}
+
+	@Override
+	public AccountModel findOneByUsernameByRole(String username, int role) {
+		String sql = "select * from account where UserName = ? and IDRole = ?";
+		List<AccountModel> list = query(sql, new AccountMapper(), username, role);
+		return list.size() == 0 ? null : list.get(0);
+	}
+
+	
 
 	
 }
