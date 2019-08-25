@@ -1,8 +1,6 @@
-INDEX VERSION 1.4+C:\Users\sinh\Desktop\MockProject-sourcemoi\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-364550592.index
-3426620744.index
-2883447808.index
-2746768188.index
-323721864.index
-3813555955.index
-956200941.index
+INDEX VERSION 1.4+/media/dat/Data/Projects/MockProject/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+3412859843.index
+2696308198.index
+1720165608.index
+4033611832.index
+759773645.index
